@@ -14,15 +14,38 @@ class Header extends Component {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
-              </li>
+              { !this.props.token &&
+                <span>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/login">Login</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/register">Register</NavLink>
+                  </li>
+                </span>
+              }
               <li className="nav-item">
-                <NavLink className="nav-link" to="/profile">Profile</NavLink>
+                <NavLink className="nav-link" to="/about">About Sipper</NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/parties">Parties</NavLink>
-              </li>
+              { this.props.token &&
+                <span>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/profile">Your Profile</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/party/create">Host a Party</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/party/join">Accept an Invite</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/party/view">Your Parties</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/login" onClick={this.props.handleLogout}>Logout</NavLink>
+                  </li>
+                </span>
+              }
             </ul>
           </div>
         </nav>
