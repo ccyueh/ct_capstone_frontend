@@ -15,8 +15,6 @@ function CreatePartyForm(props) {
         <input type="time" className="form-control" name="start_time" />
         <label>End Time</label>
         <input type="time" className="form-control" name="end_time" />
-        <label>Host ID</label>
-        <input type="number" className="form-control" name="host_id" />
       </div>
       <button type="submit" className="btn btn-primary">Create New Party</button>
     </form>
