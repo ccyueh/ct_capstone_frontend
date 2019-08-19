@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import './index.css';
+import PartyCard from '../../../components/partyCard';
 
-class ListParty extends Component {
-  findParty = async(host) => {
-    //e.preventDefault();
+class DisplayParty extends Component {
+  constructor() {
+    super();
 
+    this.state = {
+      parties: []
+    }
+  }
+
+  retrieveParty = async(host) => {
     let token = this.props.token;
     let id = JSON.parse(atob(token.split('.')[1])).user_id;
     let URL = 'http://localhost:5000/api/parties/retrieve?';
@@ -30,29 +37,29 @@ class ListParty extends Component {
     }
   }
 
-  filterParty = async(host, timeframe) => {
-    let parties = await this.findParty(host);
+  filterParty = async(host, past) => {
+    let parties = await this.retrieveParty(host);
     let now = new Date();
 
-    if (timeframe == 'past') {
+    if (past) {
       parties = parties.filter(party => new Date(party.end) - now < 0);
     } else {
       parties = parties.filter(party => new Date(party.start) - now > 0);
     }
-    console.log(parties);
-    return parties;
+
+    this.setState({ parties });
   }
 
   componentDidMount() {
-    this.filterParty(true, 'upcoming');
-    this.filterParty(true, 'past');
+    this.filterParty(this.props.host, this.props.past);
   }
 
   render() {
+    let parties = this.state.parties;
     return (
-      <button onClick={() => this.filterParty(true, 'past')}>Click</button>
+      parties.map(party => <PartyCard key={party.party_id} party={party} host={this.props.host} />)
     );
   }
 }
 
-export default ListParty;
+export default DisplayParty;

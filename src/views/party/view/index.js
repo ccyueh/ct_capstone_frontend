@@ -1,43 +1,69 @@
 import React, { Component } from 'react';
 import './index.css';
-import ViewPartyForm from '../../../components/viewPartyForm';
+import { Link } from 'react-router-dom';
+import DisplayParty from '../display';
 
 class ViewParty extends Component {
-  viewParty = async(e) => {
-    e.preventDefault();
+  constructor() {
+    super();
 
-    let URL = 'http://localhost:5000/api/parties/retrieve';
+    this.state = {
+      past: false,
+      host: false
+    }
+  }
 
-    let url_params = [];
-    Object.values(e.target.elements).map(k => { if (k.value.length > 0) url_params.push(k.name + '=' + k.value) });
-
-    URL += '?' + url_params.join('&');
-
-    let response = await fetch(URL, {
-      'method': 'GET',
-      'headers': { 'Content-Type': 'application/json' }
-    })
-
-    let data = await response.json();
-    console.log(data);
-    if (data.success) {
-      alert(`${data.success}`);
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
+  handleClick = (host, past) => {
+    if (host || !host) {
+      this.setState({ 'host': host });
+      console.log(this.state.host);
+    }
+    if (past || !past) {
+      this.setState({ 'past': past });
+      console.log(this.state.past);
     }
   }
 
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-md-6 offset-md-3">
-            <h1>View Party Details</h1>
-            <ViewPartyForm viewParty={this.viewParty} />
+        <h1>Parties</h1>
+          <div className="btn-group">
+            <button className="btn btn-primary" onClick={() => this.handleClick('', false)} >
+              Upcoming
+            </button>
+            <button className="btn btn-primary" onClick={() => this.handleClick('', true)} >
+              Previous
+            </button>
+          <div className="btn-group">
+
+          <button className="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+              As Guest
+            </button>
+            <div className="dropdown-menu">
+            <button className="btn dropdown-item" onClick={() => this.handleClick(false, '')}>
+              As Guest
+            </button>
+            <button className="btn dropdown-item" onClick={() => this.handleClick(true, '')}>
+              As Host
+            </button>
+            </div>
           </div>
-        </div>
+
+          </div>
+            {/* this.state.past &&
+              <div className="container">
+              <DisplayParty token={this.props.token} past={true} host={true} />
+              <DisplayParty token={this.props.token} past={true} host={false} />
+              </div>
+            }
+            { !this.state.past &&
+              <div className="container">
+              <DisplayParty token={this.props.token} past={false} host={true} />
+              <DisplayParty token={this.props.token} past={false} host={false} />
+              </div>
+            */}
+            <DisplayParty token={this.props.token} past={this.state.past} host={this.state.host} />
       </div>
     );
   }
