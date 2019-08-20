@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import Form from './components/form';
 import Header from './components/header';
 //import Login from './views/user/login';
@@ -17,7 +17,7 @@ let jwt = require('jsonwebtoken');
 
 
 class App extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
@@ -113,6 +113,7 @@ class App extends Component {
   handleLogout = () => {
     localStorage.setItem('token', '');
     this.setState({ 'token': '' });
+    this.props.history.push('/login');
     //alert('You have logged out.');
   }
 
@@ -157,4 +158,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
