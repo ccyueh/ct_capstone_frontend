@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import { withRouter } from 'react-router-dom';
 import Form from '../../../components/form';
 import JoinPartyForm from '../../../components/joinPartyForm';
 
@@ -26,6 +27,7 @@ class JoinParty extends Component {
 
     if (data.success) {
       alert(`${data.success}`);
+      this.props.history.push('../party/view');
     } else if (data.error) {
       alert(`${data.error}`);
     } else {
@@ -48,4 +50,4 @@ class JoinParty extends Component {
   }
 }
 
-export default JoinParty;
+export default withRouter(JoinParty);

@@ -62,9 +62,10 @@ class App extends Component {
 
       // setup message saying registered or error
       if (data.success) {
-        alert('You are now registered')
+        alert('You are now registered');
+        this.props.history.push('/login');
       } else {
-        alert(data.error)
+        alert(data.error);
       }
     }
 
@@ -101,8 +102,7 @@ class App extends Component {
 
       // set token into local storage
       localStorage.setItem('token', data.token);
-      //console.log(JSON.parse(atob(token.split('.')[1])));
-      //alert(`${data.success}`);
+      this.props.history.push('/profile');
     } else if (data.error) {
       alert(`${data.error}`);
     } else {
