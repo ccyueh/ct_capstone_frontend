@@ -7,6 +7,7 @@ import Header from './components/header';
 import CreateParty from './views/party/create';
 import JoinParty from './views/party/join';
 import ViewParty from './views/party/view';
+import DisplayParty from './views/party/display';
 import AddBottle from './views/bottle/add';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
@@ -145,7 +146,7 @@ class App extends Component {
           />
 
           <Route exact path='/party/create' render={() => <CreateParty token={this.state.token} />} />
-          <Route exact path='/bottle/add' render={() => <AddBottle />} />
+          <Route exact path='/bottle/add' render={() => <AddBottle token={this.state.token} />} />
           <Route exact path='/party/join' render={() => <JoinParty token={this.state.token} />} />
           <Route exact path='/party/view' render={() => <ViewParty token={this.state.token} />} />
 

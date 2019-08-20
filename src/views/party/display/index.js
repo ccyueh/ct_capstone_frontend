@@ -50,14 +50,24 @@ class DisplayParty extends Component {
     this.setState({ parties });
   }
 
+  sortParty = async(host) => {
+    let parties = await this.retrieveParty(host);
+    parties.sort(function(a,b) {
+      return new Date(b.start) - new Date(a.start);
+    })
+
+    this.setState({ parties });
+  }
+
   componentDidMount() {
-    this.filterParty(this.props.host, this.props.past);
+    //this.filterParty(this.props.host, this.props.past);
+    this.sortParty(this.props.host);
   }
 
   render() {
     let parties = this.state.parties;
     return (
-      parties.map(party => <PartyCard key={party.party_id} party={party} host={this.props.host} />)
+      parties.map(party => <PartyCard key={party.party_id} party={party} host={this.props.host} token={this.props.token} />)
     );
   }
 }

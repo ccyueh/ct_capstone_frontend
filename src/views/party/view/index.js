@@ -13,15 +13,9 @@ class ViewParty extends Component {
     }
   }
 
-  handleClick = (host, past) => {
-    if (host || !host) {
-      this.setState({ 'host': host });
-      console.log(this.state.host);
-    }
-    if (past || !past) {
-      this.setState({ 'past': past });
-      console.log(this.state.past);
-    }
+  handleHost = async(state) => {
+    this.setState({ 'host': state });
+    console.log('host', this.state.host);
   }
 
   render() {
@@ -29,41 +23,25 @@ class ViewParty extends Component {
       <div className="container">
         <h1>Parties</h1>
           <div className="btn-group">
-            <button className="btn btn-primary" onClick={() => this.handleClick('', false)} >
-              Upcoming
-            </button>
-            <button className="btn btn-primary" onClick={() => this.handleClick('', true)} >
-              Previous
-            </button>
-          <div className="btn-group">
-
-          <button className="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+            <button className="btn btn-primary"
+              onClick={() => this.handleHost(false)}>
               As Guest
             </button>
-            <div className="dropdown-menu">
-            <button className="btn dropdown-item" onClick={() => this.handleClick(false, '')}>
-              As Guest
-            </button>
-            <button className="btn dropdown-item" onClick={() => this.handleClick(true, '')}>
+            <button className="btn btn-primary"
+              onClick={() => this.handleHost(true)}>
               As Host
             </button>
+          </div>
+          { this.state.host &&
+            <div className="container">
+            <DisplayParty token={this.props.token} host={true} />
             </div>
-          </div>
-
-          </div>
-            {/* this.state.past &&
-              <div className="container">
-              <DisplayParty token={this.props.token} past={true} host={true} />
-              <DisplayParty token={this.props.token} past={true} host={false} />
-              </div>
-            }
-            { !this.state.past &&
-              <div className="container">
-              <DisplayParty token={this.props.token} past={false} host={true} />
-              <DisplayParty token={this.props.token} past={false} host={false} />
-              </div>
-            */}
-            <DisplayParty token={this.props.token} past={this.state.past} host={this.state.host} />
+          }
+          { !this.state.host &&
+            <div className="container">
+            <DisplayParty token={this.props.token} host={false} />
+            </div>
+          }
       </div>
     );
   }

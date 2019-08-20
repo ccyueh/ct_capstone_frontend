@@ -12,11 +12,7 @@ function BottleForm(props) {
         <label>Vintage</label>
         <input type="number" className="form-control" name="vintage" />
         <label>Label Image</label>
-        <input type="test" className="form-control" name="label_img" />
-        <label>Party ID</label>
-        <input type="number" className="form-control" name="party_id" />
-        <label>User ID</label>
-        <input type="number" className="form-control" name="user_id" />
+        <input type="text" className="form-control" name="label_img" />
       </div>
       <button type="submit" className="btn btn-primary">Add Bottle</button>
     </form>
