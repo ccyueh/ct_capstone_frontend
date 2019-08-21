@@ -11,12 +11,11 @@ class RateBottle extends Component {
     let token = this.props.token;
     let user_id = JSON.parse(atob(token.split('.')[1])).user_id;
     let data_json = {};
-    let characteristics = [];
 
-    Object.values(e.target.elements).map(k => { if (k.name.length > 0) if (k.name.slice(0, 15) == 'characteristics' && k.value.length > 0) characteristics.push(k.value); else data_json[k.name] =  k.value } );
+    Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
     data_json['user_id'] = user_id;
     data_json['bottle_id'] = this.props.history.location.state.bottle_id;
-    data_json['characteristics'] = characteristics;
+    data_json['characteristics'] = data_json['characteristics'].split(',');
 
     const URL = 'http://localhost:5000/api/ratings/save';
 
@@ -40,7 +39,13 @@ class RateBottle extends Component {
   render() {
     if (this.props.token) {
       return (
-        <Form title="Rate Bottle">
+        <Form title={false}>
+          <div className="bg-danger">
+            <h5 className="text-white">Bottle</h5>
+            <h1 className="text-white">
+              {this.props.history.location.state.bottle_num}
+            </h1>
+          </div>
           <RatingForm rateBottle={this.rateBottle} />
         </Form>
       );
