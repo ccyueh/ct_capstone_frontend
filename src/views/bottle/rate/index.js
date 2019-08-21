@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Form from '../../../components/form';
 import RatingForm from '../../../components/ratingForm';
 import RatingTable from '../../../components/ratingTable';
+import BottleTable from '../../../components/bottleTable';
 
 class RateBottle extends Component {
   rateBottle = async(e) => {
@@ -15,7 +16,7 @@ class RateBottle extends Component {
 
     Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
     data_json['user_id'] = user_id;
-    data_json['bottle_id'] = this.props.history.location.state.bottle_id;
+    data_json['bottle_id'] = this.props.history.location.state.bottle.bottle_id;
     data_json['characteristics'] = data_json['characteristics'].split(',');
 
     const URL = 'http://localhost:5000/api/ratings/save';
@@ -38,25 +39,33 @@ class RateBottle extends Component {
   }
 
   render() {
-    console.log(this.props.history.location.state);
     if (this.props.token) {
-      return (
-        <Form title={false}>
+      if (this.props.guest) {
+        return (
+          <Form title={false}>
           <div className="bg-danger">
-            <h5 className="text-white">Bottle</h5>
-            <h1 className="text-white">
-              {this.props.history.location.state.bottle_num}
-            </h1>
+          <h5 className="text-white">Bottle</h5>
+          <h1 className="text-white">
+          {this.props.history.location.state.bottle_num}
+          </h1>
           </div>
           {Object.keys(this.props.history.location.state.rating).length > 0 &&
-          <div>
-          <RatingTable rating={this.props.history.location.state.rating} />
-          <h1>Edit Rating</h1>
-          </div>
+            <div>
+            <RatingTable rating={this.props.history.location.state.rating} />
+            <h1>Edit Rating</h1>
+            </div>
           }
           <RatingForm rateBottle={this.rateBottle} />
+          </Form>
+        );
+      }
+    else {
+      return(
+        <Form title={false}>
+        <BottleTable bottle={this.props.history.location.state.bottle} />
         </Form>
       );
+    }
     } else {
         return (
           <div>You must be logged in to view this page.</div>

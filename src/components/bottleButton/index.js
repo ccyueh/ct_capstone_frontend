@@ -13,7 +13,7 @@ class BottleButton extends Component {
 
   retrieveRating = async(e) => {
     let URL = 'http://localhost:5000/api/ratings/retrieve?bottle_id=';
-    URL += this.props.bottle_id;
+    URL += this.props.bottle.bottle_id;
     if (this.props.guest) {
       URL += '&user_id=' + this.props.guest
     }
@@ -59,7 +59,7 @@ class BottleButton extends Component {
         <Link to={{
           pathname: "../bottle/rate",
           state: {
-            bottle_id: this.props.bottle_id,
+            bottle: this.props.bottle,
             user_id: this.props.guest,
             bottle_num: this.props.num,
             rating: this.state.rating,

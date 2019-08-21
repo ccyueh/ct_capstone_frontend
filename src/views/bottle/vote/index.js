@@ -83,7 +83,7 @@ class VoteBottle extends Component {
         {this.state.bottles.map(bottle =>
           <BottleButton
             key={bottle.bottle_id}
-            bottle_id={bottle.bottle_id}
+            bottle={bottle}
             num={this.bottleNum(bottle)}
             guest={this.userStatus()}
             />
