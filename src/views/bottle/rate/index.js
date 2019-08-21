@@ -3,6 +3,7 @@ import './index.css';
 import { withRouter } from 'react-router-dom';
 import Form from '../../../components/form';
 import RatingForm from '../../../components/ratingForm';
+import RatingTable from '../../../components/ratingTable';
 
 class RateBottle extends Component {
   rateBottle = async(e) => {
@@ -37,6 +38,7 @@ class RateBottle extends Component {
   }
 
   render() {
+    console.log(this.props.history.location.state);
     if (this.props.token) {
       return (
         <Form title={false}>
@@ -46,6 +48,12 @@ class RateBottle extends Component {
               {this.props.history.location.state.bottle_num}
             </h1>
           </div>
+          {Object.keys(this.props.history.location.state.rating).length > 0 &&
+          <div>
+          <RatingTable rating={this.props.history.location.state.rating} />
+          <h1>Edit Rating</h1>
+          </div>
+          }
           <RatingForm rateBottle={this.rateBottle} />
         </Form>
       );
