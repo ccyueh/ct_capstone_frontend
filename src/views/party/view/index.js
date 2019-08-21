@@ -15,7 +15,6 @@ class ViewParty extends Component {
 
   handleHost = async(state) => {
     this.setState({ 'host': state });
-    console.log('host', this.state.host);
   }
 
   render() {

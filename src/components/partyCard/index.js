@@ -32,9 +32,14 @@ class PartyCard extends Component {
             </button>
           </Link>
           { !this.props.host &&
-            <Link to="../bottle/add" className="card-link">
-              <button className="btn btn-primary"
-                onClick={() => this.setParty(p.party_id)}>
+            <Link to={{
+              pathname: "../bottle/add",
+              state: {
+                token: this.props.token,
+                party_id: this.props.party.party_id
+              }
+            }}>
+              <button className="btn btn-primary">
                   Add/Edit Bottle
               </button>
             </Link>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import { Link } from 'react-router-dom';
 import PartyCard from '../../../components/partyCard';
 
 class DisplayParty extends Component {
@@ -59,7 +60,7 @@ class DisplayParty extends Component {
     this.setState({ parties });
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     //this.filterParty(this.props.host, this.props.past);
     this.sortParty(this.props.host);
   }
@@ -67,7 +68,22 @@ class DisplayParty extends Component {
   render() {
     let parties = this.state.parties;
     return (
-      parties.map(party => <PartyCard key={party.party_id} party={party} host={this.props.host} token={this.props.token} />)
+      <div>
+        {parties.length == 0 &&
+          <div>
+            <p className="text-secondary">No parties found.</p>
+            {this.props.host &&
+              <Link to='../party/create'>Host a Party</Link>
+            }
+            {!this.props.host &&
+              <Link to='../party/join'>Attend a Party</Link>
+            }
+          </div>
+        }
+        {parties.length > 0 &&
+          parties.map(party => <PartyCard key={party.party_id} party={party} host={this.props.host} token={this.props.token} />)
+        }
+      </div>
     );
   }
 }

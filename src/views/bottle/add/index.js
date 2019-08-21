@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import { withRouter } from 'react-router-dom';
 import Form from '../../../components/form';
 import BottleForm from '../../../components/bottleForm';
 
@@ -13,7 +14,7 @@ class AddBottle extends Component {
 
     Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
     data_json['user_id'] = user_id;
-    data_json['party_id'] = localStorage.getItem('party_id');
+    data_json['party_id'] = this.props.history.location.state.party_id;
 
     const URL = 'http://localhost:5000/api/bottles/save';
 
@@ -50,4 +51,4 @@ class AddBottle extends Component {
 }
 
 
-export default AddBottle;
+export default withRouter(AddBottle);
