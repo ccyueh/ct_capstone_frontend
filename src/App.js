@@ -11,6 +11,7 @@ import ViewParty from './views/party/view';
 
 import AddBottle from './views/bottle/add';
 import VoteBottle from './views/bottle/vote';
+import RateBottle from './views/bottle/rate';
 
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
@@ -154,7 +155,7 @@ class App extends Component {
           <Route exact path='/party/view' render={() => <ViewParty token={this.state.token} />} />
           <Route exact path='/bottle/add' render={() => <AddBottle token={this.state.token} />} />
           <Route exact path='/bottle/party' render={() => <VoteBottle token={this.state.token} />} />
-          <Route exact path='/bottle/rate' render={() => console.log(this.props.history.location.state)} />
+          <Route exact path='/bottle/rate' render={() => <RateBottle token={this.state.token} />} />
         </Switch>
 
       </div>
