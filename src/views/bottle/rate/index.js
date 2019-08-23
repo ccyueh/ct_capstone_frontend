@@ -18,7 +18,10 @@ class RateBottle extends Component {
     data_json['user_id'] = user_id;
     data_json['bottle_id'] = this.props.history.location.state.bottle.bottle_id;
     data_json['characteristics'] = data_json['characteristics'].split(',');
-
+    if (this.props.history.location.state.rating.rating_id) {
+      data_json['rating_id'] = this.props.history.location.state.rating.rating_id;
+    }
+    console.log(data_json);
     const URL = 'http://localhost:5000/api/ratings/save';
 
     let response = await fetch(URL, {
@@ -39,8 +42,8 @@ class RateBottle extends Component {
   }
 
   render() {
-    console.log(this.props.history.location.state.user_id);
-    console.log(this.props.history.location.state);
+    //console.log(this.props.history.location.state.user_id);
+    //console.log(this.props.history.location.state);
     if (this.props.token) {
       if (this.props.history.location.state.user_id) {
         return (
@@ -51,13 +54,16 @@ class RateBottle extends Component {
           {this.props.history.location.state.bottle_num}
           </h1>
           </div>
-          {Object.keys(this.props.history.location.state.rating).length > 0 &&
+          {/*Object.keys(this.props.history.location.state.rating).length > 0 &&
             <div>
             <RatingTable rating={this.props.history.location.state.rating} />
             <h1>Edit Rating</h1>
             </div>
-          }
-          <RatingForm rateBottle={this.rateBottle} />
+          */}
+          <RatingForm
+            rateBottle={this.rateBottle}
+            rating={this.props.history.location.state.rating ? this.props.history.location.state.rating : {}}
+          />
           </Form>
         );
       }

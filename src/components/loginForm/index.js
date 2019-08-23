@@ -2,7 +2,6 @@ import React from 'react';
 import './index.css';
 
 function LoginForm(props) {
-  //<input type="checkbox" defaultChecked="checked" />
   return (
     <form onSubmit={props.handleLogin}>
       <div className="form-group">
