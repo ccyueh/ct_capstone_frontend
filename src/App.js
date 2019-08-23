@@ -98,7 +98,7 @@ class App extends Component {
     })
 
     let data = await response.json();
-
+    
     if (data.success) {
       this.setState({
         'logged_in': true,

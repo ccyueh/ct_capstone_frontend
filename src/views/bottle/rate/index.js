@@ -39,8 +39,10 @@ class RateBottle extends Component {
   }
 
   render() {
+    console.log(this.props.history.location.state.user_id);
+    console.log(this.props.history.location.state);
     if (this.props.token) {
-      if (this.props.guest) {
+      if (this.props.history.location.state.user_id) {
         return (
           <Form title={false}>
           <div className="bg-danger">
