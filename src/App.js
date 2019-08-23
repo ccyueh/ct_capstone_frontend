@@ -13,7 +13,7 @@ import AddBottle from './views/bottle/add';
 import VoteBottle from './views/bottle/vote';
 import RateBottle from './views/bottle/rate';
 
-import Profile from './views/profile';
+import Profile from './components/profile';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
 import SECRET_KEY from './config.js';
@@ -98,7 +98,7 @@ class App extends Component {
     })
 
     let data = await response.json();
-    
+
     if (data.success) {
       this.setState({
         'logged_in': true,
