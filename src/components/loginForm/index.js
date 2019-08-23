@@ -2,8 +2,6 @@ import React from 'react';
 import './index.css';
 
 function LoginForm(props) {
-  //console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
-  //console.log((new Date('Nov 23 2019')).getTimezoneOffset()/60);
   //<input type="checkbox" defaultChecked="checked" />
   return (
     <form onSubmit={props.handleLogin}>

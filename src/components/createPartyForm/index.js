@@ -30,9 +30,10 @@ class CreatePartyForm extends Component {
 
       let start = new Date(party.start);
       let end = new Date(party.end);
+      let offset = start.getTimezoneOffset()/60;
       party.date = [start.getFullYear(), ("0" + (start.getMonth() + 1)).slice(-2), ("0" + start.getDate()).slice(-2)].join('-');
-      party.start_time = start.toTimeString().slice(0,5);
-      party.end_time = end.toTimeString().slice(0,5);
+      party.start_time = ("0" + (start.getHours() + offset)).slice(-2) + ':' + ("0" + start.getMinutes()).slice(-2);
+      party.end_time = ("0" + (end.getHours() + offset)).slice(-2) + ':' + ("0" + end.getMinutes()).slice(-2);
 
       return party;
     } else if (data.error) {

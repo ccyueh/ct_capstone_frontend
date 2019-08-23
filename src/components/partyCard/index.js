@@ -10,7 +10,10 @@ class PartyCard extends Component {
   }
 
   toTime = datetime => {
-    return new Date(datetime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true});
+    let time = new Date(datetime);
+    let offset = time.getTimezoneOffset()/60;
+    time.setHours(time.getHours() + offset);
+    return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true});
   }
 
   setParty = party_id => {
