@@ -44,6 +44,19 @@ class PartyCard extends Component {
               </button>
             </Link>
           }
+          { this.props.host &&
+            <Link to={{
+              pathname: "../party/create",
+              state: {
+                token: this.props.token,
+                party_id: this.props.party.party_id
+              }
+            }}>
+              <button className="btn btn-primary">
+                  Edit Party
+              </button>
+            </Link>
+          }
         </div>
       </div>
     );
