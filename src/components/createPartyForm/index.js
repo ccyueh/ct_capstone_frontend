@@ -62,6 +62,7 @@ class CreatePartyForm extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <form onSubmit={this.props.createParty}>
         <div className="form-group">
@@ -80,7 +81,7 @@ class CreatePartyForm extends Component {
           }
         </div>
         <button type="submit" className="btn btn-primary">
-          {this.state.party_name ? "Create New Party" : "Update Party Details" }
+          {this.state.party_id.length == 0 ? "Create New Party" : "Update Party Details" }
         </button>
       </form>
     );

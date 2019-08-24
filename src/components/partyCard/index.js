@@ -1,8 +1,33 @@
 import React, { Component } from 'react';
 import './index.css';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class PartyCard extends Component {
+  deleteParty = async(party_id) => {
+    if (!window.confirm('Are you sure you want to cancel this party?')) {
+      return;
+    }
+
+    let URL = 'http://localhost:5000/api/parties/delete?party_id=';
+    URL += party_id;
+
+    let response = await fetch(URL, {
+      'method': 'DELETE',
+      'headers': { 'Content-Type': 'application/json' }
+    })
+
+    let data = await response.json();
+
+    if (data.success) {
+      alert(`${data.success}`);
+      this.props.history.push('../');
+    } else if (data.error) {
+      alert(`${data.error}`);
+    } else {
+      alert('Sorry, try again.');
+    }
+  }
+
   toDate = datetime => {
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -62,10 +87,15 @@ class PartyCard extends Component {
               </button>
             </Link>
           }
+          { this.props.host &&
+            <button className="btn btn-primary" onClick={() => this.deleteParty(this.props.party.party_id)}>
+                Cancel Party
+            </button>
+          }
         </div>
       </div>
     );
   }
 }
 
-export default PartyCard;
+export default withRouter(PartyCard);
