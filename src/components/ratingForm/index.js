@@ -86,7 +86,7 @@ class RatingForm extends Component {
       <label>Tasting Notes</label>
       <textarea className="form-control" name="description" value={this.state.description} onChange={this.updateDesc} />
       </div>
-      <button type="submit" className="btn btn-primary">Rate Bottle</button>
+      <button type="submit" className="btn btn-danger">Rate Bottle</button>
       </form>
     );
   }

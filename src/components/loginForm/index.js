@@ -10,7 +10,7 @@ function LoginForm(props) {
         <label>Password</label>
         <input type="password" className="form-control" name="password" />
       </div>
-      <button type="submit" className="btn btn-primary">Login</button>
+      <button type="submit" className="btn btn-danger">Login</button>
     </form>
   );
 }

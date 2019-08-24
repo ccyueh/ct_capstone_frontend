@@ -1,0 +1,9 @@
+#no-parties {
+  padding-top: 15px;
+  text-align: center;
+}
+
+#no-parties > a {
+  color: white;
+  font-weight: bold;
+}

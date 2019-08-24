@@ -101,7 +101,7 @@ class Profile extends Component {
           <label>Re-enter New Password</label>
           <input className="form-control" type="password" name="password2" />
         </div>
-        <input type="submit" className="btn btn-primary" value="Edit Profile" />
+        <input type="submit" className="btn btn-danger" value="Edit Profile" />
       </form>
       </Form>
     );

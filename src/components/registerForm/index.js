@@ -16,7 +16,7 @@ function RegisterForm(props) {
         <label>Re-enter Password</label>
         <input className="form-control" type="password" name="password2" />
       </div>
-      <input type="submit" className="btn btn-primary" value="Register" />
+      <input type="submit" className="btn btn-danger" value="Register" />
     </form>
   );
 }

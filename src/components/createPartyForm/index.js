@@ -80,7 +80,7 @@ class CreatePartyForm extends Component {
             <input readOnly type="text" name="party_id" value={this.state.party_id} className="d-none" />
           }
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-danger">
           {this.state.party_id.length == 0 ? "Create New Party" : "Update Party Details" }
         </button>
       </form>

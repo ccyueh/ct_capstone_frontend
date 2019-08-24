@@ -71,17 +71,18 @@ class VoteBottle extends Component {
 
   async componentDidMount() {
     let party_id = this.props.history.location.state.party_id;
-    console.log(party_id);
     let party = await this.retrieveDetails(party_id);
     let bottles = await this.retrieveBottle(party_id);
 
-    this.setState({ party, bottles });
-    console.log(this.state);
+    this.setState({
+      'party': party,
+      'bottles': bottles
+    });
   }
 
   render() {
     return (
-      <div className="row">
+      <div className="row bottle-grid">
         {this.state.bottles.map(bottle =>
           <BottleButton
             key={bottle.bottle_id}

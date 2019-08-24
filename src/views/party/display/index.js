@@ -70,7 +70,7 @@ class DisplayParty extends Component {
     return (
       <div>
         {parties.length == 0 &&
-          <div>
+          <div id="no-parties">
             <p className="text-secondary">No parties found.</p>
             {this.props.host &&
               <Link to='../party/create'>Host a Party</Link>

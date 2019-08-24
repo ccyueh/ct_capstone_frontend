@@ -39,7 +39,7 @@ class BottleForm extends Component {
           <label>Label Image</label>
           <input type="text" className="form-control" name="label_img" defaultValue={this.state.label_img} />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-danger">
           {this.state.label_img ? "Edit" : "Add" } Bottle
         </button>
       </form>

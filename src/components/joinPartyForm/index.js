@@ -8,7 +8,7 @@ function JoinPartyForm(props) {
         <label>Party ID</label>
         <input type="number" className="form-control" name="party_id" />
       </div>
-      <button type="submit" className="btn btn-primary">Join Party</button>
+      <button type="submit" className="btn btn-danger">Join Party</button>
     </form>
   );
 }

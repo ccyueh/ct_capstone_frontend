@@ -21,15 +21,17 @@ class ViewParty extends Component {
     return (
       <div className="container">
         <h1>Parties</h1>
-          <div className="btn-group">
-            <button className="btn btn-primary"
-              onClick={() => this.handleHost(false)}>
-              As Guest
-            </button>
-            <button className="btn btn-primary"
-              onClick={() => this.handleHost(true)}>
-              As Host
-            </button>
+          <div className="col-md-12 text-center">
+            <div className="btn-group">
+              <button className="btn btn-danger"
+                onClick={() => this.handleHost(false)}>
+                As Guest
+              </button>
+              <button className="btn btn-danger"
+                onClick={() => this.handleHost(true)}>
+                As Host
+              </button>
+            </div>
           </div>
           { this.state.host &&
             <div className="container">
@@ -41,6 +43,7 @@ class ViewParty extends Component {
             <DisplayParty token={this.props.token} host={false} />
             </div>
           }
+
       </div>
     );
   }

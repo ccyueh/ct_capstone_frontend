@@ -4,6 +4,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 
 import Form from './components/form';
 import Header from './components/header';
+import Slogan from './components/slogan';
 
 import CreateParty from './views/party/create';
 import JoinParty from './views/party/join';
@@ -19,7 +20,6 @@ import RegisterForm from './components/registerForm';
 import SECRET_KEY from './config.js';
 
 let jwt = require('jsonwebtoken');
-
 
 class App extends Component {
   constructor(props) {
@@ -130,6 +130,8 @@ class App extends Component {
           token={this.state.token}
           handleLogout={this.handleLogout}
         />
+
+        <Slogan />
 
         <Switch>
 

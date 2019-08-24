@@ -57,7 +57,7 @@ class PartyCard extends Component {
               party_id: this.props.party.party_id
             }
           }}>
-            <button className="btn btn-primary">
+            <button className="btn btn-danger">
               View{!this.props.host && <span>/Rate</span>} Bottles
             </button>
           </Link>
@@ -69,7 +69,7 @@ class PartyCard extends Component {
                 party_id: this.props.party.party_id
               }
             }}>
-              <button className="btn btn-primary">
+              <button className="btn btn-danger">
                   Add/Edit Bottle
               </button>
             </Link>
@@ -82,13 +82,13 @@ class PartyCard extends Component {
                 party_id: this.props.party.party_id
               }
             }}>
-              <button className="btn btn-primary">
+              <button className="btn btn-danger">
                   Edit Party
               </button>
             </Link>
           }
           { this.props.host &&
-            <button className="btn btn-primary" onClick={() => this.deleteParty(this.props.party.party_id)}>
+            <button className="btn btn-danger" onClick={() => this.deleteParty(this.props.party.party_id)}>
                 Cancel Party
             </button>
           }

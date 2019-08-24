@@ -32,7 +32,7 @@ class AddBottle extends Component {
     Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
     data_json['user_id'] = this.state.user_id;
     data_json['party_id'] = this.state.party_id;
-    
+
     if (this.state.bottle.bottle_id) {
       data_json['bottle_id'] = this.state.bottle.bottle_id;
     }
@@ -68,7 +68,11 @@ class AddBottle extends Component {
 
     let data = await response.json();
     if (data.success) {
-      return data.bottles;
+      if (data.bottles.length > 0) {
+        return data.bottles[0];
+      } else {
+        return {};
+      }
     } else if (data.error) {
       alert(`${data.error}`);
     } else {
