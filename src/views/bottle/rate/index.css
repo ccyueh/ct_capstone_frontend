@@ -1,0 +1,18 @@
+.bottle-placeholder {
+  background-color: maroon;
+  width: 50vw;
+  height: 50vw;
+  border-radius: 0.5em;
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottle-placeholder-text h5 {
+  font-size: 2em;
+}
+
+.bottle-placeholder-text h1 {
+  font-size: 4em;
+}

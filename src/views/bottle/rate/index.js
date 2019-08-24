@@ -48,11 +48,13 @@ class RateBottle extends Component {
       if (this.props.history.location.state.user_id) {
         return (
           <Form title={false}>
-          <div className="bg-danger">
+          <div className="bottle-placeholder">
+          <div className="bottle-placeholder-text">
           <h5 className="text-white">Bottle</h5>
           <h1 className="text-white">
           {this.props.history.location.state.bottle_num}
           </h1>
+          </div>
           </div>
           {/*Object.keys(this.props.history.location.state.rating).length > 0 &&
             <div>

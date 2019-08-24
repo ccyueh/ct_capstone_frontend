@@ -1,0 +1,26 @@
+input[type="checkbox"] {
+  opacity: 0;
+}
+
+input[type="checkbox"]:checked {
+  opacity: 1;
+}
+
+.checkbox-border {
+  display: inline-block;
+  border: 1px solid gray;
+  border-radius: 0.15em;
+  float: left;
+  margin-right: 5px;
+}
+
+.character-label {
+  color: white;
+  font-size: 0.95em;
+  display: block;
+  margin-top: 10px;
+}
+
+.checkbox-cols {
+  margin: 10px;
+}
