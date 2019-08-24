@@ -82,7 +82,7 @@ class VoteBottle extends Component {
 
   render() {
     return (
-      <div className="row bottle-grid">
+      <div className="row">
         {this.state.bottles.map(bottle =>
           <BottleButton
             key={bottle.bottle_id}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './index.css';
-import StarRatingComponent from 'react-star-rating-component';
 import ReactStars from 'react-stars';
 
 class RatingForm extends Component {

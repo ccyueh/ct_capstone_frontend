@@ -1,13 +1,28 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .square {
-  width: 30%;
-  height: 0;
-  padding-bottom: 30%;
+  width: 25vw;
+  height: 25vw;
+  margin: 2vw;
+  border: 2px solid maroon;
+  border-radius: 0.5em;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.bottle-rate {
-  padding: 5%;
+.star-button {
+  position: absolute;
+  top: 0;
 }
 
-.bottle-num {
-  padding-top: 35%;
+.text-black {
+  color: black;
 }

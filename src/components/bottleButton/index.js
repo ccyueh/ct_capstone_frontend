@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
+import './index.css';
+import ReactStars from 'react-stars';
 
 class BottleButton extends Component {
   constructor() {
@@ -46,9 +48,19 @@ class BottleButton extends Component {
 
   render() {
     return (
-      <div className={"square border rounded " + (this.state.rating.stars ? 'bg-light' : 'bg-white')}>
+      <div className={"square " + (this.state.rating.stars ? 'bg-secondary' : 'bg-white center-vertical')}>
         {this.state.rating.stars &&
-            <h3 className="bottle-rate">{this.state.rating.stars}</h3>
+          <div className="star-button">
+            <ReactStars
+              count={5}
+              value={Number(this.state.rating.stars)}
+              color1="lightgray"
+              color2="maroon"
+              size={18}
+              edit={false}
+              half={true}
+            />
+          </div>
         }
         {this.state.rating.avg &&
           <div className="bottle-rate">
@@ -65,7 +77,7 @@ class BottleButton extends Component {
             rating: this.state.rating,
           }
         }}>
-        <h1 className={"bottle-num " + (this.state.rating.stars ? 'text-secondary' : 'text-dark')}>{this.props.num}</h1>
+        <h1 className={"bottle-num " + (this.state.rating.stars ? 'text-dark' : 'text-black')}>{this.props.num}</h1>
         </Link>
       </div>
 
