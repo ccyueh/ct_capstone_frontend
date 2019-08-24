@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
+import StarRatingComponent from 'react-star-rating-component';
+import ReactStars from 'react-stars';
 
 class RatingForm extends Component {
   constructor() {
@@ -46,12 +48,25 @@ class RatingForm extends Component {
   }
 
   render() {
+    const ratingChanged = (newRating) => {
+      this.setState({ 'stars': newRating });
+      console.log(this.state);
+    }
     return (
       <form onSubmit={this.props.rateBottle}>
       <div className="form-group">
-      <label>Stars</label>
-      <input type="number" className="form-control" name="stars" defaultValue={this.state.stars} />
 
+      <div className="star-container">
+        <ReactStars
+          count={5}
+          value={Number(this.state.stars)}
+          onChange={ratingChanged}
+          color1="lightgray"
+          size={72}
+          edit={true}
+          half={true}
+        />
+      </div>
       <div className="row checkbox-cols">
       <div className="col">
       <label className="character-label">
@@ -94,8 +109,11 @@ class RatingForm extends Component {
       </label>
       </div>
       </div>
+
       <input readOnly type="text" name="characteristics" value={this.state.character} className="d-none" />
-      <label>Tasting Notes</label>
+      <input readOnly type="text" name="stars" value={this.state.stars} className="d-none" />
+
+      <label>Your Notes</label>
       <textarea className="form-control" name="description" value={this.state.description} onChange={this.updateDesc} />
       </div>
       <button type="submit" className="btn btn-danger">

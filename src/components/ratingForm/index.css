@@ -1,3 +1,19 @@
+h4 {
+  display: none;
+}
+
+.form-control, .form-control:focus {
+  background-color: transparent;
+}
+
+.star-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 input[type="checkbox"] {
   opacity: 0;
 }
@@ -11,16 +27,20 @@ input[type="checkbox"]:checked {
   border: 1px solid gray;
   border-radius: 0.15em;
   float: left;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .character-label {
+  margin-left: 6vw;
   color: white;
   font-size: 0.95em;
   display: block;
-  margin-top: 10px;
 }
 
 .checkbox-cols {
   margin: 10px;
+}
+
+label {
+  color: white;
 }
