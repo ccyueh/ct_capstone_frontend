@@ -7,6 +7,7 @@ class CreatePartyForm extends Component {
     super();
 
     this.state = {
+      party_id: '',
       party_name: '',
       location: '',
       date: '',
@@ -49,6 +50,7 @@ class CreatePartyForm extends Component {
 
       if (party.party_id) {
         this.setState({
+          'party_id': party.party_id,
           'party_name': party.party_name,
           'location': party.location,
           'date': party.date,
@@ -73,8 +75,8 @@ class CreatePartyForm extends Component {
           <input type="time" className="form-control" name="start_time" defaultValue={this.state.start_time} />
           <label>End Time</label>
           <input type="time" className="form-control" name="end_time" defaultValue={this.state.end_time} />
-          {this.props.history.location.state.party_id &&
-            <input readOnly type="text" name="party_id" value={this.props.history.location.state.party_id} className="d-none" />
+          {this.state.party_id &&
+            <input readOnly type="text" name="party_id" value={this.state.party_id} className="d-none" />
           }
         </div>
         <button type="submit" className="btn btn-primary">

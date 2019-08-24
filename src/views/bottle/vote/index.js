@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import { withRouter } from 'react-router-dom';
 import BottleButton from '../../../components/bottleButton';
 
 class VoteBottle extends Component {
@@ -36,9 +37,9 @@ class VoteBottle extends Component {
     }
   }
 
-  retrieveBottle = async(e) => {
+  retrieveBottle = async(party_id) => {
     let URL = 'http://localhost:5000/api/bottles/retrieve?party_id=';
-    URL += this.state.party['party_id'];
+    URL += party_id;
     let response = await fetch(URL, {
       'method': 'GET',
       'headers': { 'Content-Type': 'application/json' }
@@ -69,12 +70,13 @@ class VoteBottle extends Component {
   }
 
   async componentDidMount() {
-    let party_id = localStorage.getItem('party_id');
+    let party_id = this.props.history.location.state.party_id;
+    console.log(party_id);
     let party = await this.retrieveDetails(party_id);
-    this.setState({ party });
+    let bottles = await this.retrieveBottle(party_id);
 
-    let bottles = await this.retrieveBottle();
-    this.setState({ bottles });
+    this.setState({ party, bottles });
+    console.log(this.state);
   }
 
   render() {
@@ -93,4 +95,4 @@ class VoteBottle extends Component {
   }
 }
 
-export default VoteBottle;
+export default withRouter(VoteBottle);

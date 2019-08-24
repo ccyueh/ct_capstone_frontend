@@ -16,21 +16,23 @@ class PartyCard extends Component {
     return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true});
   }
 
-  setParty = party_id => {
-    localStorage.setItem('party_id', party_id);
-  }
-
   render() {
     let p = this.props.party;
     return (
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">{p.party_name}</h5>
-          <h6 className="card-subtitle text-muted">{p.location}</h6>
-          <p className="card-text">{this.toDate(p.start)} {this.toTime(p.start)} - {this.toTime(p.end)}</p>
-          <Link to="../bottle/party" className="card-link">
-            <button className="btn btn-primary"
-              onClick={() => this.setParty(p.party_id)}>
+          <h4 className="card-title">{p.party_name}</h4>
+          <h5 className="card-subtitle text-muted">{p.location}</h5>
+          <h6 className="card-text">{this.toDate(p.start)}</h6>
+          <h6 className="card-text">{this.toTime(p.start)} - {this.toTime(p.end)}</h6>
+          <Link to={{
+            pathname: "../bottle/party",
+            state: {
+              token: this.props.token,
+              party_id: this.props.party.party_id
+            }
+          }}>
+            <button className="btn btn-primary">
               View{!this.props.host && <span>/Rate</span>} Bottles
             </button>
           </Link>
