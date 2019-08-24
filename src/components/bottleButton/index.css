@@ -26,3 +26,10 @@
 .text-black {
   color: black;
 }
+
+.rate-num {
+  color: black;
+  position: absolute;
+  left: 0.3em;
+  bottom: 0.1em;
+}

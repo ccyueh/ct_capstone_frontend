@@ -63,10 +63,22 @@ class BottleButton extends Component {
           </div>
         }
         {this.state.rating.avg &&
-          <div className="bottle-rate">
-            <h3 className="float-left">{this.state.rating.avg}</h3>
-            <h3 className="float-right">{this.state.rating.rated}</h3>
-          </div>
+            <div className="star-button">
+            <ReactStars
+              count={5}
+              value={Number(this.state.rating.avg)}
+              color1="lightgray"
+              color2="maroon"
+              size={18}
+              edit={false}
+              half={true}
+            />
+            </div>
+        }
+        {this.state.rating.rated &&
+            <div className="rate-num">
+              {this.state.rating.rated}
+            </div>
         }
         <Link to={{
           pathname: "../bottle/rate",
