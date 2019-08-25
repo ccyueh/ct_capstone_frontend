@@ -84,14 +84,14 @@ class RatingForm extends Component {
 
           <div className="row checkbox-cols">
             {[0,3].map(x =>
-              <div className="col">
+              <div className="col" key={x}>
                 {[0,1,2].map(y =>
-                  <label className="character-label">
+                  <label className="character-label" key={y}>
                     {Object.values(this.state.terms)[x+y]}
                     <div className="checkbox-border">
                       <input
                         type="checkbox"
-                        onChange={() => this.setCheck(x+y)}
+                        onClick={() => this.setCheck(String(x+y))}
                         className="form-control"
                         defaultChecked={this.check(Object.keys(this.state.terms)[x+y])}
                       />
