@@ -10,7 +10,8 @@ class VoteBottle extends Component {
     this.state = {
       user_id: '',
       party: {},
-      bottles: []
+      bottles: [],
+      terms: []
     }
   }
 
@@ -55,6 +56,25 @@ class VoteBottle extends Component {
     }
   }
 
+  retrieveTerm = async(party_id) => {
+    let URL = 'http://localhost:5000/api/terms/retrieve?party_id=';
+    URL += party_id;
+
+    let response = await fetch(URL, {
+      'method': 'GET',
+      'headers': { 'Content-Type': 'application/json' }
+    })
+
+    let data = await response.json();
+    if (data.success) {
+      return data.terms;
+    } else if (data.error) {
+      alert(`${data.error}`);
+    } else {
+      alert('Sorry, try again.');
+    }
+  }
+
   bottleNum = bottle => {
     let bottles = this.state.bottles;
     let num = bottles.indexOf(bottle) + 1;
@@ -73,10 +93,12 @@ class VoteBottle extends Component {
     let party_id = this.props.history.location.state.party_id;
     let party = await this.retrieveDetails(party_id);
     let bottles = await this.retrieveBottle(party_id);
+    let terms = await this.retrieveTerm(party_id);
 
     this.setState({
       'party': party,
-      'bottles': bottles
+      'bottles': bottles,
+      'terms': terms
     });
   }
 
@@ -89,6 +111,7 @@ class VoteBottle extends Component {
             bottle={bottle}
             num={this.bottleNum(bottle)}
             guest={this.userStatus()}
+            terms={this.state.terms}
             />
         )}
       </div>

@@ -17,7 +17,7 @@ class RateBottle extends Component {
     Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
     data_json['user_id'] = user_id;
     data_json['bottle_id'] = this.props.history.location.state.bottle.bottle_id;
-    data_json['characteristics'] = data_json['characteristics'].split(',');
+    data_json['terms'] = data_json['terms'].split(',');
     if (this.props.history.location.state.rating.rating_id) {
       data_json['rating_id'] = this.props.history.location.state.rating.rating_id;
     }
@@ -65,6 +65,7 @@ class RateBottle extends Component {
           <RatingForm
             rateBottle={this.rateBottle}
             rating={this.props.history.location.state.rating ? this.props.history.location.state.rating : {}}
+            terms={this.props.history.location.state.terms}
           />
           </Form>
         );

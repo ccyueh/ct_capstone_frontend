@@ -3,29 +3,48 @@ import './index.css';
 import ReactStars from 'react-stars';
 
 class RatingForm extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
       stars: '',
       description: '',
-      characteristics: '',
-      character: [],
+      terms: props.terms,
+      checked: [],
     }
   }
 
-  setCharacter = value => {
-    let c = this.state.character;
+  retrieveTerm = async(term_id) => {
+    let URL = 'http://localhost:5000/api/terms/retrieve?term_id=';
+    URL += term_id;
+
+    let response = await fetch(URL, {
+      'method': 'GET',
+      'headers': { 'Content-Type': 'application/json' }
+    })
+
+    let data = await response.json();
+    if (data.success) {
+      return data.term;
+    } else if (data.error) {
+      alert(`${data.error}`);
+    } else {
+      alert('Sorry, try again.');
+    }
+  }
+
+  setCheck = value => {
+    let c = this.state.checked;
     if (c.indexOf(value) == -1) {
       c.push(value);
     } else {
       c = c.filter(x => x != value);
     }
-    this.setState({ 'character': c });
+    this.setState({ 'checked': c });
   }
 
   check = value => {
-    if (this.state.characteristics.indexOf(value) != -1) {
+    if (this.state.checked.indexOf(value) != -1) {
       return "checked";
     }
   }
@@ -41,7 +60,7 @@ class RatingForm extends Component {
       this.setState({
         'stars': rating.stars,
         'description': rating.description,
-        'characteristics': rating.characteristics
+        'checked': Object.keys(rating.terms)
       });
     }
   }
@@ -49,75 +68,49 @@ class RatingForm extends Component {
   render() {
     const ratingChanged = (newRating) => {
       this.setState({ 'stars': newRating });
-      console.log(this.state);
     }
     return (
       <form onSubmit={this.props.rateBottle}>
-      <div className="form-group">
+        <div className="form-group">
 
-      <div className="star-container">
-        <ReactStars
-          count={5}
-          value={Number(this.state.stars)}
-          onChange={ratingChanged}
-          color1="lightgray"
-          size={72}
-          edit={true}
-          half={true}
-        />
-      </div>
-      <div className="row checkbox-cols">
-      <div className="col">
-      <label className="character-label">
-        Bold
-        <div className="checkbox-border">
-        <input type="checkbox" onChange={() => this.setCharacter(1)} className="form-control" defaultChecked={this.check("bold")} />
-        </div>
-      </label>
-      <label className="character-label">
-        Fruity
-        <div className="checkbox-border">
-        <input type="checkbox" onChange={() => this.setCharacter(2)} className="form-control" defaultChecked={this.check("fruity")} />
-        </div>
-      </label>
-      <label className="character-label">
-        Toasty
-        <div className="checkbox-border">
-        <input type="checkbox" onChange={() => this.setCharacter(3)} className="form-control" defaultChecked={this.check("toasty")} />
-        </div>
-      </label>
-      </div>
-      <div className="col">
-      <label className="character-label">
-        Mild
-        <div className="checkbox-border">
-        <input type="checkbox" onChange={() => this.setCharacter(4)} className="form-control" defaultChecked={this.check("mild")} />
-        </div>
-      </label>
-      <label className="character-label">
-        Earthy
-        <div className="checkbox-border">
-        <input type="checkbox" onChange={() => this.setCharacter(5)} className="form-control" defaultChecked={this.check("earthy")} />
-        </div>
-      </label>
-      <label className="character-label">
-        Oaky
-        <div className="checkbox-border">
-          <input type="checkbox" onChange={() => this.setCharacter(6)} className="form-control" defaultChecked={this.check("oaky")} />
-        </div>
-      </label>
-      </div>
-      </div>
+          <div className="star-container">
+            <ReactStars
+              value={Number(this.state.stars)}
+              onChange={ratingChanged}
+              color1="lightgray"
+              size={72}
+            />
+          </div>
 
-      <input readOnly type="text" name="characteristics" value={this.state.character} className="d-none" />
-      <input readOnly type="text" name="stars" value={this.state.stars} className="d-none" />
+          <div className="row checkbox-cols">
+            {[0,3].map(x =>
+              <div className="col">
+                {[0,1,2].map(y =>
+                  <label className="character-label">
+                    {Object.values(this.state.terms)[x+y]}
+                    <div className="checkbox-border">
+                      <input
+                        type="checkbox"
+                        onChange={() => this.setCheck(x+y)}
+                        className="form-control"
+                        defaultChecked={this.check(Object.keys(this.state.terms)[x+y])}
+                      />
+                    </div>
+                  </label>
+                )}
+              </div>
+            )}
+          </div>
 
-      <label>Your Notes</label>
-      <textarea className="form-control" name="description" value={this.state.description} onChange={this.updateDesc} />
-      </div>
-      <button type="submit" className="btn btn-danger">
-        {this.state.stars ? "Update" : "Submit" } Rating
-      </button>
+          <input readOnly type="text" name="terms" value={this.state.checked} className="d-none" />
+          <input readOnly type="text" name="stars" value={this.state.stars} className="d-none" />
+
+          <label>Your Notes</label>
+          <textarea className="form-control" name="description" value={this.state.description} onChange={this.updateDesc} />
+        </div>
+        <button type="submit" className="btn btn-danger">
+          {this.state.stars ? "Update" : "Submit" } Rating
+        </button>
       </form>
     );
   }
