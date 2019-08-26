@@ -12,28 +12,36 @@ class Footer extends Component {
       <div className="footer">
         <nav className="navbar row">
         <div className="col footer-icon">
+          <NavLink className="footer-link" to="/">
           <div>
             <HomeOutlinedIcon />
           </div>
           Home
+          </NavLink>
         </div>
         <div className="col footer-icon">
+          <NavLink className="footer-link" to="/">
           <div>
             <StarBorderOutlinedIcon />
           </div>
           Vote
+          </NavLink>
         </div>
         <div className="col footer-icon">
+          <NavLink className="footer-link" to="/">
           <div>
             <PhotoCameraOutlinedIcon />
           </div>
           Photos
+          </NavLink>
         </div>
         <div className="col footer-icon">
+          <NavLink className="footer-link" to="/">
           <div>
             <FormatListNumberedIcon />
           </div>
           Results
+          </NavLink>
         </div>
         </nav>
       </div>

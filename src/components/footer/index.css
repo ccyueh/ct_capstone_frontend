@@ -12,9 +12,12 @@
 .footer-icon {
   font-size: 12px;
   text-align: center;
-  color: gray;
 }
 
 .footer-icon .MuiSvgIcon-root {
   font-size: 3em;
+}
+
+.footer-link {
+  color: gray;
 }

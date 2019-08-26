@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import Form from '../form';
+import { withRouter } from 'react-router-dom';
 import SECRET_KEY from '../../config.js';
 
 let jwt = require('jsonwebtoken');
@@ -13,25 +14,6 @@ class Profile extends Component {
       user_id: '',
       first: '',
       last: ''
-    }
-  }
-
-  retrieveUser = async(user_id) => {
-    let URL = 'http://localhost:5000/api/users/retrieve?user_id=';
-    URL += user_id;
-
-    let response = await fetch(URL, {
-      'method': 'GET',
-      'headers': { 'Content-Type': 'application/json' }
-    })
-
-    let data = await response.json();
-    if (data.success) {
-      return data.user;
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
     }
   }
 
@@ -76,14 +58,12 @@ class Profile extends Component {
     }
 
   async componentDidMount() {
-    let token = this.props.token;
-    let user_id = JSON.parse(atob(token.split('.')[1])).user_id;
-    let user = await this.retrieveUser(user_id);
+    let params = this.props.history.location.state;
 
     this.setState({
-      'user_id': user_id,
-      'first': user.first_name,
-      'last': user.last_name
+      'user_id': params.user_id,
+      'first': params.first,
+      'last': params.last
     });
   }
 
@@ -101,11 +81,11 @@ class Profile extends Component {
           <label>Re-enter New Password</label>
           <input className="form-control" type="password" name="password2" />
         </div>
-        <input type="submit" className="btn btn-danger" value="Edit Profile" />
+        <input type="submit" className="btn btn-danger" value="Update Profile" />
       </form>
       </Form>
     );
   }
 }
 
-export default Profile;
+export default withRouter(Profile);

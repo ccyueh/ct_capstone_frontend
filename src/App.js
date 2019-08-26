@@ -15,6 +15,7 @@ import AddBottle from './views/bottle/add';
 import VoteBottle from './views/bottle/vote';
 import RateBottle from './views/bottle/rate';
 
+import ProfileTable from './components/profileTable';
 import Profile from './components/profile';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
@@ -186,8 +187,14 @@ class App extends Component {
           <Route
             exact path='/profile'
             render={() =>
-              <Profile token={this.state.token} />}
+              <ProfileTable token={this.state.token} />}
           />
+          <Route
+            exact path='/profile/edit'
+            render={() =>
+              <Profile />}
+          />
+
         </Switch>
 
         <Footer />

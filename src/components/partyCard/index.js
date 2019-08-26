@@ -46,7 +46,7 @@ class PartyCard extends Component {
     return (
       <div className="card">
         <div className="card-body">
-          <h4 className="card-title">{p.party_name}</h4>
+          <h3 className="card-title">{p.party_name}</h3>
           <h5 className="card-subtitle text-muted">{p.location}</h5>
           <h6 className="card-text">{this.toDate(p.start)}</h6>
           <h6 className="card-text">{this.toTime(p.start)} - {this.toTime(p.end)}</h6>
