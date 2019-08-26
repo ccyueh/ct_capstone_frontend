@@ -5,6 +5,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import Form from './components/form';
 import Header from './components/header';
 import Slogan from './components/slogan';
+import Footer from './components/footer';
 
 import CreateParty from './views/party/create';
 import JoinParty from './views/party/join';
@@ -119,7 +120,6 @@ class App extends Component {
     localStorage.setItem('token', '');
     this.setState({ 'token': '' });
     this.props.history.push('/login');
-    //alert('You have logged out.');
   }
 
   render() {
@@ -153,15 +153,44 @@ class App extends Component {
             }
           />
 
-          <Route exact path='/party/create' render={() => <CreateParty token={this.state.token} />} />
-          <Route exact path='/party/join' render={() => <JoinParty token={this.state.token} />} />
-          <Route exact path='/party/view' render={() => <ViewParty token={this.state.token} />} />
-          <Route exact path='/bottle/add' render={() => <AddBottle token={this.state.token} />} />
-          <Route exact path='/bottle/party' render={() => <VoteBottle token={this.state.token} />} />
-          <Route exact path='/bottle/rate' render={() => <RateBottle token={this.state.token} />} />
-          <Route exact path='/profile' render={() => <Profile token={this.state.token} />} />
+          <Route
+            exact path='/party/create'
+            render={() =>
+              <CreateParty token={this.state.token} />}
+          />
+          <Route
+            exact path='/party/join'
+            render={() =>
+              <JoinParty token={this.state.token} />}
+          />
+          <Route
+            exact path='/party/view'
+            render={() =>
+              <ViewParty token={this.state.token} />}
+          />
+          <Route
+            exact path='/bottle/add'
+            render={() =>
+              <AddBottle token={this.state.token} />}
+          />
+          <Route
+            exact path='/bottle/party'
+            render={() =>
+              <VoteBottle token={this.state.token} />}
+          />
+          <Route
+            exact path='/bottle/rate'
+            render={() =>
+              <RateBottle token={this.state.token} />}
+          />
+          <Route
+            exact path='/profile'
+            render={() =>
+              <Profile token={this.state.token} />}
+          />
         </Switch>
 
+        <Footer />
       </div>
     );
   }

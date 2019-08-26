@@ -1,0 +1,20 @@
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+}
+
+.footer .navbar {
+  background-color: black;
+}
+
+.footer-icon {
+  font-size: 12px;
+  text-align: center;
+  color: gray;
+}
+
+.footer-icon .MuiSvgIcon-root {
+  font-size: 3em;
+}
