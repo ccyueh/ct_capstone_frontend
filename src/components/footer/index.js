@@ -20,7 +20,15 @@ class Footer extends Component {
           </NavLink>
         </div>
         <div className="col footer-icon">
-          <NavLink className="footer-link" to="/">
+          <NavLink
+            className="footer-link"
+            to={{
+              pathname: "../bottle/party",
+              state: {
+                token: this.props.token,
+                party: this.props.current
+              }
+            }}>
           <div>
             <StarBorderOutlinedIcon />
           </div>
@@ -36,7 +44,15 @@ class Footer extends Component {
           </NavLink>
         </div>
         <div className="col footer-icon">
-          <NavLink className="footer-link" to="/">
+          <NavLink
+            className="footer-link"
+            to={{
+              pathname: "../bottle/party",
+              state: {
+                token: this.props.token,
+                party: this.props.last
+              }
+            }}>
           <div>
             <FormatListNumberedIcon />
           </div>
