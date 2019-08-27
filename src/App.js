@@ -159,7 +159,7 @@ class App extends Component {
   }
 
   currentParty = async(parties) => {
-    let current = parties.filter(party => party.voting == false);
+    let current = parties.filter(party => party.voting == true);
     if (current.length > 0) {
       return current[0];
     } else {

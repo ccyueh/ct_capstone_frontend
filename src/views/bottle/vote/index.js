@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import BottleButton from '../../../components/bottleButton';
 
 class VoteBottle extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
