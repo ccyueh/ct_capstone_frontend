@@ -24,6 +24,7 @@ input[type="checkbox"]:checked {
   border-radius: 0.15em;
   float: left;
   margin-right: 10px;
+  height: 20px;
 }
 
 .character-label {

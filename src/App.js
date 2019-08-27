@@ -10,6 +10,7 @@ import Footer from './components/footer';
 import CreateParty from './views/party/create';
 import JoinParty from './views/party/join';
 import ViewParty from './views/party/view';
+import PartyOptions from './views/party/options';
 
 import AddBottle from './views/bottle/add';
 import VoteBottle from './views/bottle/vote';
@@ -30,6 +31,7 @@ class App extends Component {
     this.state = {
       logged_in: false,
       token: '',
+      parties: [],
       current: '',
       last: ''
     }
@@ -184,11 +186,10 @@ class App extends Component {
     let current = await this.currentParty(parties);
     let last = await this.lastParty(parties);
 
-    this.setState({ token, current, last });
+    this.setState({ token, parties, current, last });
   }
 
   render() {
-    //console.log(this.state);
     return (
       <div className="App">
 
@@ -232,7 +233,12 @@ class App extends Component {
           <Route
             exact path='/party/view'
             render={() =>
-              <ViewParty token={this.state.token} />}
+              <ViewParty token={this.state.token} parties={this.state.parties} />}
+          />
+          <Route
+            exact path='/party/options'
+            render={() =>
+              <PartyOptions token={this.state.token} />}
           />
           <Route
             exact path='/bottle/add'

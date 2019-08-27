@@ -5,6 +5,14 @@ import Form from '../../../components/form';
 import CreatePartyForm from '../../../components/createPartyForm';
 
 class CreateParty extends Component {
+  constructor(props) {
+    super();
+
+    this.state = {
+      party: {}
+    }
+  }
+
   createParty = async(e) => {
     e.preventDefault();
 
@@ -35,11 +43,18 @@ class CreateParty extends Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.history.location.state) {
+      let party = this.props.history.location.state.party;
+      this.setState({ party });
+    }
+  }
+
   render() {
-    if (this.props.token) {
+    if (this.props.history.location.state || this.props.token) {
       return (
         <Form title="Party Details">
-          <CreatePartyForm createParty={this.createParty} />
+          <CreatePartyForm createParty={this.createParty} party={this.state.party} />
         </Form>
       );
     } else {

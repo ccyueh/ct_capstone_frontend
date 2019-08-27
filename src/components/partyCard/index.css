@@ -1,8 +1,21 @@
 .card {
-  background-color: rgba(255, 255, 255, 0.25);
+  border: 1px solid gray;
+  background-color: transparent;
+  border-radius: .25rem;
 }
 
-h6 {
+.host-card {
+  border: 1px solid white;
+  background-color: rgba(255, 255, 255, 0.07);
+  border-radius: .25rem;
+}
+
+.card-body {
+  padding: .2rem;
+}
+
+.card-body > h6 {
+  margin-top: .5em;
   color: gray;
 }
 

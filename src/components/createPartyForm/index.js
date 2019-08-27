@@ -3,7 +3,7 @@ import './index.css';
 import { withRouter } from 'react-router-dom';
 
 class CreatePartyForm extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
@@ -16,53 +16,38 @@ class CreatePartyForm extends Component {
     }
   }
 
-  retrieveParty = async(e) => {
-    let URL = 'http://localhost:5000/api/parties/retrieve?party_id=';
-    URL += this.props.history.location.state.party_id;
+  formatDate = (party_start, party_end) => {
+    let start = new Date(party_start);
+    let end = new Date(party_end);
+    let offset = start.getTimezoneOffset()/60;
 
-    let response = await fetch(URL, {
-      'method': 'GET',
-      'headers': { 'Content-Type': 'application/json' }
-    })
+    let time = {};
+    time['date'] = [start.getFullYear(), ("0" + (start.getMonth() + 1)).slice(-2), ("0" + start.getDate()).slice(-2)].join('-');
+    time['start_time'] = ("0" + (start.getHours() + offset)).slice(-2) + ':' + ("0" + start.getMinutes()).slice(-2);
+    time['end_time'] = ("0" + (end.getHours() + offset)).slice(-2) + ':' + ("0" + end.getMinutes()).slice(-2);
 
-    let data = await response.json();
-    if (data.success) {
-      let party = data.parties[0];
-
-      let start = new Date(party.start);
-      let end = new Date(party.end);
-      let offset = start.getTimezoneOffset()/60;
-      party.date = [start.getFullYear(), ("0" + (start.getMonth() + 1)).slice(-2), ("0" + start.getDate()).slice(-2)].join('-');
-      party.start_time = ("0" + (start.getHours() + offset)).slice(-2) + ':' + ("0" + start.getMinutes()).slice(-2);
-      party.end_time = ("0" + (end.getHours() + offset)).slice(-2) + ':' + ("0" + end.getMinutes()).slice(-2);
-
-      return party;
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
-    }
+    return time;
   }
 
-  async componentDidMount() {
-    if (this.props.history.location.state.party_id) {
-      let party = await this.retrieveParty();
-
+  componentDidUpdate(prevProps) {
+    if (this.props.party !== prevProps.party) {
+      let party = this.props.party;
       if (party.party_id) {
+        let time = this.formatDate(party.start, party.end);
+
         this.setState({
           'party_id': party.party_id,
           'party_name': party.party_name,
           'location': party.location,
-          'date': party.date,
-          'start_time': party.start_time,
-          'end_time': party.end_time
+          'date': time.date,
+          'start_time': time.start_time,
+          'end_time': time.end_time
         });
       }
     }
   }
 
   render() {
-    console.log(this.state);
     return (
       <form onSubmit={this.props.createParty}>
         <div className="form-group">

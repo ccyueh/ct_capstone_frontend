@@ -9,12 +9,11 @@ class ViewParty extends Component {
 
     this.state = {
       past: false,
-      host: false
     }
   }
 
-  handleHost = async(state) => {
-    this.setState({ 'host': state });
+  selectTime = value => {
+    this.setState({ 'past': value });
   }
 
   render() {
@@ -24,27 +23,19 @@ class ViewParty extends Component {
           <div className="col-md-12 text-center">
             <div className="btn-group">
               <button className="btn btn-danger"
-                onClick={() => this.handleHost(false)}>
-                As Guest
+                onClick={() => this.selectTime(false)}>
+                Upcoming
               </button>
               <button className="btn btn-danger"
-                onClick={() => this.handleHost(true)}>
-                As Host
+                onClick={() => this.selectTime(true)}>
+                Past
               </button>
             </div>
           </div>
-          { this.state.host &&
-            <div className="container">
-            <DisplayParty token={this.props.token} host={true} />
-            </div>
-          }
-          { !this.state.host &&
-            <div className="container">
-            <DisplayParty token={this.props.token} host={false} />
-            </div>
-          }
-
-      </div>
+          <div className="container">
+            <DisplayParty token={this.props.token} past={this.state.past} parties={this.props.parties} />
+          </div>
+        </div>
     );
   }
 }

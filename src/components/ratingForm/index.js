@@ -41,6 +41,7 @@ class RatingForm extends Component {
       c = c.filter(x => x != value);
     }
     this.setState({ 'checked': c });
+    console.log(value, this.state.checked);
   }
 
   check = value => {

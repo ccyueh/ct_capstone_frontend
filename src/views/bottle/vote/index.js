@@ -66,7 +66,7 @@ class VoteBottle extends Component {
       let party_id = params.party.party_id;
       let bottles = await this.retrieveBottle(party_id);
       let terms = await this.retrieveTerm(party_id);
-      let guest = (user_id != params.party.host_id ? true : false);
+      let guest = (user_id != params.party.host_id ? user_id : false);
 
       this.setState({
         'guest': guest,

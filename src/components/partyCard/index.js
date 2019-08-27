@@ -3,28 +3,11 @@ import './index.css';
 import { withRouter, Link } from 'react-router-dom';
 
 class PartyCard extends Component {
-  deleteParty = async(party_id) => {
-    if (!window.confirm('Are you sure you want to cancel this party?')) {
-      return;
-    }
+  constructor() {
+    super();
 
-    let URL = 'http://localhost:5000/api/parties/delete?party_id=';
-    URL += party_id;
-
-    let response = await fetch(URL, {
-      'method': 'DELETE',
-      'headers': { 'Content-Type': 'application/json' }
-    })
-
-    let data = await response.json();
-
-    if (data.success) {
-      alert(`${data.success}`);
-      this.props.history.push('../');
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
+    this.state = {
+      guest: '',
     }
   }
 
@@ -41,27 +24,39 @@ class PartyCard extends Component {
     return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true});
   }
 
+  componentDidMount() {
+    let token = this.props.token;
+    let user_id = JSON.parse(atob(token.split('.')[1])).user_id;
+    let guest = (user_id != this.props.party.host_id ? user_id : false);
+
+    this.setState({ guest });
+  }
+
   render() {
     let p = this.props.party;
     return (
-      <div className="card">
+      <div className={"card" + (!this.state.guest ? " host-card" : "")}>
         <div className="card-body">
           <h3 className="card-title">{p.party_name}</h3>
           <h5 className="card-subtitle text-muted">{p.location}</h5>
           <h6 className="card-text">{this.toDate(p.start)}</h6>
           <h6 className="card-text">{this.toTime(p.start)} - {this.toTime(p.end)}</h6>
-          <Link to={{
-            pathname: "../bottle/party",
-            state: {
-              token: this.props.token,
-              party_id: this.props.party.party_id
-            }
-          }}>
-            <button className="btn btn-danger">
-              View{!this.props.host && <span>/Rate</span>} Bottles
-            </button>
-          </Link>
-          { !this.props.host &&
+
+          { this.props.past &&
+            <Link to={{
+              pathname: "../bottle/party",
+              state: {
+                token: this.props.token,
+                party_id: this.props.party.party_id
+              }
+            }}>
+              <button className="btn btn-danger">
+                View Results
+              </button>
+            </Link>
+          }
+
+          { this.state.guest &&
             <Link to={{
               pathname: "../bottle/add",
               state: {
@@ -74,23 +69,18 @@ class PartyCard extends Component {
               </button>
             </Link>
           }
-          { this.props.host &&
+          { !this.state.guest && !this.props.past &&
             <Link to={{
-              pathname: "../party/create",
+              pathname: "../party/options",
               state: {
                 token: this.props.token,
-                party_id: this.props.party.party_id
+                party: this.props.party
               }
             }}>
               <button className="btn btn-danger">
-                  Edit Party
+                  Options
               </button>
             </Link>
-          }
-          { this.props.host &&
-            <button className="btn btn-danger" onClick={() => this.deleteParty(this.props.party.party_id)}>
-                Cancel Party
-            </button>
           }
         </div>
       </div>
