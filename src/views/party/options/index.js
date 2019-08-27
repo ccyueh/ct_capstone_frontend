@@ -33,7 +33,13 @@ class PartyOptions extends Component {
     if (data.success) {
       alert(`${data.success}`);
       this.setState({ 'voting': true });
-      this.props.history.push('../');
+      this.props.history.push({
+        pathname: '../bottle/party',
+        state: {
+          token: this.props.history.location.state.token,
+          party: this.props.history.location.state.party,
+        }
+      });
     } else if (data.error) {
       alert(`${data.error}`);
     } else {
@@ -59,7 +65,13 @@ class PartyOptions extends Component {
     if (data.success) {
       alert(`${data.success}`);
       this.setState({ 'reveal': true });
-      this.props.history.push('../bottle/party');
+      this.props.history.push({
+        pathname: '../bottle/party',
+        state: {
+          token: this.props.history.location.state.token,
+          party: this.props.history.location.state.party,
+        }
+      });
     } else if (data.error) {
       alert(`${data.error}`);
     } else {
