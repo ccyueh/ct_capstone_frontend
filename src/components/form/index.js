@@ -5,7 +5,7 @@ function Form(props) {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-6 offset-md-3">
+        <div className="col-md-6">
           {props.title &&
             <h2>{props.title}</h2>
           }

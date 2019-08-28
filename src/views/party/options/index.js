@@ -10,12 +10,19 @@ class PartyOptions extends Component {
       start: '',
       voting: '',
       reveal: '',
-      voting_end: ''
+      voting_end: '',
+      set_vote: false
     }
   }
 
   setVotingEnd = () => {
-    this.setState({ 'voting': true });
+    if (this.state.start > new Date()) {
+      if (!window.confirm('Are you sure you want to allow voting?')) {
+        return;
+      }
+    }
+
+    this.setState({ 'set_vote': true });
   }
 
   startVoting = async(e) => {
@@ -153,7 +160,7 @@ class PartyOptions extends Component {
     return (
       <div className="container">
         <h1 className={"" + (this.state.voting ? "d-none" : "")}>Options</h1>
-        { this.state.start < new Date() &&
+        { !this.state.voting && this.state.voting_end > new Date() &&
           <Link to={{
             pathname: "../party/create",
             state: {
@@ -166,7 +173,7 @@ class PartyOptions extends Component {
             </button>
           </Link>
         }
-        { this.state.start < new Date() &&
+        { !this.state.voting && this.state.voting_end > new Date() &&
           <Link to={{
             pathname: "../party/guests",
             state: {
@@ -179,12 +186,12 @@ class PartyOptions extends Component {
             </button>
           </Link>
         }
-        { !this.state.voting && this.state.start < new Date() &&
+        { !this.state.voting && this.state.voting_end > new Date() &&
           <button className="btn btn-danger btn-wide" onClick={() => this.setVotingEnd()}>
               Start Voting
           </button>
         }
-        {  this.state.voting && this.state.voting_end < new Date() &&
+        {  this.state.set_vote &&
           <form onSubmit={this.startVoting}>
             <div className="voting-end">
               <label>Hours</label>
@@ -206,7 +213,7 @@ class PartyOptions extends Component {
               Reveal Bottles
           </button>
         }
-        { this.state.start < new Date() &&
+        { !this.state.voting && this.state.voting_end > new Date() &&
           <button className="btn btn-danger btn-wide" onClick={() => this.deleteParty(party.party_id)}>
               Cancel Party
           </button>

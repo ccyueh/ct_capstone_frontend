@@ -183,16 +183,18 @@ class App extends Component {
 
   async componentDidMount() {
     let token = localStorage.getItem('token');
-    let user_id = JSON.parse(atob(token.split('.')[1])).user_id;
-    let parties = await this.allParties(user_id);
-    let current = await this.currentParty(parties);
-    let last = await this.lastParty(parties);
-    let voting_end = 0;
-    if (current) {
-      voting_end = current.voting_end;
-    }
+    //if (token && this.state.logged_in) {
+      let user_id = JSON.parse(atob(token.split('.')[1])).user_id;
+      let parties = await this.allParties(user_id);
+      let current = await this.currentParty(parties);
+      let last = await this.lastParty(parties);
+      let voting_end = 0;
+      if (current) {
+        voting_end = current.voting_end;
+      }
 
-    this.setState({ token, parties, current, last, voting_end });
+      this.setState({ token, parties, current, last, voting_end });
+    //}
   }
 
   render() {
