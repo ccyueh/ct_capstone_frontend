@@ -7,32 +7,44 @@ class PartyOptions extends Component {
     super();
 
     this.state = {
+      start: '',
       voting: '',
       reveal: '',
+      voting_end: ''
     }
   }
 
-  startVoting = async(party_id) => {
-    if (!window.confirm('Are you sure you want to allow voting?')) {
-      return;
-    }
+  setVotingend = () => {
+    this.setState({ 'voting': true });
+  }
+
+  startVoting = async(e) => {
+    e.preventDefault();
+
+    let data_json = {};
+
+    Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
+    data_json['voting'] = true;
+    let hours = data_json['hours'];
+    let minutes = data_json['minutes'];
+
+    let voting_end = new Date();
+    let total_minutes = Number(minutes) + Number(60 * hours);
+    voting_end.setMinutes(voting_end.getMinutes() + total_minutes);
+    data_json['voting_end'] = voting_end;
 
     const URL = 'http://localhost:5000/api/parties/save';
 
     let response = await fetch(URL, {
       'method': 'POST',
       'headers': { 'Content-Type': 'application/json' },
-      'body': JSON.stringify({
-        'party_id': party_id,
-        'voting': true
-      })
+      'body': JSON.stringify(data_json)
     })
 
     let data = await response.json();
 
     if (data.success) {
       alert(`${data.success}`);
-      this.setState({ 'voting': true });
       this.props.history.push({
         pathname: '../bottle/party',
         state: {
@@ -64,7 +76,6 @@ class PartyOptions extends Component {
 
     if (data.success) {
       alert(`${data.success}`);
-      this.setState({ 'reveal': true });
       this.props.history.push({
         pathname: '../bottle/party',
         state: {
@@ -131,17 +142,18 @@ class PartyOptions extends Component {
     if (this.props.history.location.state.party) {
       let party = await this.retrieveStatus(this.props.history.location.state.party.party_id);
       party = party[0];
-      this.setState({ 'voting': party.voting, 'reveal': party.reveal });
+      this.setState({ 'start': new Date(party.start), 'voting': party.voting, 'reveal': party.reveal, 'voting_end': new Date(party.voting_end) });
     }
   }
 
   render() {
     let token = this.props.history.location.state.token;
     let party = this.props.history.location.state.party;
+    console.log(this.state);
     return (
       <div className="container">
-        <h1>Options</h1>
-        { !this.state.voting &&
+        <h1 className={"" + (this.state.voting ? "d-none" : "")}>Options</h1>
+        { this.state.start < new Date() &&
           <Link to={{
             pathname: "../party/create",
             state: {
@@ -154,7 +166,7 @@ class PartyOptions extends Component {
             </button>
           </Link>
         }
-        { !this.state.voting &&
+        { this.state.start < new Date() &&
           <Link to={{
             pathname: "../party/guests",
             state: {
@@ -180,17 +192,34 @@ class PartyOptions extends Component {
             </button>
           </Link>
         }
-        { !this.state.voting &&
-          <button className="btn btn-danger btn-wide" onClick={() => this.startVoting(party.party_id)}>
+        { !this.state.voting && this.state.start < new Date() &&
+          <button className="btn btn-danger btn-wide" onClick={() => this.setVotingend()}>
               Start Voting
           </button>
         }
-        { !this.state.reveal &&
+        {  this.state.voting && this.state.voting_end < new Date() &&
+          <form onSubmit={this.startVoting}>
+            <div className="voting-end">
+              <label>Hours</label>
+              <input type="number" className="form-control" name="hours" />
+              <label>Minutes</label>
+              <input type="number" className="form-control" name="minutes" />
+              <input readOnly type="number" name="party_id" value={party.party_id} className="d-none" />
+              <button type="submit" className="btn btn-danger">
+                Set Voting Period
+              </button>
+            </div>
+          </form>
+        }
+        { this.state.voting && this.state.voting_end > new Date() && !this.state.reveal &&
+          <p className="text-center mt-5">The party is underway!</p>
+        }
+        { !this.state.reveal && this.state.voting_end < new Date() && 
           <button className="btn btn-danger btn-wide" onClick={() => this.setReveal(party.party_id)}>
               Reveal Bottles
           </button>
         }
-        { !this.state.voting &&
+        { this.state.start < new Date() &&
           <button className="btn btn-danger btn-wide" onClick={() => this.deleteParty(party.party_id)}>
               Cancel Party
           </button>

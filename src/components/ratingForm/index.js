@@ -83,7 +83,7 @@ class RatingForm extends Component {
             />
           </div>
 
-          <div className="row checkbox-cols">
+          <div className="row checkbox-cols d-none">
             {[0,3].map(x =>
               <div className="col" key={x}>
                 {[0,1,2].map(y =>

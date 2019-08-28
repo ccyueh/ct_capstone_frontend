@@ -21,7 +21,7 @@ class RateBottle extends Component {
     if (this.props.history.location.state.rating.rating_id) {
       data_json['rating_id'] = this.props.history.location.state.rating.rating_id;
     }
-    console.log(data_json);
+    
     const URL = 'http://localhost:5000/api/ratings/save';
 
     let response = await fetch(URL, {

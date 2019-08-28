@@ -6,6 +6,7 @@ import Form from './components/form';
 import Header from './components/header';
 import Slogan from './components/slogan';
 import Footer from './components/footer';
+import Timer from './components/timer';
 
 import CreateParty from './views/party/create';
 import JoinParty from './views/party/join';
@@ -33,7 +34,8 @@ class App extends Component {
       token: '',
       parties: [],
       current: '',
-      last: ''
+      last: '',
+      voting_end: 0
     }
   }
 
@@ -185,8 +187,12 @@ class App extends Component {
     let parties = await this.allParties(user_id);
     let current = await this.currentParty(parties);
     let last = await this.lastParty(parties);
+    let voting_end = 0;
+    if (current) {
+      voting_end = current.voting_end;
+    }
 
-    this.setState({ token, parties, current, last });
+    this.setState({ token, parties, current, last, voting_end });
   }
 
   render() {
@@ -199,6 +205,8 @@ class App extends Component {
         />
 
         <Slogan />
+
+        <Timer party={this.state.current} voting_end={this.state.voting_end} />
 
         <Switch>
 
