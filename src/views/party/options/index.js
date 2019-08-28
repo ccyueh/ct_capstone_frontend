@@ -14,7 +14,7 @@ class PartyOptions extends Component {
     }
   }
 
-  setVotingend = () => {
+  setVotingEnd = () => {
     this.setState({ 'voting': true });
   }
 
@@ -179,21 +179,8 @@ class PartyOptions extends Component {
             </button>
           </Link>
         }
-        { !this.state.voting &&
-          <Link to={{
-            pathname: "../party/terms",
-            state: {
-              token: token,
-              party: party
-            }
-          }}>
-            <button className="btn btn-danger btn-wide">
-              Customize Tasting Terms
-            </button>
-          </Link>
-        }
         { !this.state.voting && this.state.start < new Date() &&
-          <button className="btn btn-danger btn-wide" onClick={() => this.setVotingend()}>
+          <button className="btn btn-danger btn-wide" onClick={() => this.setVotingEnd()}>
               Start Voting
           </button>
         }
@@ -214,7 +201,7 @@ class PartyOptions extends Component {
         { this.state.voting && this.state.voting_end > new Date() && !this.state.reveal &&
           <p className="text-center mt-5">The party is underway!</p>
         }
-        { !this.state.reveal && this.state.voting_end < new Date() && 
+        { !this.state.reveal && this.state.voting_end < new Date() &&
           <button className="btn btn-danger btn-wide" onClick={() => this.setReveal(party.party_id)}>
               Reveal Bottles
           </button>

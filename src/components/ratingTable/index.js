@@ -6,7 +6,6 @@ function RatingTable(props) {
   return (
     <div>
     <p>Rating: {r.stars}</p>
-    <p>Characteristics: {r.characteristics.join(', ')}</p>
     <p>Tasting Notes: {r.description}</p>
     </div>
   );

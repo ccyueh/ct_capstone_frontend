@@ -87,7 +87,6 @@ class BottleButton extends Component {
             user_id: this.props.guest,
             bottle_num: this.props.num,
             rating: this.state.rating,
-            terms: this.props.terms
           }
         }}>
         <h1 className={"bottle-num " + (this.state.rating.stars ? 'text-dark' : 'text-black')}>{this.props.num}</h1>

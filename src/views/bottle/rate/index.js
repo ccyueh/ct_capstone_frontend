@@ -17,11 +17,10 @@ class RateBottle extends Component {
     Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
     data_json['user_id'] = user_id;
     data_json['bottle_id'] = this.props.history.location.state.bottle.bottle_id;
-    data_json['terms'] = data_json['terms'].split(',');
     if (this.props.history.location.state.rating.rating_id) {
       data_json['rating_id'] = this.props.history.location.state.rating.rating_id;
     }
-    
+
     const URL = 'http://localhost:5000/api/ratings/save';
 
     let response = await fetch(URL, {
@@ -56,16 +55,9 @@ class RateBottle extends Component {
           </h1>
           </div>
           </div>
-          {/*Object.keys(this.props.history.location.state.rating).length > 0 &&
-            <div>
-            <RatingTable rating={this.props.history.location.state.rating} />
-            <h1>Edit Rating</h1>
-            </div>
-          */}
           <RatingForm
             rateBottle={this.rateBottle}
             rating={this.props.history.location.state.rating ? this.props.history.location.state.rating : {}}
-            terms={this.props.history.location.state.terms}
           />
           </Form>
         );
