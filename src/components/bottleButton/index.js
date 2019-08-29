@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
-import './index.css';
+import callAPI from '../../utils/api.js';
+import getID from '../../utils/getID.js';
 import ReactStars from 'react-stars';
 
 class BottleButton extends Component {
@@ -13,36 +14,32 @@ class BottleButton extends Component {
     }
   }
 
-  retrieveRating = async(e) => {
-    let URL = 'http://localhost:5000/api/ratings/retrieve?bottle_id=';
-    URL += this.props.bottle.bottle_id;
-    if (this.props.guest) {
-      URL += '&user_id=' + this.props.guest
+  retrieveRating = async(bottle_id, guest) => {
+    let response_json = {'bottle_id': bottle_id};
+    if (guest) {
+      response_json['user_id'] = guest;
     }
 
-    let response = await fetch(URL, {
-      'method': 'GET',
-      'headers': { 'Content-Type': 'application/json' }
-    })
+    let data = await callAPI(
+      'api/ratings/retrieve',
+      'GET',
+      response_json,
+      false
+    );
 
-    let data = await response.json();
-    if (data.success) {
-      if (data.rating) {
-        return data.rating;
-      } else if (data.star_ratings) {
-        let avg = data.star_ratings.reduce((a, b) => a + b)/data.star_ratings.length;
-        let rated = data.rated_by.length;
-        return {'avg': avg, 'rated': rated};
-      }
-    } else if (data.error) {
-      alert(`${data.error}`);
+    if (data.rating) {
+      return data.rating;
+    } else if (data.star_ratings) {
+      let avg = data.star_ratings.reduce((a, b) => a + b)/data.star_ratings.length;
+      let rated = data.rated_by.length;
+      return {'avg': avg, 'rated': rated};
     } else {
-      alert('Sorry, try again.');
+      return {};
     }
   }
 
   async componentDidMount() {
-    let rating = await this.retrieveRating();
+    let rating = await this.retrieveRating(this.props.guest);
     this.setState({ rating });
   }
 

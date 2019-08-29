@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './index.css';
 import { Link, withRouter } from 'react-router-dom';
+import SetVoteForm from '../../../components/setVoteForm';
+import callAPI from '../../../utils/api.js';
 
 class PartyOptions extends Component {
   constructor(props) {
@@ -30,7 +32,9 @@ class PartyOptions extends Component {
 
     let data_json = {};
 
-    Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
+    Object.values(e.target.elements).map(k =>
+      { if (k.name.length > 0) data_json[k.name] =  k.value }
+    );
     data_json['voting'] = true;
     let hours = data_json['hours'];
     let minutes = data_json['minutes'];
@@ -40,18 +44,14 @@ class PartyOptions extends Component {
     voting_end.setMinutes(voting_end.getMinutes() + total_minutes);
     data_json['voting_end'] = voting_end;
 
-    const URL = 'http://localhost:5000/api/parties/save';
-
-    let response = await fetch(URL, {
-      'method': 'POST',
-      'headers': { 'Content-Type': 'application/json' },
-      'body': JSON.stringify(data_json)
-    })
-
-    let data = await response.json();
+    let data = await callAPI(
+      'api/parties/save',
+      'POST',
+      false,
+      data_json
+    );
 
     if (data.success) {
-      alert(`${data.success}`);
       this.props.history.push({
         pathname: '../bottle/party',
         state: {
@@ -59,30 +59,20 @@ class PartyOptions extends Component {
           party: this.props.history.location.state.party,
         }
       });
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
     }
   }
 
   setReveal = async(party_id) => {
-    const URL = 'http://localhost:5000/api/parties/save';
-
-    let response = await fetch(URL, {
-      'method': 'POST',
-      'headers': { 'Content-Type': 'application/json' },
-      'body': JSON.stringify({
-        'party_id': party_id,
-        'voting': false,
+    let data = await callAPI(
+      'api/parties/save',
+      'POST',
+      false,
+      { 'party_id': party_id,
         'reveal': true
-      })
-    })
+      },
+    );
 
-    let data = await response.json();
-
-    if (data.success) {
-      alert(`${data.success}`);
+    if (data) {
       this.props.history.push({
         pathname: '../bottle/party',
         state: {
@@ -90,10 +80,6 @@ class PartyOptions extends Component {
           party: this.props.history.location.state.party,
         }
       });
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
     }
   }
 
@@ -102,64 +88,59 @@ class PartyOptions extends Component {
       return;
     }
 
-    let URL = 'http://localhost:5000/api/parties/delete?party_id=';
-    URL += party_id;
+    let data = await callAPI(
+      'api/parties/delete',
+      'DELETE',
+      {'party_id': party_id},
+      false
+    );
 
-    let response = await fetch(URL, {
-      'method': 'DELETE',
-      'headers': { 'Content-Type': 'application/json' }
-    })
-
-    let data = await response.json();
-
-    if (data.success) {
-      alert(`${data.success}`);
-      this.props.history.push('../parties/view');
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
+    if (data) {
+      this.props.history.push({
+        pathname: '../party/view',
+        state: {
+          token: this.props.history.location.state.token
+        }
+      });
     }
   }
 
   retrieveStatus = async(party_id) => {
-    let URL = 'http://localhost:5000/api/parties/retrieve?party_id=';
-    URL += party_id;
+    let data = await callAPI(
+      'api/parties/retrieve',
+      'GET',
+      {'party_id': party_id},
+      false
+    );
 
-    let response = await fetch(URL, {
-      'method': 'GET',
-      'headers': { 'Content-Type': 'application/json' }
-    })
-
-    let data = await response.json();
-    if (data.success) {
+    if (data) {
       if (data.parties.length > 0) {
-        return data.parties;
-      } else {
-        return {};
+        return data.parties[0];
       }
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
     }
   }
 
+  // not sure this is necessary since party should contain all info
   async componentDidMount() {
     if (this.props.history.location.state.party) {
       let party = await this.retrieveStatus(this.props.history.location.state.party.party_id);
-      party = party[0];
-      this.setState({ 'start': new Date(party.start), 'voting': party.voting, 'reveal': party.reveal, 'voting_end': new Date(party.voting_end) });
+      if (party) {
+        this.setState({
+          'start': new Date(party.start),
+          'voting': party.voting,
+          'reveal': party.reveal,
+          'voting_end': new Date(party.voting_end)
+        });
+      }
     }
   }
 
   render() {
     let token = this.props.history.location.state.token;
     let party = this.props.history.location.state.party;
-    console.log(this.state);
     return (
       <div className="container">
-        <h1 className={"" + (this.state.voting ? "d-none" : "")}>Options</h1>
+        <h1 className={"" + (this.state.voting || this.state.reveal ? "d-none" : "")}>Options</h1>
         { !this.state.voting && this.state.voting_end > new Date() &&
           <Link to={{
             pathname: "../party/create",
@@ -192,18 +173,7 @@ class PartyOptions extends Component {
           </button>
         }
         {  this.state.set_vote &&
-          <form onSubmit={this.startVoting}>
-            <div className="voting-end">
-              <label>Hours</label>
-              <input type="number" className="form-control" name="hours" />
-              <label>Minutes</label>
-              <input type="number" className="form-control" name="minutes" />
-              <input readOnly type="number" name="party_id" value={party.party_id} className="d-none" />
-              <button type="submit" className="btn btn-danger">
-                Set Voting Period
-              </button>
-            </div>
-          </form>
+          <SetVoteForm startVoting={this.startVoting} party_id={party.party_id} />
         }
         { this.state.voting && this.state.voting_end > new Date() && !this.state.reveal &&
           <p className="text-center mt-5">The party is underway!</p>

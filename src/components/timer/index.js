@@ -21,10 +21,9 @@ class Timer extends Component {
     if (data.success) {
       alert('Voting has ended!');
       this.props.history.push({
-        pathname: '../bottle/party',
+        pathname: '../',
         state: {
-          token: this.props.history.location.state.token,
-          party: this.props.history.location.state.party,
+          token: this.props.token
         }
       });
     } else if (data.error) {

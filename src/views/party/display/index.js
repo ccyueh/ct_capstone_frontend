@@ -25,7 +25,7 @@ function DisplayParty(props) {
   parties = sortParty(filterParty(parties, props.past));
 
   return (
-    <div>
+    <div className="container">
       {parties.length == 0 &&
         <div id="no-parties">
           <p className="text-secondary">No parties found.</p>

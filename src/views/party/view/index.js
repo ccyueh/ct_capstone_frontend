@@ -1,19 +1,41 @@
 import React, { Component } from 'react';
 import './index.css';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import DisplayParty from '../display';
+import callAPI from '../../../utils/api.js';
+import getID from '../../../utils/getID.js';
 
 class ViewParty extends Component {
   constructor() {
     super();
 
     this.state = {
-      past: false,
+      parties: [],
+      past: false
     }
   }
 
   selectTime = value => {
     this.setState({ 'past': value });
+  }
+
+  async componentDidMount() {
+    let host = await callAPI(
+      'api/parties/retrieve',
+      'GET',
+      {'host_id': getID(this.props.token)},
+      false
+    );
+
+    let guest = await callAPI(
+      'api/parties/retrieve',
+      'GET',
+      {'user_id': getID(this.props.token)},
+      false
+    );
+    
+    let parties = host.parties.concat(guest.parties);
+    this.setState({ parties });
   }
 
   render() {
@@ -33,11 +55,11 @@ class ViewParty extends Component {
             </div>
           </div>
           <div className="container">
-            <DisplayParty token={this.props.token} past={this.state.past} parties={this.props.parties} />
+            <DisplayParty token={this.props.token} past={this.state.past} parties={this.state.parties} />
           </div>
         </div>
     );
   }
 }
 
-export default ViewParty;
+export default withRouter(ViewParty);

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './index.css';
 import { withRouter } from 'react-router-dom';
 import BottleButton from '../../../components/bottleButton';
+import callAPI from '../../../utils/api.js';
+import getID from '../../../utils/getID.js';
 
 class VoteBottle extends Component {
   constructor(props) {
@@ -14,21 +16,17 @@ class VoteBottle extends Component {
   }
 
   retrieveBottle = async(party_id) => {
-    let URL = 'http://localhost:5000/api/bottles/retrieve?party_id=';
-    URL += party_id;
+    let data = await callAPI(
+      'api/bottles/retrieve',
+      'GET',
+      {'party_id': party_id},
+      false
+    );
 
-    let response = await fetch(URL, {
-      'method': 'GET',
-      'headers': { 'Content-Type': 'application/json' }
-    })
-
-    let data = await response.json();
-    if (data.success) {
+    if (data) {
       return data.bottles;
-    } else if (data.error) {
-      return [];
     } else {
-      alert('Sorry, try again.');
+      return [];
     }
   }
 
@@ -41,11 +39,10 @@ class VoteBottle extends Component {
   async componentDidMount() {
     let params = this.props.history.location.state;
     if (params.party) {
-      let token = params.token;
-      let user_id = JSON.parse(atob(token.split('.')[1])).user_id;
+      let user_id = getID(params.token);
       let party_id = params.party.party_id;
-      let bottles = await this.retrieveBottle(party_id);
       let guest = (user_id != params.party.host_id ? user_id : false);
+      let bottles = await this.retrieveBottle(party_id);
 
       this.setState({
         'guest': guest,
@@ -55,7 +52,6 @@ class VoteBottle extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="row">
         {this.state.bottles.map(bottle =>

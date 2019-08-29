@@ -206,7 +206,7 @@ class App extends Component {
           handleLogout={this.handleLogout}
         />
 
-        <Slogan />
+        <Slogan token={this.state.token} />
 
         <Timer party={this.state.current} voting_end={this.state.voting_end} />
 

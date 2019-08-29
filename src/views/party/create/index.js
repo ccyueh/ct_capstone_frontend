@@ -3,12 +3,15 @@ import './index.css';
 import { withRouter } from 'react-router-dom';
 import Form from '../../../components/form';
 import CreatePartyForm from '../../../components/createPartyForm';
+import callAPI from '../../../utils/api.js';
+import getID from '../../../utils/getID.js';
 
 class CreateParty extends Component {
   constructor(props) {
     super();
 
     this.state = {
+      token: props.token,
       party: {}
     }
   }
@@ -16,42 +19,37 @@ class CreateParty extends Component {
   createParty = async(e) => {
     e.preventDefault();
 
-    let token = this.props.token;
-    let host_id = JSON.parse(atob(token.split('.')[1])).user_id;
     let data_json = {};
-
     Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
-    data_json['host_id'] = host_id;
+    data_json['host_id'] = getID(this.props.token);
 
-    const URL = 'http://localhost:5000/api/parties/save';
+    let data = await callAPI(
+      'api/parties/save',
+      'POST',
+      false,
+      data_json
+    );
 
-    let response = await fetch(URL, {
-      'method': 'POST',
-      'headers': { 'Content-Type': 'application/json' },
-      'body': JSON.stringify(data_json)
-    })
-
-    let data = await response.json();
-
-    if (data.success) {
-      alert(`${data.success}`);
-      this.props.history.push('../party/view');
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
+    if (data) {
+      this.props.history.push({
+        pathname: '../party/view',
+        state: {
+          token: this.state.token
+        }
+      });
     }
   }
 
   componentDidMount() {
     if (this.props.history.location.state) {
       let party = this.props.history.location.state.party;
-      this.setState({ party });
+      let token = this.props.history.location.state.token;
+      this.setState({ token, party });
     }
   }
 
   render() {
-    if (this.props.history.location.state || this.props.token) {
+    if (this.props.token || this.props.history.location.state) {
       return (
         <Form title="Party Details">
           <CreatePartyForm createParty={this.createParty} party={this.state.party} />
