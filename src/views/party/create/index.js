@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import { withRouter } from 'react-router-dom';
-import Form from '../../../components/form';
+import Format from '../../../components/format';
 import CreatePartyForm from '../../../components/createPartyForm';
 import callAPI from '../../../utils/api.js';
 import getID from '../../../utils/getID.js';
@@ -51,9 +51,9 @@ class CreateParty extends Component {
   render() {
     if (this.props.token || this.props.history.location.state) {
       return (
-        <Form title="Party Details">
+        <Format title="Party Details">
           <CreatePartyForm createParty={this.createParty} party={this.state.party} />
-        </Form>
+        </Format>
       );
     } else {
         return (

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './index.css';
 
-function Form(props) {
+function Format(props) {
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-6">
           {props.title &&
-            <h2>{props.title}</h2>
+            <h2 className="mt-2 mb-4">{props.title}</h2>
           }
           {props.children}
         </div>
@@ -17,4 +17,4 @@ function Form(props) {
 }
 
 
-export default Form;
+export default Format;

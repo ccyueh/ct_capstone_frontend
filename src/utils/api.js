@@ -13,8 +13,7 @@ export default async function callAPI(url, method, url_params, body) {
   if (body) {
     response_json['body'] = JSON.stringify(body);
   }
-  console.log(URL);
-  console.log(response_json);
+
   let response = await fetch(URL, response_json);
   let data = await response.json();
   if (data.success) {

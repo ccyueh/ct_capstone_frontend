@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import { withRouter } from 'react-router-dom';
-import Form from '../../../components/form';
+import Format from '../../../components/format';
 import RatingForm from '../../../components/ratingForm';
 import RatingTable from '../../../components/ratingTable';
 import BottleTable from '../../../components/bottleTable';
@@ -42,7 +42,7 @@ class RateBottle extends Component {
     if (this.props.token) {
       if (this.props.history.location.state.user_id) {
         return (
-          <Form title={false}>
+          <Format title={false}>
           <div className="bottle-placeholder">
           <div className="bottle-placeholder-text">
           <h5 className="text-white">Bottle</h5>
@@ -55,14 +55,14 @@ class RateBottle extends Component {
             rateBottle={this.rateBottle}
             rating={this.props.history.location.state.rating ? this.props.history.location.state.rating : {}}
           />
-          </Form>
+          </Format>
         );
       }
     else {
       return(
-        <Form title={false}>
+        <Format title={false}>
         <BottleTable bottle={this.props.history.location.state.bottle} />
-        </Form>
+        </Format>
       );
     }
     } else {

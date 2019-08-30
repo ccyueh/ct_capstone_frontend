@@ -80,6 +80,7 @@ class Timer extends Component {
         let voting_end = current[0].voting_end;
 
         this.setState({ party_id, voting_end });
+        //window.location.reload();
         //this.forceUpdate();
       }
     }

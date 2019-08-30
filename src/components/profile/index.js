@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
-import Form from '../form';
+import Format from '../format';
 import { withRouter } from 'react-router-dom';
 import SECRET_KEY from '../../config.js';
 
@@ -69,7 +69,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <Form title="Profile">
+      <Format title="Profile">
       <form onSubmit={this.editProfile}>
         <div className="form-group">
           <label>First Name</label>
@@ -83,7 +83,7 @@ class Profile extends Component {
         </div>
         <input type="submit" className="btn btn-danger" value="Update Profile" />
       </form>
-      </Form>
+      </Format>
     );
   }
 }

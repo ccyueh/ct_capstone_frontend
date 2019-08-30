@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Switch, Route, withRouter } from 'react-router-dom';
 
-import Form from './components/form';
+import Format from './components/format';
 import Header from './components/header';
 import Slogan from './components/slogan';
 import Footer from './components/footer';
@@ -151,18 +151,18 @@ class App extends Component {
           <Route
             exact path='/login'
             render={() =>
-              <Form title="Login">
+              <Format title="Login">
                 <LoginForm handleLogin={this.handleLogin} />
-              </Form>
+              </Format>
             }
           />
 
           <Route
             exact path='/register'
             render={() =>
-              <Form title="Register">
+              <Format title="Register">
                 <RegisterForm handleRegister={this.handleRegister} />
-              </Form>
+              </Format>
             }
           />
 
@@ -214,7 +214,7 @@ class App extends Component {
           <Route
             exact path='/profile/pic'
             render={() =>
-              <UploadForm img_type="profile" id={this.state.user_id} />}
+              <UploadForm img_type="Profile" id={this.state.user_id} />}
           />
 
         </Switch>

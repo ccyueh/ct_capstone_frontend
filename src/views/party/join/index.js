@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import { withRouter } from 'react-router-dom';
-import Form from '../../../components/form';
+import Format from '../../../components/format';
 import JoinPartyForm from '../../../components/joinPartyForm';
 
 class JoinParty extends Component {
@@ -38,9 +38,9 @@ class JoinParty extends Component {
   render() {
     if (this.props.token) {
       return (
-        <Form title="Accept an Invite">
+        <Format title="Accept an Invite">
           <JoinPartyForm joinParty={this.joinParty} />
-        </Form>
+        </Format>
       );
     } else {
       return (

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import { withRouter } from 'react-router-dom';
-import Form from '../../../components/form';
+import Format from '../../../components/format';
 import BottleForm from '../../../components/bottleForm';
 import callAPI from '../../../utils/api.js';
 import getID from '../../../utils/getID.js';
@@ -74,9 +74,9 @@ class AddBottle extends Component {
   render() {
     if (this.state.token) {
       return (
-        <Form title="">
+        <Format title="">
           <BottleForm addBottle={this.addBottle} bottle={this.state.bottle} />
-        </Form>
+        </Format>
       );
     } else {
         return (
