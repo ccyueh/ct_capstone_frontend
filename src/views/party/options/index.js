@@ -59,6 +59,7 @@ class PartyOptions extends Component {
           party: this.props.history.location.state.party,
         }
       });
+      window.location.reload();
     }
   }
 

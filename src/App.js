@@ -128,12 +128,20 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let user_id = getID(localStorage.getItem('token'));
-    this.setState({ user_id });
+    if (this.state.token) {
+      let user_id = getID(localStorage.getItem('token'));
+      this.setState({ user_id });
+    }
+  }
+
+  componentWillMount() {
+    let token = localStorage.getItem('token');
+    if (token) {
+      this.setState({ token });
+    }
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="App">
 
