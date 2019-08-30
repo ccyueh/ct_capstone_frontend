@@ -25,8 +25,7 @@ class Footer extends Component {
             to={{
               pathname: "../bottle/party",
               state: {
-                token: this.props.token,
-                party: this.props.current
+                token: this.props.token
               }
             }}>
           <div>
@@ -49,8 +48,7 @@ class Footer extends Component {
             to={{
               pathname: "../bottle/party",
               state: {
-                token: this.props.token,
-                party: this.props.last
+                token: this.props.token
               }
             }}>
           <div>

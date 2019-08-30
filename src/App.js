@@ -30,12 +30,7 @@ class App extends Component {
     super();
 
     this.state = {
-      logged_in: false,
       token: '',
-      parties: [],
-      current: '',
-      last: '',
-      voting_end: 0
     }
   }
 
@@ -109,7 +104,6 @@ class App extends Component {
 
     if (data.success) {
       this.setState({
-        'logged_in': true,
         'token': data.token
       });
 
@@ -129,75 +123,8 @@ class App extends Component {
     this.props.history.push('/login');
   }
 
-  retrieveParty = async(id, host) => {
-    let URL = 'http://localhost:5000/api/parties/retrieve?';
-
-    if (host) {
-      URL += 'host_id=' + id;
-    } else {
-      URL += 'user_id=' + id;
-    }
-
-    let response = await fetch(URL, {
-      'method': 'GET',
-      'headers': { 'Content-Type': 'application/json' }
-    })
-
-    let data = await response.json();
-    if (data.success) {
-      return data.parties;
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
-    }
-  }
-
-  allParties = async(user_id) => {
-    let host = await this.retrieveParty(user_id, true);
-    let guest = await this.retrieveParty(user_id, false);
-    let parties = host.concat(guest);
-    return parties;
-  }
-
-  currentParty = async(parties) => {
-    let current = parties.filter(party => party.voting == true);
-    if (current.length > 0) {
-      return current[0];
-    } else {
-      return false;
-    }
-  }
-
-  lastParty = async(parties) => {
-    let revealed = parties.filter(party => party.reveal == true);
-    if (revealed.length > 0) {
-      revealed.sort(function(a,b) {
-        return new Date(b.start) - new Date(a.start);
-      });
-      return revealed[0];
-    } else {
-      return false;
-    }
-  }
-
-  async componentDidMount() {
-    let token = localStorage.getItem('token');
-    //if (token && this.state.logged_in) {
-      let user_id = JSON.parse(atob(token.split('.')[1])).user_id;
-      let parties = await this.allParties(user_id);
-      let current = await this.currentParty(parties);
-      let last = await this.lastParty(parties);
-      let voting_end = 0;
-      if (current) {
-        voting_end = current.voting_end;
-      }
-
-      this.setState({ token, parties, current, last, voting_end });
-    //}
-  }
-
   render() {
+    console.log(this.state);
     return (
       <div className="App">
 
@@ -208,7 +135,7 @@ class App extends Component {
 
         <Slogan token={this.state.token} />
 
-        <Timer party={this.state.current} voting_end={this.state.voting_end} />
+        <Timer token={this.state.token} />
 
         <Switch>
 
@@ -243,7 +170,7 @@ class App extends Component {
           <Route
             exact path='/party/view'
             render={() =>
-              <ViewParty token={this.state.token} parties={this.state.parties} />}
+              <ViewParty token={this.state.token} />}
           />
           <Route
             exact path='/party/options'
@@ -278,7 +205,7 @@ class App extends Component {
 
         </Switch>
 
-        <Footer  token={this.state.token} current={this.state.current} last={this.state.last} />
+        <Footer token={this.state.token} />
       </div>
     );
   }
