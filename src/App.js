@@ -7,6 +7,7 @@ import Header from './components/header';
 import Slogan from './components/slogan';
 import Footer from './components/footer';
 import Timer from './components/timer';
+import UploadForm from './components/uploadForm';
 
 import CreateParty from './views/party/create';
 import JoinParty from './views/party/join';
@@ -23,6 +24,8 @@ import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
 import SECRET_KEY from './config.js';
 
+import getID from './utils/getID.js';
+
 let jwt = require('jsonwebtoken');
 
 class App extends Component {
@@ -31,6 +34,7 @@ class App extends Component {
 
     this.state = {
       token: '',
+      user_id: ''
     }
   }
 
@@ -123,6 +127,11 @@ class App extends Component {
     this.props.history.push('/login');
   }
 
+  componentDidMount() {
+    let user_id = getID(localStorage.getItem('token'));
+    this.setState({ user_id });
+  }
+
   render() {
     console.log(this.state);
     return (
@@ -201,6 +210,11 @@ class App extends Component {
             exact path='/profile/edit'
             render={() =>
               <Profile />}
+          />
+          <Route
+            exact path='/profile/pic'
+            render={() =>
+              <UploadForm img_type="profile" id={this.state.user_id} />}
           />
 
         </Switch>
