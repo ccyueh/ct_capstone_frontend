@@ -1,13 +1,34 @@
 import React, { Component } from 'react';
 import './index.css';
 import { withRouter, Link } from 'react-router-dom';
+import callAPI from '../../utils/api.js';
+import getID from '../../utils/getID.js';
 
 class PartyCard extends Component {
   constructor() {
     super();
 
     this.state = {
+      user_id: '',
       guest: '',
+      bottle: {}
+    }
+  }
+
+  retrieveBottle = async(user_id, party_id) => {
+    let data = await callAPI(
+      'api/bottles/retrieve',
+      'GET',
+      {'user_id': user_id, 'party_id': party_id},
+      false
+    );
+
+    if (data) {
+      if (data.bottles.length > 0 ){
+        return data.bottles[0];
+      } else {
+        return {};
+      }
     }
   }
 
@@ -24,58 +45,58 @@ class PartyCard extends Component {
     return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true});
   }
 
-  componentDidMount() {
-    let token = this.props.token;
-    let user_id = JSON.parse(atob(token.split('.')[1])).user_id;
+  async componentDidMount() {
+    let user_id = getID(this.props.token);
     let guest = (user_id != this.props.party.host_id ? user_id : false);
+    let bottle = await this.retrieveBottle(user_id, this.props.party.party_id);
 
-    this.setState({ guest });
+    this.setState({ user_id, guest, bottle });
   }
 
   render() {
-    let p = this.props.party;
+    let party = this.props.party;
     return (
       <div className={"card" + (!this.state.guest ? " host-card" : "")}>
         <div className="card-body">
-          <h3 className="card-title">{p.party_name}</h3>
-          <h5 className="card-subtitle text-muted">{p.location}</h5>
-          <h6 className="card-text">{this.toDate(p.start)}</h6>
-          <h6 className="card-text">{this.toTime(p.start)} - {this.toTime(p.end)}</h6>
+          <h3 className="card-title">{party.party_name}</h3>
+          <h5 className="card-subtitle text-muted">{party.location}</h5>
+          <h6 className="card-text">{this.toDate(party.start)}</h6>
+          <h6 className="card-text">{this.toTime(party.start)} - {this.toTime(party.end)}</h6>
 
           { this.props.past &&
             <Link to={{
-              pathname: "../bottle/party",
-              state: {
-                token: this.props.token,
-                party_id: this.props.party.party_id
-              }
+              pathname: "../bottle/result",
+              state: { party: party }
             }}>
               <button className="btn btn-danger">
                 View Results
               </button>
             </Link>
           }
-
-          { this.state.guest &&
+          { this.state.guest && !this.props.past &&
             <Link to={{
-              pathname: "../bottle/add",
-              state: {
-                token: this.props.token,
-                party_id: this.props.party.party_id
-              }
+              pathname: "../party/invite",
+              state: { party_id: party.party_id }
             }}>
               <button className="btn btn-danger">
-                  Add/Edit Bottle
+                View Invitation
+              </button>
+            </Link>
+          }
+          { this.state.guest && !this.props.past &&
+            <Link to={{
+              pathname: "../bottle/add",
+              state: { party_id: party.party_id }
+            }}>
+              <button className="btn btn-danger">
+                { Object.keys(this.state.bottle).length > 0 ? "Edit" : "Add" } Bottle
               </button>
             </Link>
           }
           { !this.state.guest && !this.props.past &&
             <Link to={{
               pathname: "../party/options",
-              state: {
-                token: this.props.token,
-                party: this.props.party
-              }
+              state: { party: party }
             }}>
               <button className="btn btn-danger">
                   Options

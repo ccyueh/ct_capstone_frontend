@@ -36,11 +36,9 @@ class BottleForm extends Component {
           <input type="text" className="form-control" name="bottle_name" defaultValue={this.state.bottle_name} />
           <label>Vintage</label>
           <input type="number" className="form-control" name="vintage" defaultValue={this.state.vintage} />
-          <label>Label Image</label>
-          <input type="text" className="form-control" name="label_img" defaultValue={this.state.label_img} />
         </div>
         <button type="submit" className="btn btn-danger">
-          {this.state.label_img ? "Edit" : "Add" } Bottle
+          {this.state.label_img ? "Edit" : "Add" } Details
         </button>
       </form>
     );

@@ -17,14 +17,13 @@ import PartyOptions from './views/party/options';
 import AddBottle from './views/bottle/add';
 import VoteBottle from './views/bottle/vote';
 import RateBottle from './views/bottle/rate';
+import ResultBottle from './views/bottle/result';
 
 import ProfileTable from './components/profileTable';
 import Profile from './components/profile';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
 import SECRET_KEY from './config.js';
-
-import getID from './utils/getID.js';
 
 let jwt = require('jsonwebtoken');
 
@@ -33,8 +32,7 @@ class App extends Component {
     super();
 
     this.state = {
-      token: '',
-      user_id: ''
+      token: ''
     }
   }
 
@@ -127,13 +125,6 @@ class App extends Component {
     this.props.history.push('/login');
   }
 
-  componentDidMount() {
-    if (this.state.token) {
-      let user_id = getID(localStorage.getItem('token'));
-      this.setState({ user_id });
-    }
-  }
-
   componentWillMount() {
     let token = localStorage.getItem('token');
     if (token) {
@@ -205,6 +196,11 @@ class App extends Component {
               <VoteBottle token={this.state.token} />}
           />
           <Route
+            exact path='/bottle/result'
+            render={() =>
+              <ResultBottle token={this.state.token} />}
+          />
+          <Route
             exact path='/bottle/rate'
             render={() =>
               <RateBottle token={this.state.token} />}
@@ -218,11 +214,6 @@ class App extends Component {
             exact path='/profile/edit'
             render={() =>
               <Profile />}
-          />
-          <Route
-            exact path='/profile/pic'
-            render={() =>
-              <UploadForm img_type="Profile" id={this.state.user_id} />}
           />
 
         </Switch>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import { withRouter } from 'react-router-dom';
+import Format from '../../../components/format';
 import BottleButton from '../../../components/bottleButton';
 import callAPI from '../../../utils/api.js';
 import getID from '../../../utils/getID.js';
@@ -10,6 +11,7 @@ class VoteBottle extends Component {
     super();
 
     this.state = {
+      voting: false,
       guest: '',
       bottles: [],
     }
@@ -36,17 +38,6 @@ class VoteBottle extends Component {
     return num;
   }
 
-  timeDiff = (voting_end, diff) => {
-    let ms = (new Date()).getTime() - (new Date(voting_end)).getTime();
-    let hours = ms / 3600000;
-    if (hours < diff) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-
   async componentDidMount() {
     let user_id = getID(this.props.token);
     let host = await callAPI(
@@ -65,40 +56,55 @@ class VoteBottle extends Component {
 
     let parties = host.parties.concat(guest.parties);
     let current = parties.filter(party => party.voting == true);
-    let last = parties.filter(party => party.reveal == true && this.timeDiff(party.voting_end, 24));
+    let party = current.length > 0 ? current[0] : false;
 
-    if (current.length == 1) {
-      let party_id = current[0].party_id;
-      let host_id = current[0].host_id;
+    if (party) {
+      if (Object.keys(party).length > 0) {
+        let party_id = party.party_id;
+        let host_id = party.host_id;
+        let guest = (user_id != host_id ? user_id : false);
+        let voting = party.voting;
+        let bottles = await this.retrieveBottle(party_id);
 
-      let guest = (user_id != host_id ? user_id : false);
-      let bottles = await this.retrieveBottle(party_id);
-
-      this.setState({ guest, bottles });
-    } else if (last.length == 1) {
-      let party_id = last[0].party_id;
-      let host_id = last[0].host_id;
-
-      let guest = (user_id != host_id ? user_id : false);
-      let bottles = await this.retrieveBottle(party_id);
-
-      this.setState({ guest, bottles });
+        this.setState({ voting, guest, bottles });
+      }
     }
   }
 
   render() {
-    if (this.state.bottles.length == 0 ) return <p>No bottles</p>
+    if (!this.state.voting) {
+      return (
+        <Format title="">
+          <p className="mt-5">
+            Voting is not active for any of your parties. Check back when the countdown clock appears!
+          </p>
+        </Format>
+      );
+    }
+
+    if (this.state.bottles.length == 0 ) {
+      return (
+        <Format title="">
+          <p className="mt-5">
+            No bottles found for this party.
+          </p>
+        </Format>
+      );
+    }
+
     return (
-      <div className="row">
-        {this.state.bottles.map(bottle =>
-          <BottleButton
-            key={bottle.bottle_id}
-            bottle={bottle}
-            num={this.bottleNum(bottle)}
-            guest={this.state.guest}
-            />
-        )}
-      </div>
+      <Format title="">
+        <div className="row">
+          {this.state.bottles.map(bottle =>
+            <BottleButton
+              key={bottle.bottle_id}
+              bottle={bottle}
+              num={this.bottleNum(bottle)}
+              guest={this.state.guest}
+              />
+          )}
+        </div>
+      </Format>
     );
   }
 }

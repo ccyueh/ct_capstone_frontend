@@ -28,12 +28,7 @@ class Timer extends Component {
 
     if (data) {
       alert('Voting has ended!')
-      this.props.history.push({
-        pathname: '../bottle/party',
-        state: {
-          token: this.props.token
-        }
-      });
+      this.props.history.push('../');
     }
   }
 

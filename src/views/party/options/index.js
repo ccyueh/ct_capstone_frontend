@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import { Link, withRouter } from 'react-router-dom';
+import Format from '../../../components/format';
 import SetVoteForm from '../../../components/setVoteForm';
 import callAPI from '../../../utils/api.js';
 
@@ -9,16 +10,12 @@ class PartyOptions extends Component {
     super();
 
     this.state = {
-      start: '',
-      voting: '',
-      reveal: '',
-      voting_end: '',
       set_vote: false
     }
   }
 
-  setVotingEnd = () => {
-    if (this.state.start > new Date()) {
+  setVotingEnd = (start) => {
+    if (start > new Date()) {
       if (!window.confirm('Are you sure you want to allow voting?')) {
         return;
       }
@@ -52,18 +49,12 @@ class PartyOptions extends Component {
     );
 
     if (data.success) {
-      this.props.history.push({
-        pathname: '../bottle/party',
-        state: {
-          token: this.props.history.location.state.token,
-          party: this.props.history.location.state.party,
-        }
-      });
+      this.props.history.push('../bottle/party');
       window.location.reload();
     }
   }
 
-  setReveal = async(party_id) => {
+  setReveal = async(party, party_id) => {
     let data = await callAPI(
       'api/parties/save',
       'POST',
@@ -74,12 +65,10 @@ class PartyOptions extends Component {
     );
 
     if (data) {
+      party['reveal'] = true;
       this.props.history.push({
-        pathname: '../bottle/party',
-        state: {
-          token: this.props.history.location.state.token,
-          party: this.props.history.location.state.party,
-        }
+        pathname: '../bottle/result',
+        state: { party: party }
       });
     }
   }
@@ -97,99 +86,82 @@ class PartyOptions extends Component {
     );
 
     if (data) {
-      this.props.history.push({
-        pathname: '../party/view',
-        state: {
-          token: this.props.history.location.state.token
-        }
-      });
-    }
-  }
-
-  retrieveStatus = async(party_id) => {
-    let data = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'party_id': party_id},
-      false
-    );
-
-    if (data) {
-      if (data.parties.length > 0) {
-        return data.parties[0];
-      }
-    }
-  }
-
-  // not sure this is necessary since party should contain all info
-  async componentDidMount() {
-    if (this.props.history.location.state.party) {
-      let party = await this.retrieveStatus(this.props.history.location.state.party.party_id);
-      if (party) {
-        this.setState({
-          'start': new Date(party.start),
-          'voting': party.voting,
-          'reveal': party.reveal,
-          'voting_end': new Date(party.voting_end)
-        });
-      }
+      this.props.history.push('../party/view');
     }
   }
 
   render() {
-    let token = this.props.history.location.state.token;
+    if (!this.props.history.location.state) {
+      this.props.history.push('../login');
+      window.location.reload();
+    }
+
     let party = this.props.history.location.state.party;
+    let start = new Date(party.start);
+    let voting_end = new Date(party.voting_end);
     return (
-      <div className="container">
-        <h1 className={"" + (this.state.voting || this.state.reveal ? "d-none" : "")}>Options</h1>
-        { !this.state.voting && this.state.voting_end > new Date() &&
+      <Format title={party.voting || party.reveal ? "" : "Options"}>
+        { !party.voting &&
+          voting_end > new Date() &&
           <Link to={{
             pathname: "../party/create",
-            state: {
-              token: token,
-              party: party
-            }
+            state: { party: party }
           }}>
-            <button className="btn btn-danger btn-wide mt-4">
+            <button className="btn btn-danger btn-wide">
                 Edit Party Details
             </button>
           </Link>
         }
-        { !this.state.voting && this.state.voting_end > new Date() &&
+        { !party.voting &&
+          voting_end > new Date() &&
           <Link to={{
             pathname: "../party/guests",
-            state: {
-              token: token,
-              party_id: party.party_id
-            }
+            state: { party_id: party.party_id }
           }}>
             <button className="btn btn-danger btn-wide">
-                Edit Guest List
+              Edit Guest List
             </button>
           </Link>
         }
-        { !this.state.voting && this.state.voting_end > new Date() &&
-          <button className="btn btn-danger btn-wide" onClick={() => this.setVotingEnd()}>
+        { !party.voting &&
+          voting_end > new Date() &&
+          <button
+            className="btn btn-danger btn-wide"
+            onClick={() => this.setVotingEnd(start)}
+          >
               Start Voting
           </button>
         }
         {  this.state.set_vote &&
-          <SetVoteForm startVoting={this.startVoting} party_id={party.party_id} />
+          <SetVoteForm
+            startVoting={this.startVoting}
+            party_id={party.party_id}
+          />
         }
-        { this.state.voting && this.state.voting_end > new Date() && !this.state.reveal &&
+        { party.voting &&
+          voting_end > new Date() &&
+          !party.reveal &&
           <p className="text-center mt-5">The party is underway!</p>
         }
-        { !this.state.reveal && this.state.voting_end < new Date() &&
-          <button className="btn btn-danger btn-wide" onClick={() => this.setReveal(party.party_id)}>
+        { !party.reveal &&
+          voting_end < new Date() &&
+          <button
+           className="btn btn-danger btn-wide"
+           onClick={() => this.setReveal(party, party.party_id)}
+          >
               Reveal Bottles
           </button>
         }
-        { !this.state.voting && this.state.voting_end > new Date() &&
-          <button className="btn btn-danger btn-wide" onClick={() => this.deleteParty(party.party_id)}>
+        { !party.voting &&
+          voting_end > new Date() &&
+          <button
+            className="btn btn-danger btn-wide"
+            onClick={() => this.deleteParty(party.party_id)}
+          >
               Cancel Party
           </button>
         }
-      </div>
+      </Format>
     );
   }
 }
