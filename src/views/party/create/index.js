@@ -11,7 +11,6 @@ class CreateParty extends Component {
     super();
 
     this.state = {
-      token: props.token,
       party: {}
     }
   }
@@ -31,35 +30,23 @@ class CreateParty extends Component {
     );
 
     if (data) {
-      this.props.history.push({
-        pathname: '../party/view',
-        state: {
-          token: this.state.token
-        }
-      });
+      this.props.history.push('../party/view');
     }
   }
 
   componentDidMount() {
     if (this.props.history.location.state) {
       let party = this.props.history.location.state.party;
-      let token = this.props.history.location.state.token;
-      this.setState({ token, party });
+      this.setState({ party });
     }
   }
 
   render() {
-    if (this.props.token || this.props.history.location.state) {
-      return (
-        <Format title="Party Details">
-          <CreatePartyForm createParty={this.createParty} party={this.state.party} />
-        </Format>
-      );
-    } else {
-        return (
-          <div>You must be logged in to view this page.</div>
-        );
-    }
+    return (
+      <Format title="Party Details">
+        <CreatePartyForm createParty={this.createParty} party={this.state.party} />
+      </Format>
+    );
   }
 }
 

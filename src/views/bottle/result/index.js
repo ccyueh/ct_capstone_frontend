@@ -61,14 +61,14 @@ class ResultBottle extends Component {
       })
     }
 
-    bottle_data.sort((a, b) => (a.star_rating > b.star_rating) ? 1 : -1);
+    bottle_data.sort((a, b) => (a.star_rating < b.star_rating) ? 1 : -1);
     return bottle_data;
   }
 
   async componentDidMount() {
     let user_id = getID(this.props.token);
     let party = this.props.history.location.state.party;
-    console.log(party);
+
     if (Object.keys(party).length > 0) {
       let party_id = party.party_id;
       let host_id = party.host_id;
@@ -82,7 +82,6 @@ class ResultBottle extends Component {
   }
 
   render() {
-    console.log(this.state);
     if (!this.state.reveal) {
       return (
         <Format title="">
@@ -108,11 +107,12 @@ class ResultBottle extends Component {
         <div className="row">
           {this.state.bottles.map((bottle, index) =>
             <BottleButton
-              className={index < 3 ? "enlarge" : ""}
               key={bottle.bottle.bottle_id}
               bottle={bottle.bottle}
               num={bottle.bottle_num}
               guest={this.state.guest}
+              voting={false}
+              button_size={index < 3 ? "enlarge" : ""}
               />
           )}
         </div>

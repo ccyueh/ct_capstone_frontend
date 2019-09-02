@@ -1,13 +1,13 @@
 .card {
-  border: 1px solid gray;
-  background-color: transparent;
+  border: 2px solid gray;
+  background-color: rgba(128, 128, 128, 0.15);
   border-radius: .25rem;
+  margin: 1em auto;
 }
 
 .host-card {
-  border: 1px solid white;
-  background-color: rgba(255, 255, 255, 0.07);
-  border-radius: .25rem;
+  border-color: maroon;
+  background-color: rgba(128, 0, 0, 0.15);
 }
 
 .card-body {

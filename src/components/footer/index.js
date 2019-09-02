@@ -20,8 +20,8 @@ class Footer extends Component {
   }
 
   timeDiff = (voting_end, diff) => {
-    let ms = (new Date()).getTime() - (new Date(voting_end)).getTime();
-    let hours = ms / 3600000;
+    let ms = (new Date()) - (new Date(voting_end));
+    let hours = Math.abs(ms / 3600000);
     if (hours < diff) {
       return true;
     } else {
@@ -47,7 +47,7 @@ class Footer extends Component {
 
     let parties = host.parties.concat(guest.parties);
     let current = parties.filter(party => party.voting == true);
-    let last = parties.filter(party => party.reveal == true && this.timeDiff(party.voting_end, 24));
+    let last = parties.filter(party => party.reveal == true && this.timeDiff(party.voting_end, 6));
 
     current = current.length > 0 ? current[0] : {};
     last = last.length > 0 ? last[0] : {};

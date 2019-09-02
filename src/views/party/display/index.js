@@ -7,9 +7,9 @@ function DisplayParty(props) {
   const filterParty = (parties, past) => {
     let now = new Date();
     if (past) {
-      parties = parties.filter(party => new Date(party.end) - now < 0);
+      parties = parties.filter(party => (new Date(party.end) - now < 0) || party.reveal);
     } else {
-      parties = parties.filter(party => new Date(party.start) - now > 0);
+      parties = parties.filter(party => (new Date(party.start) - now > 0) && !party.reveal);
     }
     return parties;
   }
@@ -34,7 +34,7 @@ function DisplayParty(props) {
         </div>
       }
       {parties.length > 0 &&
-        parties.map(party => <PartyCard key={party.party_id} party={party} past={props.past} token={props.token} />)
+        parties.map((party, index) => <PartyCard key={index} party={party} past={props.past} token={props.token} />)
       }
     </div>
   );

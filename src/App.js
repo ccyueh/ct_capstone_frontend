@@ -112,6 +112,7 @@ class App extends Component {
       // set token into local storage
       localStorage.setItem('token', data.token);
       this.props.history.push('/');
+      window.location.reload();
     } else if (data.error) {
       alert(`${data.error}`);
     } else {
@@ -123,6 +124,7 @@ class App extends Component {
     localStorage.setItem('token', '');
     this.setState({ 'token': '' });
     this.props.history.push('/login');
+    window.location.reload();
   }
 
   componentWillMount() {

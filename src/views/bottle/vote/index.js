@@ -101,6 +101,7 @@ class VoteBottle extends Component {
               bottle={bottle}
               num={this.bottleNum(bottle)}
               guest={this.state.guest}
+              voting={true}
               />
           )}
         </div>

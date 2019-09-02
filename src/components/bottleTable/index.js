@@ -1,14 +1,58 @@
 import React from 'react';
 import './index.css';
+import Format from '../format';
+import ReactStars from 'react-stars';
 
 function BottleTable(props) {
-  let b = props.bottle;
+  let bottle = props.bottle;
   return (
-    <div>
-    <p>Producer: {b.producer}</p>
-    <p>Name/Varietal: {b.bottle_name}</p>
-    <p>Vintage: {b.vintage}</p>
-    </div>
+    <Format title="">
+      <div className="img-container">
+        <img src={'http://localhost:5000/' + bottle.label_img} />
+      </div>
+      <div>
+        <p>
+          <span className="table-label">Producer:</span>
+          {bottle.producer ? bottle.producer : "N/A"}
+        </p>
+        <p>
+          <span className="table-label">Name/Varietal:</span>
+          {bottle.bottle_name > 0 ? bottle.bottle_name : "N/A"}
+        </p>
+        <p>
+          <span className="table-label">Vintage:</span>
+          {bottle.vintage > 0 ? bottle.vintage : "N/A"}
+        </p>
+        <p><span className="table-label">Average Rating:</span></p>
+        <div className="star-container">
+          <ReactStars
+            value={Number(props.avg_rating)}
+            color1="lightgray"
+            size={60}
+            edit={false}
+          />
+        </div>
+        { props.stars &&
+          <div>
+            <p><span className="table-label">Your Rating:</span></p>
+            <div className="star-container">
+              <ReactStars
+                value={Number(props.stars)}
+                color1="lightgray"
+                size={60}
+                edit={false}
+              />
+            </div>
+          </div>
+        }
+        { props.description &&
+          <div>
+            <p><span className="table-label">Your Tasting Notes:</span></p>
+            <p>{props.description}</p>
+          </div>
+        }
+      </div>
+    </Format>
   );
 }
 

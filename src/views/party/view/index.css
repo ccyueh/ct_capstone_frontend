@@ -3,3 +3,7 @@
   padding: .3em .6em;
   width: 30vw;
 }
+
+.btn-group {
+  max-width: 60%;
+}

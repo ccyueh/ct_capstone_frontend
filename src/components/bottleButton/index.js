@@ -10,7 +10,10 @@ class BottleButton extends Component {
     super();
 
     this.state = {
-      rating: {},
+      avg_rating: '',
+      rated_by: '',
+      stars: '',
+      description: ''
     }
   }
 
@@ -30,27 +33,43 @@ class BottleButton extends Component {
     if (data.rating) {
       return data.rating;
     } else if (data.star_ratings) {
-      let avg = data.star_ratings.reduce((a, b) => a + b)/data.star_ratings.length;
-      let rated = data.rated_by.length;
-      return {'avg': avg, 'rated': rated};
+      if (data.star_ratings.length > 0) {
+        let avg = data.star_ratings.reduce((a, b) => a + b)/data.star_ratings.length;
+        let rated = data.rated_by.length;
+        return {'avg': avg, 'rated': rated};
+      } else {
+        return {'avg': 0, 'rated': 0};
+      }
     } else {
       return {};
     }
   }
 
   async componentDidMount() {
-    let rating = await this.retrieveRating(this.props.guest);
-    this.setState({ rating });
+    let rating = await this.retrieveRating(this.props.bottle.bottle_id, false);
+    let avg_rating = rating.avg;
+    let rated_by = rating.rated;
+
+    let user_rating = await this.retrieveRating(this.props.bottle.bottle_id, this.props.guest);
+    let rating_id = user_rating.rating_id ? user_rating.rating_id : false;
+    let stars = user_rating.stars ? user_rating.stars : false;
+    let description = user_rating.description ? user_rating.description : false;
+
+    this.setState({ avg_rating, rated_by, stars, description, rating_id });
   }
 
   render() {
     return (
-      <div className={"square " + (this.state.rating.stars ? 'bg-secondary' : 'bg-white center-vertical')}>
-        {this.state.rating.stars &&
+      <div className={"square " +
+        (this.state.stars &&
+          this.props.voting ?
+          'bg-secondary ' : 'bg-white center-vertical ') + this.props.button_size}>
+        { this.state.stars &&
+          this.props.voting &&
           <div className="star-button">
             <ReactStars
               count={5}
-              value={Number(this.state.rating.stars)}
+              value={Number(this.state.stars)}
               color1="lightgray"
               color2="maroon"
               size={18}
@@ -59,11 +78,11 @@ class BottleButton extends Component {
             />
           </div>
         }
-        {this.state.rating.avg &&
+        { (!this.props.guest || !this.props.voting) &&
             <div className="star-button">
             <ReactStars
               count={5}
-              value={Number(this.state.rating.avg)}
+              value={Number(this.state.avg_rating)}
               color1="lightgray"
               color2="maroon"
               size={18}
@@ -72,21 +91,26 @@ class BottleButton extends Component {
             />
             </div>
         }
-        {this.state.rating.rated &&
-            <div className="rate-num">
-              {this.state.rating.rated}
-            </div>
+        <div className="rate-num">
+        { this.state.rated_by > 0 &&
+          !this.props.guest &&
+          this.state.rated_by
         }
+        </div>
         <Link to={{
           pathname: "../bottle/rate",
           state: {
             bottle: this.props.bottle,
             user_id: this.props.guest,
             bottle_num: this.props.num,
-            rating: this.state.rating,
+            avg_rating: this.state.avg_rating,
+            stars: this.state.stars,
+            description: this.state.description,
+            rating_id: this.state.rating_id,
+            voting: this.props.voting,
           }
         }}>
-        <h1 className={"bottle-num " + (this.state.rating.stars ? 'text-dark' : 'text-black')}>{this.props.num}</h1>
+        <h1 className={"bottle-num " + (this.state.stars ? 'text-dark' : 'text-black')}>{this.props.num}</h1>
         </Link>
       </div>
 

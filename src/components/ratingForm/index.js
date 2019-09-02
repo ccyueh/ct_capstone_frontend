@@ -17,12 +17,10 @@ class RatingForm extends Component {
   }
 
   async componentDidMount() {
-    let rating = this.props.rating;
-
-    if (rating.rating_id) {
+    if (this.props.stars) {
       this.setState({
-        'stars': rating.stars,
-        'description': rating.description,
+        'stars': this.props.stars,
+        'description': this.props.description,
       });
     }
   }
@@ -50,7 +48,7 @@ class RatingForm extends Component {
           <textarea className="form-control" name="description" value={this.state.description} onChange={this.updateDesc} />
         </div>
         <button type="submit" className="btn btn-danger">
-          {this.state.stars ? "Update" : "Submit" } Rating
+          {this.props.stars ? "Update" : "Submit" } Rating
         </button>
       </form>
     );
