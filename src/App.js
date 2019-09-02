@@ -72,7 +72,7 @@ class App extends Component {
 
       // setup message saying registered or error
       if (data.success) {
-        alert('You are now registered');
+        alert('You are now registered!');
         this.props.history.push('/login');
       } else {
         alert(data.error);

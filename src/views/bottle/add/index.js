@@ -39,12 +39,7 @@ class AddBottle extends Component {
     );
 
     if (data) {
-      this.props.history.push({
-        pathname: '../party/view',
-        state: {
-          token: this.state.token
-        }
-      });
+      this.props.history.push('../party/view');
     }
   }
 
@@ -74,35 +69,34 @@ class AddBottle extends Component {
   }
 
   render() {
-    let bottle = this.state.bottle;
-    if (this.state.token) {
-      return (
-        <Format title="">
-          { this.state.show_form ? <h2>Bottle Details</h2> : <h2>Upload Label image</h2>
-          }
-          { bottle.label_img &&
-            <div className="my-5">
-              <img className="mx-auto d-block" src={"http://localhost:5000/" + bottle.label_img} />
-            </div>
-          }
-          { !this.state.show_form &&
-            <UploadForm token={this.state.token} img_type="Bottle" party_id={this.state.party_id} />
-          }
-          { Object.keys(bottle).length > 0 && !this.state.show_form &&
-            <button className="btn btn-danger" onClick={() => this.setState({ 'show_form': true })}>
-              {bottle.vintage || bottle.bottle_name || bottle.producer ? "Edit" : "Add" } Bottle Details
-            </button>
-          }
-          { this.state.show_form &&
-            <BottleForm addBottle={this.addBottle} bottle={bottle} />
-          }
-        </Format>
-      );
-    } else {
-        return (
-          <div>You must be logged in to view this page.</div>
-        );
+    if (!this.state.party_id) {
+      this.props.history.push('/');
     }
+
+    let bottle = this.state.bottle;
+    return (
+      <Format title="">
+        { this.state.show_form ? <h2>Bottle Details</h2> : <h2>Upload Label image</h2>
+        }
+        { bottle.label_img &&
+          <div className="my-5">
+            <img className="mx-auto d-block" src={"http://localhost:5000/" + bottle.label_img} />
+          </div>
+        }
+        { !this.state.show_form &&
+          <UploadForm token={this.state.token} img_type="Bottle" party_id={this.state.party_id} />
+        }
+        { Object.keys(bottle).length > 0 &&
+          !this.state.show_form &&
+          <button className="btn btn-danger" onClick={() => this.setState({ 'show_form': true })}>
+            {bottle.vintage || bottle.bottle_name || bottle.producer ? "Edit" : "Add" } Bottle Details
+          </button>
+        }
+        { this.state.show_form &&
+          <BottleForm addBottle={this.addBottle} bottle={bottle} />
+        }
+      </Format>
+    );
   }
 }
 

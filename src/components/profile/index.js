@@ -51,19 +51,19 @@ class Profile extends Component {
       let data = await response.json();
 
       if (data.success) {
-        alert('Profile edited.');
+        this.props.history.push('../profile');
       } else {
         alert(data.error);
       }
     }
 
   async componentDidMount() {
-    let params = this.props.history.location.state;
+    let props = this.props.history.location.state;
 
     this.setState({
-      'user_id': params.user_id,
-      'first': params.first,
-      'last': params.last
+      'user_id': props.user_id,
+      'first': props.first,
+      'last': props.last
     });
   }
 

@@ -28,7 +28,7 @@ class Timer extends Component {
 
     if (data) {
       alert('Voting has ended!')
-      this.props.history.push('../');
+      this.props.history.push('/');
     }
   }
 

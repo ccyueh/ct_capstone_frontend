@@ -26,7 +26,6 @@ class JoinParty extends Component {
     let data = await response.json();
 
     if (data.success) {
-      alert(`${data.success}`);
       this.props.history.push('../party/view');
     } else if (data.error) {
       alert(`${data.error}`);
@@ -36,17 +35,11 @@ class JoinParty extends Component {
   }
 
   render() {
-    if (this.props.token) {
-      return (
-        <Format title="Accept an Invite">
-          <JoinPartyForm joinParty={this.joinParty} />
-        </Format>
-      );
-    } else {
-      return (
-        <div>You must be logged in to view this page.</div>
-      );
-    }
+    return (
+      <Format title="Accept an Invite">
+        <JoinPartyForm joinParty={this.joinParty} />
+      </Format>
+    );
   }
 }
 

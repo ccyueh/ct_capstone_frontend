@@ -21,8 +21,7 @@ class RateBottle extends Component {
     if (props.rating_id) {
       data_json['rating_id'] = props.rating_id;
     }
-    console.log(props);
-    console.log(data_json);
+
     let data = await callAPI(
       'api/ratings/save',
       'POST',
@@ -37,12 +36,11 @@ class RateBottle extends Component {
 
   render() {
     if (!this.props.history.location.state) {
-      this.props.history.push('../');
+      this.props.history.push('/');
       window.location.reload();
     }
 
     let props = this.props.history.location.state;
-    console.log(props);
     if (props.voting && props.user_id) {
       return (
         <Format title="">

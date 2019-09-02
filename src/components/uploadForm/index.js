@@ -42,7 +42,6 @@ class UploadForm extends Component {
       let upload = await this.imageDB(filename);
       if (upload) {
         this.props.history.push(upload.redirect);
-        //window.location.reload();
       }
     } else if (data.error) {
       alert(`${data.error}`);

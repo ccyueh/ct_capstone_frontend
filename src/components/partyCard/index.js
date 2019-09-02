@@ -73,7 +73,8 @@ class PartyCard extends Component {
               </button>
             </Link>
           }
-          { this.state.guest && !this.props.past &&
+          { this.state.guest &&
+            !this.props.past &&
             <Link to={{
               pathname: "../party/invite",
               state: { party_id: party.party_id }
@@ -83,7 +84,8 @@ class PartyCard extends Component {
               </button>
             </Link>
           }
-          { this.state.guest && !this.props.past &&
+          { this.state.guest &&
+            !this.props.past &&
             <Link to={{
               pathname: "../bottle/add",
               state: { party_id: party.party_id }
@@ -93,7 +95,8 @@ class PartyCard extends Component {
               </button>
             </Link>
           }
-          { !this.state.guest && !this.props.past &&
+          { !this.state.guest &&
+            !this.props.past &&
             <Link to={{
               pathname: "../party/options",
               state: { party: party }

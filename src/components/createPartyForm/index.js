@@ -61,7 +61,7 @@ class CreatePartyForm extends Component {
           <input type="time" className="form-control" name="start_time" defaultValue={this.state.start_time} />
           <label>End Time</label>
           <input type="time" className="form-control" name="end_time" defaultValue={this.state.end_time} />
-          {this.state.party_id &&
+          { this.state.party_id &&
             <input readOnly type="text" name="party_id" value={this.state.party_id} className="d-none" />
           }
         </div>

@@ -98,7 +98,7 @@ class PartyOptions extends Component {
 
   render() {
     if (!this.props.history.location.state) {
-      this.props.history.push('../');
+      this.props.history.push('/');
       window.location.reload();
     }
 
