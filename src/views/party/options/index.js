@@ -37,7 +37,13 @@ class PartyOptions extends Component {
     let minutes = data_json['minutes'];
 
     let voting_end = new Date();
-    let total_minutes = Number(minutes) + Number(60 * hours);
+    let total_minutes = Number(minutes) + Number(60 * Number(hours));
+
+    if (total_minutes == 0) {
+      alert('Please choose a valid voting period.')
+      window.location.reload();
+    }
+
     voting_end.setMinutes(voting_end.getMinutes() + total_minutes);
     data_json['voting_end'] = voting_end;
 
