@@ -5,6 +5,7 @@ import ReactStars from 'react-stars';
 
 function BottleTable(props) {
   let bottle = props.bottle;
+  console.log(bottle);
   return (
     <Format title="">
       <div className="img-container">
@@ -17,11 +18,11 @@ function BottleTable(props) {
         </p>
         <p>
           <span className="table-label">Name/Varietal:</span>
-          {bottle.bottle_name > 0 ? bottle.bottle_name : "N/A"}
+          {bottle.bottle_name ? bottle.bottle_name : "N/A"}
         </p>
         <p>
           <span className="table-label">Vintage:</span>
-          {bottle.vintage > 0 ? bottle.vintage : "N/A"}
+          {bottle.vintage ? bottle.vintage : "N/A"}
         </p>
         <p><span className="table-label">Average Rating:</span></p>
         <div className="star-container">
