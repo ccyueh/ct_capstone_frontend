@@ -53,41 +53,45 @@ class Timer extends Component {
   }
 
   async componentDidMount() {
-    let user_id = getID(this.props.token);
-    let host = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'host_id': user_id},
-      false
-    );
+    if (this.props.token) {
+      let user_id = getID(this.props.token);
+      let host = await callAPI(
+        'api/parties/retrieve',
+        'GET',
+        {'host_id': user_id},
+        false
+      );
 
-    let guest = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'user_id': user_id},
-      false
-    );
+      let guest = await callAPI(
+        'api/parties/retrieve',
+        'GET',
+        {'user_id': user_id},
+        false
+      );
 
-    let parties = host.parties.concat(guest.parties);
-    let current = parties.filter(party => party.voting == true);
-    if (current.length == 1) {
-      let party_id = current[0].party_id;
-      let voting_end = current[0].voting_end;
+      let parties = host.parties.concat(guest.parties);
+      let current = parties.filter(party => party.voting == true);
+      if (current.length == 1) {
+        let party_id = current[0].party_id;
+        let voting_end = current[0].voting_end;
 
-      this.setState({ party_id, voting_end });
+        this.setState({ party_id, voting_end });
+      }  
     }
   }
 
   render() {
-    return (
-      <Countdown
-      date={this.state.voting_end}
-      renderer={this.renderer}
-      intervalDelay={0}
-      precision={1}
-      onComplete={() => this.endVoting(this.state.party_id)}
-      />
-    );
+    if (this.props.token) {
+      return (
+        <Countdown
+        date={this.state.voting_end}
+        renderer={this.renderer}
+        intervalDelay={0}
+        precision={1}
+        onComplete={() => this.endVoting(this.state.party_id)}
+        />
+      );
+    }
   }
 }
 
