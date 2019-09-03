@@ -3,6 +3,7 @@ import './App.css';
 import { Switch, Route, withRouter } from 'react-router-dom';
 
 import Home from './views/home';
+import About from './views/about';
 import Format from './components/format';
 import Header from './components/header';
 import Slogan from './components/slogan';
@@ -174,6 +175,11 @@ class App extends Component {
               <Home token={this.state.token} />}
           />
           <Route
+            exact path='/about'
+            render={() =>
+              <About />}
+          />
+          <Route
             exact path='/party/create'
             render={() =>
               <CreateParty token={this.state.token} />}
@@ -221,7 +227,7 @@ class App extends Component {
           <Route
             exact path='/profile/edit'
             render={() =>
-              <Profile />}
+              <Profile token={this.state.token} />}
           />
 
         </Switch>
