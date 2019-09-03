@@ -76,22 +76,24 @@ class Timer extends Component {
         let voting_end = current[0].voting_end;
 
         this.setState({ party_id, voting_end });
-      }  
+      }
     }
   }
 
   render() {
-    if (this.props.token) {
-      return (
-        <Countdown
-        date={this.state.voting_end}
-        renderer={this.renderer}
-        intervalDelay={0}
-        precision={1}
-        onComplete={() => this.endVoting(this.state.party_id)}
-        />
-      );
+    if (!this.props.token) {
+      return null;
     }
+    
+    return (
+      <Countdown
+      date={this.state.voting_end}
+      renderer={this.renderer}
+      intervalDelay={0}
+      precision={1}
+      onComplete={() => this.endVoting(this.state.party_id)}
+      />
+    );
   }
 }
 
