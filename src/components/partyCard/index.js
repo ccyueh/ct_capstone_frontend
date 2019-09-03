@@ -32,6 +32,25 @@ class PartyCard extends Component {
     }
   }
 
+  setReveal = async(party, party_id) => {
+    let data = await callAPI(
+      'api/parties/save',
+      'POST',
+      false,
+      { 'party_id': party_id,
+        'reveal': true
+      },
+    );
+
+    if (data) {
+      party['reveal'] = true;
+      this.props.history.push({
+        pathname: '../bottle/result',
+        state: { party: party }
+      });
+    }
+  }
+
   toDate = datetime => {
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -64,6 +83,7 @@ class PartyCard extends Component {
           <h6 className="card-text">{this.toTime(party.start)} - {this.toTime(party.end)}</h6>
 
           { this.props.past &&
+            party.reveal &&
             <Link to={{
               pathname: "../bottle/result",
               state: { party: party }
@@ -105,6 +125,17 @@ class PartyCard extends Component {
                   Options
               </button>
             </Link>
+          }
+          { !this.state.guest &&
+            !party.reveal &&
+            new Date() > (new Date(party.voting_end)) &&
+            (new Date() - (new Date(party.voting_end))) < 3600000 &&
+            <button
+              className="btn btn-danger"
+              onClick={() => this.setReveal(party, party.party_id)}
+            >
+              Reveal Bottles
+            </button>
           }
         </div>
       </div>

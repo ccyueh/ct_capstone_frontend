@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
 import PartyCard from '../../../components/partyCard';
+import PartyNone from '../../../components/partyNone';
 
 function DisplayParty(props) {
   const filterParty = (parties, past) => {
@@ -27,11 +28,7 @@ function DisplayParty(props) {
   return (
     <div className="container">
       {parties.length == 0 &&
-        <div id="no-parties">
-          <p className="text-secondary">No parties found.</p>
-          <p><Link to='../party/create'>Host a Party</Link></p>
-          <p><Link to='../party/join'>Attend a Party</Link></p>
-        </div>
+        <PartyNone />
       }
       {parties.length > 0 &&
         parties.map((party, index) => <PartyCard key={index} party={party} past={props.past} token={props.token} />)
