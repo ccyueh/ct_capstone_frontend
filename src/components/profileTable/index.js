@@ -49,7 +49,7 @@ class ProfileTable extends Component {
     return (
       <Format title="Your Profile">
         <div className="img-container">
-          <img src={'http://localhost:5000/' + this.state.profile_img} />
+          <img src={'https://sipper-backend.herokuapp.com/' + this.state.profile_img} />
         </div>
         { !this.state.show_form &&
           <div>

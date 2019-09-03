@@ -19,7 +19,7 @@ class UploadForm extends Component {
   handleUploadImage = async(e) => {
     e.preventDefault();
 
-    const URL = 'http://localhost:5000/upload';
+    const URL = 'https://sipper-backend.herokuapp.com/upload';
 
     let response_json = {};
     response_json['method'] = 'POST';

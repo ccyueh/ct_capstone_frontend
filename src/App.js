@@ -46,7 +46,7 @@ class App extends Component {
       let password = e.target.elements.password.value;
       let password2 = e.target.elements.password2.value;
 
-      const URL = 'http://localhost:5000/authenticate/register';
+      const URL = 'https://sipper-backend.herokuapp.com/authenticate/register';
 
       // encrypt a token with the proper payload info to send to our api
       let token = jwt.sign(
@@ -86,7 +86,7 @@ class App extends Component {
     let email = e.target.elements.email.value;
     let password = e.target.elements.password.value;
 
-    const URL = 'http://localhost:5000/authenticate/login';
+    const URL = 'https://sipper-backend.herokuapp.com/authenticate/login';
 
     // encrypt a token with the proper payload info to send to our api
     let token = jwt.sign(

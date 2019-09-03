@@ -9,7 +9,7 @@ function BottleTable(props) {
   return (
     <Format title="">
       <div className="img-container">
-        <img src={'http://localhost:5000/' + bottle.label_img} />
+        <img src={'https://sipper-backend.herokuapp.com/' + bottle.label_img} />
       </div>
       <div>
         <p>
