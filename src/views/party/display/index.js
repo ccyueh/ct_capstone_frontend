@@ -10,7 +10,7 @@ function DisplayParty(props) {
     if (past) {
       parties = parties.filter(party => (new Date(party.end) - now < 0) || party.reveal);
     } else {
-      parties = parties.filter(party => (new Date(party.start) - now > 0) && !party.reveal);
+      parties = parties.filter(party => (new Date(party.start) - now > 0) || !party.reveal);
     }
     return parties;
   }

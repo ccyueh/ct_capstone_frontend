@@ -51,8 +51,8 @@ class Home extends Component {
 
           if (!party) {
             parties = parties.filter(party =>
-              (new Date(party.voting_end) - (new Date()) > 0) &&
-              (new Date(party.start) - (new Date()) > 0) &&
+              //(new Date(party.voting_end) - (new Date()) > 0) &&
+              //(new Date(party.start) - (new Date()) > 0) &&
               !party.reveal);
               parties.sort(function(a,b) {
                 return new Date(a.start) - new Date(b.start);
