@@ -69,7 +69,7 @@ class AddBottle extends Component {
   }
 
   render() {
-    if (!this.state.party_id) {
+    if (!this.props.history.location.state.party_id) {
       this.props.history.push('/');
     }
 

@@ -9,8 +9,6 @@ class PartyCard extends Component {
     super();
 
     this.state = {
-      user_id: '',
-      guest: '',
       bottle: {}
     }
   }
@@ -65,17 +63,18 @@ class PartyCard extends Component {
   }
 
   async componentDidMount() {
-    let user_id = getID(this.props.token);
-    let guest = (user_id != this.props.party.host_id ? user_id : false);
-    let bottle = await this.retrieveBottle(user_id, this.props.party.party_id);
+    let bottle = await this.retrieveBottle(getID(this.props.token), this.props.party.party_id);
+    this.setState({ bottle });
 
-    this.setState({ user_id, guest, bottle });
   }
 
   render() {
     let party = this.props.party;
+    let user_id = getID(this.props.token);
+    let guest = (user_id != this.props.party.host_id ? user_id : false);
+
     return (
-      <div className={"card" + (!this.state.guest ? " host-card" : "")}>
+      <div className={"card" + (!guest ? " host-card" : "")}>
         <div className="card-body">
           <h3 className="card-title">{party.party_name}</h3>
           <h5 className="card-subtitle text-muted">{party.location}</h5>
@@ -93,7 +92,7 @@ class PartyCard extends Component {
               </button>
             </Link>
           }
-          { this.state.guest &&
+          { guest &&
             !this.props.past &&
             <Link to={{
               pathname: "../party/invite",
@@ -104,7 +103,7 @@ class PartyCard extends Component {
               </button>
             </Link>
           }
-          { this.state.guest &&
+          { guest &&
             !this.props.past &&
             <Link to={{
               pathname: "../bottle/add",
@@ -115,7 +114,7 @@ class PartyCard extends Component {
               </button>
             </Link>
           }
-          { !this.state.guest &&
+          { !guest &&
             !this.props.past &&
             <Link to={{
               pathname: "../party/options",
@@ -126,7 +125,7 @@ class PartyCard extends Component {
               </button>
             </Link>
           }
-          { !this.state.guest &&
+          { !guest &&
             !party.reveal &&
             new Date() > (new Date(party.voting_end)) &&
             (new Date() - (new Date(party.voting_end))) < 3600000 &&

@@ -40,9 +40,9 @@ class Home extends Component {
       let past = true;
 
       if (!party) {
-        parties = parties.filter(party =>
+        let last = parties.filter(party =>
           (new Date() > (new Date(party.voting_end))) && (new Date() - (new Date(party.voting_end)) < 3600000));
-        party = parties.length > 0 ? parties[0] : false;
+        party = last.length > 0 ? last[0] : false;
       }
 
       if (!party) {
@@ -53,6 +53,7 @@ class Home extends Component {
         parties.sort(function(a,b) {
           return new Date(a.start) - new Date(b.start);
         })
+
         party = parties.length > 0 ? parties[0] : false;
         past = false;
       }

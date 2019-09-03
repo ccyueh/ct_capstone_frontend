@@ -26,7 +26,10 @@ class ResultBottle extends Component {
     );
 
     if (data) {
-      return data.star_ratings;
+      if (data.star_ratings.length > 0) {
+        let avg = data.star_ratings.reduce((a, b) => a + b)/data.star_ratings.length;
+        return avg;
+      }
     } else {
       return [];
     }
@@ -82,6 +85,7 @@ class ResultBottle extends Component {
   }
 
   render() {
+    console.log(this.state.bottles);
     if (!this.state.reveal) {
       return (
         <Format title="">
