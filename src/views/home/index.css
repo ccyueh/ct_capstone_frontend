@@ -1,0 +1,8 @@
+.home-icons {
+  text-align: center;
+}
+
+.home-icons .MuiSvgIcon-root {
+  font-size: 3.5em;
+  color: rgba(128, 0, 0, 0.6);
+}

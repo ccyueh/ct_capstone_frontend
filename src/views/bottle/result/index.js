@@ -85,7 +85,10 @@ class ResultBottle extends Component {
   }
 
   render() {
-    console.log(this.state.bottles);
+    if (!this.props.token) {
+      this.props.history.push('/');
+    }
+
     if (!this.state.reveal) {
       return (
         <Format title="">

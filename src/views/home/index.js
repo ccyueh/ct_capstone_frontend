@@ -6,6 +6,9 @@ import PartyCard from '../../components/partyCard';
 import PartyNone from '../../components/partyNone';
 import callAPI from '../../utils/api.js';
 import getID from '../../utils/getID.js';
+import LocalBarTwoToneIcon from '@material-ui/icons/LocalBarTwoTone';
+import LocalBarIcon from '@material-ui/icons/LocalBar';
+import LocalBarOutlinedIcon from '@material-ui/icons/LocalBarOutlined';
 
 class Home extends Component {
   constructor() {
@@ -65,6 +68,19 @@ class Home extends Component {
   }
 
   render() {
+    if (!this.props.token) {
+      return (
+        <Format title="Sipper">
+          <p className="no-parties text-justify">Welcome to Sipper, the app that lets you plan competitive wine tasting parties with your friends! <Link to="/register">Register</Link> for an account or <Link to="/login">sign in</Link> to get started.</p>
+          <p className="home-icons">
+            <LocalBarOutlinedIcon />
+            <LocalBarTwoToneIcon />
+            <LocalBarIcon />
+          </p>
+        </Format>
+      );
+    }
+
     return (
       <Format title={(this.state.past ? "Current" : "Next") + " Party"}>
         {Object.keys(this.state.party).length == 0 &&

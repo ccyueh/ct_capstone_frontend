@@ -8,6 +8,7 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 
 class Footer extends Component {
   constructor() {
@@ -57,50 +58,50 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="footer">
+      <div className="footer col-md-4 offset-md-4">
         <nav className="navbar row">
-        <div className="col footer-icon">
-          <NavLink className="footer-link" to="/">
-          <div>
-            <HomeOutlinedIcon />
+          <div className="col footer-icon">
+            <NavLink className="footer-link" to="/">
+            <div>
+              <HomeOutlinedIcon />
+            </div>
+            Home
+            </NavLink>
           </div>
-          Home
-          </NavLink>
-        </div>
-        <div className="col footer-icon">
-          <NavLink
-            className="footer-link"
-            to={{
-              pathname: "../bottle/party",
-              state: { party: this.state.current }
-            }}>
-          <div>
-            <StarBorderOutlinedIcon />
+          <div className="col footer-icon">
+            <NavLink
+              className="footer-link"
+              to={{
+                pathname: "../bottle/party",
+                state: { party: this.state.current }
+              }}>
+            <div>
+              <StarBorderOutlinedIcon />
+            </div>
+            Vote
+            </NavLink>
           </div>
-          Vote
-          </NavLink>
-        </div>
-        <div className="col footer-icon">
-          <NavLink className="footer-link" to="/">
-          <div>
-            <PhotoCameraOutlinedIcon />
+          <div className="col footer-icon">
+            <NavLink
+              className="footer-link"
+              to={{
+                pathname: "../bottle/result",
+                state: { party: this.state.last }
+              }}>
+            <div>
+              <FormatListNumberedIcon />
+            </div>
+            Results
+            </NavLink>
           </div>
-          Photos
-          </NavLink>
-        </div>
-        <div className="col footer-icon">
-          <NavLink
-            className="footer-link"
-            to={{
-              pathname: "../bottle/result",
-              state: { party: this.state.last }
-            }}>
-          <div>
-            <FormatListNumberedIcon />
+          <div className="col footer-icon">
+            <NavLink className="footer-link" to="/">
+              <div>
+                <SettingsOutlinedIcon />
+              </div>
+              Settings
+            </NavLink>
           </div>
-          Results
-          </NavLink>
-        </div>
         </nav>
       </div>
     );

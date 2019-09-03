@@ -72,6 +72,10 @@ class VoteBottle extends Component {
   }
 
   render() {
+    if (!this.props.token) {
+      this.props.history.push('/');
+    }
+    
     if (!this.state.voting) {
       return (
         <Format title="">
