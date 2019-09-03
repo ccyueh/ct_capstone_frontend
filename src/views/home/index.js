@@ -21,49 +21,51 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    let user_id = getID(this.props.token);
-    let host = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'host_id': user_id},
-      false
-    );
+    if (this.props.token) {
+      let user_id = getID(this.props.token);
+      let host = await callAPI(
+        'api/parties/retrieve',
+        'GET',
+        {'host_id': user_id},
+        false
+      );
 
-    let guest = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'user_id': user_id},
-      false
-    );
+      let guest = await callAPI(
+        'api/parties/retrieve',
+        'GET',
+        {'user_id': user_id},
+        false
+      );
 
-    let parties = host.parties.concat(guest.parties);
-    if (parties.length > 0) {
-      let current = parties.filter(party => party.voting == true);
-      let party = current.length > 0 ? current[0] : false;
-      let past = true;
+      let parties = host.parties.concat(guest.parties);
+      if (parties.length > 0) {
+        let current = parties.filter(party => party.voting == true);
+        let party = current.length > 0 ? current[0] : false;
+        let past = true;
 
-      if (!party) {
-        let last = parties.filter(party =>
-          (new Date() > (new Date(party.voting_end))) && (new Date() - (new Date(party.voting_end)) < 3600000));
-        party = last.length > 0 ? last[0] : false;
-      }
+        if (!party) {
+          let last = parties.filter(party =>
+            (new Date() > (new Date(party.voting_end))) && (new Date() - (new Date(party.voting_end)) < 3600000));
+            party = last.length > 0 ? last[0] : false;
+          }
 
-      if (!party) {
-        parties = parties.filter(party =>
-          (new Date(party.voting_end) - (new Date()) > 0) &&
-          (new Date(party.start) - (new Date()) > 0) &&
-          !party.reveal);
-        parties.sort(function(a,b) {
-          return new Date(a.start) - new Date(b.start);
-        })
+          if (!party) {
+            parties = parties.filter(party =>
+              (new Date(party.voting_end) - (new Date()) > 0) &&
+              (new Date(party.start) - (new Date()) > 0) &&
+              !party.reveal);
+              parties.sort(function(a,b) {
+                return new Date(a.start) - new Date(b.start);
+              })
 
-        party = parties.length > 0 ? parties[0] : false;
-        past = false;
-      }
+              party = parties.length > 0 ? parties[0] : false;
+              past = false;
+            }
 
-      if (party) {
-        this.setState({ party, past });
-      }
+            if (party) {
+              this.setState({ party, past });
+            }
+          }
     }
   }
 
