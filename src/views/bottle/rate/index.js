@@ -3,7 +3,6 @@ import './index.css';
 import { withRouter } from 'react-router-dom';
 import Format from '../../../components/format';
 import RatingForm from '../../../components/ratingForm';
-import RatingTable from '../../../components/ratingTable';
 import BottleTable from '../../../components/bottleTable';
 import callAPI from '../../../utils/api.js';
 import getID from '../../../utils/getID.js';
