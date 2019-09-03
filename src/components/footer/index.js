@@ -31,29 +31,31 @@ class Footer extends Component {
   }
 
   async componentDidMount() {
-    let user_id = getID(this.props.token);
-    let host = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'host_id': user_id},
-      false
-    );
+    if (this.props.token) {
+      let user_id = getID(this.props.token);
+      let host = await callAPI(
+        'api/parties/retrieve',
+        'GET',
+        {'host_id': user_id},
+        false
+      );
 
-    let guest = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'user_id': user_id},
-      false
-    );
+      let guest = await callAPI(
+        'api/parties/retrieve',
+        'GET',
+        {'user_id': user_id},
+        false
+      );
 
-    let parties = host.parties.concat(guest.parties);
-    let current = parties.filter(party => party.voting == true);
-    let last = parties.filter(party => party.reveal == true && this.timeDiff(party.voting_end, 6));
+      let parties = host.parties.concat(guest.parties);
+      let current = parties.filter(party => party.voting == true);
+      let last = parties.filter(party => party.reveal == true && this.timeDiff(party.voting_end, 6));
 
-    current = current.length > 0 ? current[0] : {};
-    last = last.length > 0 ? last[0] : {};
+      current = current.length > 0 ? current[0] : {};
+      last = last.length > 0 ? last[0] : {};
 
-    this.setState({ current, last });
+      this.setState({ current, last });
+    }
   }
 
   render() {
