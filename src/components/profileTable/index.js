@@ -47,7 +47,7 @@ class ProfileTable extends Component {
 
   render() {
     return (
-      <Format title="Your Profile">
+      <Format token={this.props.token} title="Your Profile">
         <div className="img-container">
           <img src={'https://sipper-backend.herokuapp.com/' + this.state.profile_img} />
         </div>

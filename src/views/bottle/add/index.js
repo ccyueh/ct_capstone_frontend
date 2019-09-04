@@ -69,13 +69,13 @@ class AddBottle extends Component {
   }
 
   render() {
-    if (!this.props.history.location.state.party_id) {
+    if (!this.props.history.location.state) {
       this.props.history.push('/');
     }
 
     let bottle = this.state.bottle;
     return (
-      <Format title="">
+      <Format token={this.props.token} title="">
         { this.state.show_form ? <h2>Bottle Details</h2> : <h2>Upload Label image</h2>
         }
         { bottle.label_img &&

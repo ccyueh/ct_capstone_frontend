@@ -57,7 +57,7 @@ class Home extends Component {
   render() {
     if (!this.props.token) {
       return (
-        <Format title="Sipper">
+        <Format token="token" title="Sipper">
           <p className="no-parties text-justify">Welcome to Sipper, the app that lets you plan competitive wine tasting parties with your friends! <Link to="/register">Register</Link> for an account or <Link to="/login">sign in</Link> to get started.</p>
           <p className="home-icons">
             <LocalBarOutlinedIcon />
@@ -69,7 +69,7 @@ class Home extends Component {
     }
 
     return (
-      <Format title={(this.state.past ? "Current" : "Next") + " Party"}>
+      <Format token={this.props.token} title={(this.state.past ? "Current" : "Next") + " Party"}>
         {Object.keys(this.state.party).length == 0 &&
           <PartyNone />
         }

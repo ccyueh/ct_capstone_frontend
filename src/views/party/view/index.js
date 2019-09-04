@@ -26,7 +26,7 @@ class ViewParty extends Component {
 
   render() {
     return (
-      <Format title="Parties">
+      <Format token={this.props.token} title="Parties">
         <div className="col-md-12 text-center">
           <div className="btn-group">
             <button className="btn btn-danger"

@@ -154,7 +154,7 @@ class App extends Component {
           <Route
             exact path='/login'
             render={() =>
-              <Format title="Login">
+              <Format token="token" title="Login">
                 <LoginForm handleLogin={this.handleLogin} />
               </Format>
             }
@@ -163,7 +163,7 @@ class App extends Component {
           <Route
             exact path='/register'
             render={() =>
-              <Format title="Register">
+              <Format token="token" title="Register">
                 <RegisterForm handleRegister={this.handleRegister} />
               </Format>
             }

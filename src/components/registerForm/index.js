@@ -5,16 +5,16 @@ function RegisterForm(props) {
   return (
     <form onSubmit={props.handleRegister}>
       <div className="form-group">
-        <label>First Name</label>
+        <label>First Name - <span className="optional">Optional</span></label>
         <input className="form-control" type="text" name="first" />
-        <label>Last Name</label>
+        <label>Last Name - <span className="optional">Optional</span></label>
         <input className="form-control" type="text" name="last" />
         <label>E-mail</label>
-        <input className="form-control" type="text" name="email" />
+        <input className="form-control" type="text" name="email" required />
         <label>Password</label>
-        <input className="form-control" type="password" name="password" />
+        <input className="form-control" type="password" name="password" required />
         <label>Re-enter Password</label>
-        <input className="form-control" type="password" name="password2" />
+        <input className="form-control" type="password" name="password2" required />
       </div>
       <input type="submit" className="btn btn-danger" value="Register" />
     </form>

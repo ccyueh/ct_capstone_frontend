@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import './index.css';
+import { withRouter } from 'react-router-dom';
 
 function Format(props) {
+  if (!props.token) {
+    props.history.push('/');
+    window.location.reload();
+  }
+  
   return (
     <div className="container">
       <div className="row">
@@ -17,4 +23,4 @@ function Format(props) {
 }
 
 
-export default Format;
+export default withRouter(Format);

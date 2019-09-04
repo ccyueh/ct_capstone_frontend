@@ -99,14 +99,13 @@ class PartyOptions extends Component {
   render() {
     if (!this.props.history.location.state) {
       this.props.history.push('/');
-      window.location.reload();
     }
 
     let party = this.props.history.location.state.party;
     let start = new Date(party.start);
     let voting_end = new Date(party.voting_end);
     return (
-      <Format title={party.voting || party.reveal ? "" : "Options"}>
+      <Format token={this.props.token} title={party.voting || party.reveal ? "" : "Options"}>
         { !party.voting &&
           voting_end > new Date() &&
           <Link to={{

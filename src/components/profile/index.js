@@ -69,7 +69,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <Format title="Profile">
+      <Format token={this.props.token} title="Profile">
       <form onSubmit={this.editProfile}>
         <div className="form-group">
           <label>First Name</label>

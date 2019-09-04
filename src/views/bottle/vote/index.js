@@ -43,13 +43,9 @@ class VoteBottle extends Component {
   }
 
   render() {
-    if (!this.props.token) {
-      this.props.history.push('/');
-    }
-
     if (!this.state.voting) {
       return (
-        <Format title="">
+        <Format token={this.props.token} title="">
           <p className="mt-5">
             Voting is not active for any of your parties. Check back when the countdown clock appears!
           </p>
@@ -59,7 +55,7 @@ class VoteBottle extends Component {
 
     if (this.state.bottles.length == 0 ) {
       return (
-        <Format title="">
+        <Format token={this.props.token} title="">
           <p className="mt-5">
             No bottles found for this party.
           </p>
@@ -68,7 +64,7 @@ class VoteBottle extends Component {
     }
 
     return (
-      <Format title="">
+      <Format token={this.props.token} title="">
         <div className="row">
           {this.state.bottles.map(bottle =>
             <BottleButton

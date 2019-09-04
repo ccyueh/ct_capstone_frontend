@@ -43,7 +43,7 @@ class CreateParty extends Component {
 
   render() {
     return (
-      <Format title="Party Details">
+      <Format token={this.props.token} title="Party Details">
         <CreatePartyForm createParty={this.createParty} party={this.state.party} />
       </Format>
     );

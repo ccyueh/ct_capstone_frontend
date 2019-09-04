@@ -42,7 +42,7 @@ class RateBottle extends Component {
     let props = this.props.history.location.state;
     if (props.voting && props.user_id) {
       return (
-        <Format title="">
+        <Format token={this.props.token} title="">
           <div className="bottle-placeholder">
             <div className="bottle-placeholder-text">
               <h5 className="text-white">Bottle</h5>

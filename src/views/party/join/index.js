@@ -36,7 +36,7 @@ class JoinParty extends Component {
 
   render() {
     return (
-      <Format title="Accept an Invite">
+      <Format token={this.props.token} title="Accept an Invite">
         <JoinPartyForm joinParty={this.joinParty} />
       </Format>
     );
