@@ -62,6 +62,7 @@ class RateBottle extends Component {
     else {
       return(
         <BottleTable
+          token={this.props.token}
           bottle={props.bottle}
           avg_rating={props.avg_rating}
           stars={props.stars}

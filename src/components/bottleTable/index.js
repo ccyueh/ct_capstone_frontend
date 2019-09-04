@@ -5,7 +5,6 @@ import ReactStars from 'react-stars';
 
 function BottleTable(props) {
   let bottle = props.bottle;
-  console.log(bottle);
   return (
     <Format token={props.token} title="">
       <div className="img-container">
