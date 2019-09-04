@@ -7,7 +7,7 @@ function BottleTable(props) {
   let bottle = props.bottle;
   console.log(bottle);
   return (
-    <Format token={this.props.token} title="">
+    <Format token={props.token} title="">
       <div className="img-container">
         <img src={'https://sipper-backend.herokuapp.com/' + bottle.label_img} />
       </div>
