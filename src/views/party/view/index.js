@@ -3,8 +3,7 @@ import './index.css';
 import { Link, withRouter } from 'react-router-dom';
 import Format from '../../../components/format';
 import DisplayParty from '../display';
-import callAPI from '../../../utils/api.js';
-import getID from '../../../utils/getID.js';
+import { allParties } from '../../../utils';
 
 class ViewParty extends Component {
   constructor() {
@@ -21,21 +20,7 @@ class ViewParty extends Component {
   }
 
   async componentDidMount() {
-    let host = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'host_id': getID(this.props.token)},
-      false
-    );
-
-    let guest = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'user_id': getID(this.props.token)},
-      false
-    );
-
-    let parties = host.parties.concat(guest.parties);
+    let parties = await allParties(this.props.token);
     this.setState({ parties });
   }
 

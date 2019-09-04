@@ -5,6 +5,7 @@ import Format from '../../../components/format';
 import BottleButton from '../../../components/bottleButton';
 import callAPI from '../../../utils/api.js';
 import getID from '../../../utils/getID.js';
+import { getBottles } from '../../../utils';
 
 class ResultBottle extends Component {
   constructor(props) {
@@ -30,21 +31,6 @@ class ResultBottle extends Component {
         let avg = data.star_ratings.reduce((a, b) => a + b)/data.star_ratings.length;
         return avg;
       }
-    } else {
-      return [];
-    }
-  }
-
-  retrieveBottle = async(party_id) => {
-    let data = await callAPI(
-      'api/bottles/retrieve',
-      'GET',
-      {'party_id': party_id},
-      false
-    );
-
-    if (data) {
-      return data.bottles;
     } else {
       return [];
     }
@@ -77,7 +63,7 @@ class ResultBottle extends Component {
       let host_id = party.host_id;
       let guest = (user_id != host_id ? user_id : false);
       let reveal = party.reveal;
-      let bottles = await this.retrieveBottle(party_id);
+      let bottles = await getBottles(party_id);
       let bottle_data = await this.bottleData(bottles);
 
       this.setState({ reveal, guest, bottles: bottle_data });

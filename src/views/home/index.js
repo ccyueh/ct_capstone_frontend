@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import Format from '../../components/format';
 import PartyCard from '../../components/partyCard';
 import PartyNone from '../../components/partyNone';
-import callAPI from '../../utils/api.js';
-import getID from '../../utils/getID.js';
+import { allParties } from '../../utils';
+
 import LocalBarTwoToneIcon from '@material-ui/icons/LocalBarTwoTone';
 import LocalBarIcon from '@material-ui/icons/LocalBar';
 import LocalBarOutlinedIcon from '@material-ui/icons/LocalBarOutlined';
@@ -22,22 +22,7 @@ class Home extends Component {
 
   async componentDidMount() {
     if (this.props.token) {
-      let user_id = getID(this.props.token);
-      let host = await callAPI(
-        'api/parties/retrieve',
-        'GET',
-        {'host_id': user_id},
-        false
-      );
-
-      let guest = await callAPI(
-        'api/parties/retrieve',
-        'GET',
-        {'user_id': user_id},
-        false
-      );
-
-      let parties = host.parties.concat(guest.parties);
+      let parties = await allParties(this.props.token);
       if (parties.length > 0) {
         let current = parties.filter(party => party.voting == true);
         let party = current.length > 0 ? current[0] : false;

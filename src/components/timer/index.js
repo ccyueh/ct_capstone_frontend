@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Countdown from 'react-countdown-now';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import callAPI from '../../utils/api.js';
-import getID from '../../utils/getID.js';
+import { allParties } from '../../utils';
 
 class Timer extends Component {
   constructor() {
@@ -54,22 +54,7 @@ class Timer extends Component {
 
   async componentDidMount() {
     if (this.props.token) {
-      let user_id = getID(this.props.token);
-      let host = await callAPI(
-        'api/parties/retrieve',
-        'GET',
-        {'host_id': user_id},
-        false
-      );
-
-      let guest = await callAPI(
-        'api/parties/retrieve',
-        'GET',
-        {'user_id': user_id},
-        false
-      );
-
-      let parties = host.parties.concat(guest.parties);
+      let parties = await allParties(this.props.token);
       let current = parties.filter(party => party.voting == true);
       if (current.length == 1) {
         let party_id = current[0].party_id;
@@ -84,7 +69,7 @@ class Timer extends Component {
     if (!this.props.token) {
       return null;
     }
-    
+
     return (
       <Countdown
       date={this.state.voting_end}

@@ -3,8 +3,8 @@ import './index.css';
 import { withRouter } from 'react-router-dom';
 import Format from '../../../components/format';
 import BottleButton from '../../../components/bottleButton';
-import callAPI from '../../../utils/api.js';
 import getID from '../../../utils/getID.js';
+import { allParties, getBottles } from '../../../utils';
 
 class VoteBottle extends Component {
   constructor(props) {
@@ -17,21 +17,6 @@ class VoteBottle extends Component {
     }
   }
 
-  retrieveBottle = async(party_id) => {
-    let data = await callAPI(
-      'api/bottles/retrieve',
-      'GET',
-      {'party_id': party_id},
-      false
-    );
-
-    if (data) {
-      return data.bottles;
-    } else {
-      return [];
-    }
-  }
-
   bottleNum = bottle => {
     let bottles = this.state.bottles;
     let num = bottles.indexOf(bottle) + 1;
@@ -39,22 +24,8 @@ class VoteBottle extends Component {
   }
 
   async componentDidMount() {
+    let parties = await allParties(this.props.token);
     let user_id = getID(this.props.token);
-    let host = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'host_id': user_id},
-      false
-    );
-
-    let guest = await callAPI(
-      'api/parties/retrieve',
-      'GET',
-      {'user_id': user_id},
-      false
-    );
-
-    let parties = host.parties.concat(guest.parties);
     let current = parties.filter(party => party.voting == true);
     let party = current.length > 0 ? current[0] : false;
 
@@ -64,7 +35,7 @@ class VoteBottle extends Component {
         let host_id = party.host_id;
         let guest = (user_id != host_id ? user_id : false);
         let voting = party.voting;
-        let bottles = await this.retrieveBottle(party_id);
+        let bottles = await getBottles(party_id);
 
         this.setState({ voting, guest, bottles });
       }
@@ -75,7 +46,7 @@ class VoteBottle extends Component {
     if (!this.props.token) {
       this.props.history.push('/');
     }
-    
+
     if (!this.state.voting) {
       return (
         <Format title="">

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import { NavLink } from 'react-router-dom';
-import callAPI from '../../utils/api.js';
-import getID from '../../utils/getID.js';
+import { allParties } from '../../utils';
 
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
@@ -32,22 +31,7 @@ class Footer extends Component {
 
   async componentDidMount() {
     if (this.props.token) {
-      let user_id = getID(this.props.token);
-      let host = await callAPI(
-        'api/parties/retrieve',
-        'GET',
-        {'host_id': user_id},
-        false
-      );
-
-      let guest = await callAPI(
-        'api/parties/retrieve',
-        'GET',
-        {'user_id': user_id},
-        false
-      );
-
-      let parties = host.parties.concat(guest.parties);
+      let parties = await allParties(this.props.token);
       let current = parties.filter(party => party.voting == true);
       let last = parties.filter(party => party.reveal == true && this.timeDiff(party.voting_end, 6));
 
