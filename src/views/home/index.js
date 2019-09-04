@@ -6,9 +6,7 @@ import PartyCard from '../../components/partyCard';
 import PartyNone from '../../components/partyNone';
 import { allParties } from '../../utils';
 
-import LocalBarTwoToneIcon from '@material-ui/icons/LocalBarTwoTone';
 import LocalBarIcon from '@material-ui/icons/LocalBar';
-import LocalBarOutlinedIcon from '@material-ui/icons/LocalBarOutlined';
 
 class Home extends Component {
   constructor() {
@@ -60,9 +58,9 @@ class Home extends Component {
         <Format token="token" title="Sipper">
           <p className="no-parties text-justify">Welcome to Sipper, the app that lets you plan competitive wine tasting parties with your friends! <Link to="/register">Register</Link> for an account or <Link to="/login">sign in</Link> to get started.</p>
           <p className="home-icons">
-            <LocalBarOutlinedIcon />
-            <LocalBarTwoToneIcon />
-            <LocalBarIcon />
+            <LocalBarIcon id="white-wine" />
+            <LocalBarIcon id="rose-wine" />
+            <LocalBarIcon id="red-wine" />
           </p>
         </Format>
       );

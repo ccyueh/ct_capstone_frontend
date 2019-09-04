@@ -2,6 +2,8 @@
   background-color: maroon;
   width: 50vw;
   height: 50vw;
+  max-width: 400px;
+  max-height: 400px;
   border-radius: 0.5em;
   margin: 30px auto 1px;
   display: flex;

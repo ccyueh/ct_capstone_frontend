@@ -3,6 +3,7 @@ import './index.css';
 import { withRouter, Link } from 'react-router-dom';
 import callAPI from '../../utils/api.js';
 import getID from '../../utils/getID.js';
+import HomeIcon from '@material-ui/icons/Home';
 
 class PartyCard extends Component {
   constructor() {
@@ -74,7 +75,12 @@ class PartyCard extends Component {
     let guest = (user_id != this.props.party.host_id ? user_id : false);
 
     return (
-      <div className={"card" + (!guest ? " host-card" : "")}>
+      <div className="card">
+        <div className="is-host">
+        { !guest &&
+          <HomeIcon />
+        }
+        </div>
         <div className="card-body">
           <h3 className="card-title">{party.party_name}</h3>
           <h5 className="card-subtitle text-muted">{party.location}</h5>

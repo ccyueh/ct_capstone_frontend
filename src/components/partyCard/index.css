@@ -5,11 +5,6 @@
   margin: 1em auto;
 }
 
-.host-card {
-  border-color: maroon;
-  background-color: rgba(128, 0, 0, 0.15);
-}
-
 .card-body {
   padding: .2rem;
 }
@@ -22,4 +17,15 @@
 .btn {
   margin: 5px auto;
   display: block;
+}
+
+.is-host {
+  color: maroon;
+  position: absolute;
+  left: 0.3em;
+  top: 0.1em;
+}
+
+.is-host .MuiSvgIcon-root {
+  font-size: 3em;
 }
