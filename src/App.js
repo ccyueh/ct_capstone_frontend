@@ -10,7 +10,6 @@ import Slogan from './components/slogan';
 import Footer from './components/footer';
 import Timer from './components/timer';
 import UploadForm from './components/uploadForm';
-import StartVote from './components/startVote';
 
 import CreateParty from './views/party/create';
 import JoinParty from './views/party/join';
@@ -149,8 +148,6 @@ class App extends Component {
         <Slogan token={this.state.token} />
 
         <Timer token={this.state.token} />
-
-        <StartVote token={this.state.token} />
 
         <Switch>
 
