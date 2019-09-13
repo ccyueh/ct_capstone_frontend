@@ -25,7 +25,7 @@ class Profile extends Component {
       let password = e.target.elements.password.value;
       let password2 = e.target.elements.password2.value;
 
-      const URL = 'https://sipper-backend.herokuapp.com/api/users/save';
+      const URL = 'https://sipper-psql.herokuapp.com/api/users/save';
 
       // encrypt a token with the proper payload info to send to our api
       let token = jwt.sign(

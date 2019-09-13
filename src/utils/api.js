@@ -1,5 +1,5 @@
 export default async function callAPI(url, method, url_params, body) {
-  let URL = 'https://sipper-backend.herokuapp.com/' + url;
+  let URL = 'https://sipper-psql.herokuapp.com/' + url;
   if (url_params) {
     URL += '?';
     let URL_list = [];

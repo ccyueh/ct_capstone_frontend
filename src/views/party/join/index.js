@@ -15,7 +15,7 @@ class JoinParty extends Component {
     Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
     data_json['user_id'] = user_id;
 
-    const URL = 'https://sipper-backend.herokuapp.com/api/guests/save';
+    const URL = 'https://sipper-psql.herokuapp.com/api/guests/save';
 
     let response = await fetch(URL, {
       'method': 'POST',

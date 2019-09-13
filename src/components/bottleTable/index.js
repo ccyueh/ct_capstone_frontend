@@ -8,7 +8,7 @@ function BottleTable(props) {
   return (
     <Format token={props.token} title="">
       <div className="img-container">
-        <img src={'https://sipper-backend.herokuapp.com/' + bottle.label_img} />
+        <img src={'https://sipper-psql.herokuapp.com/' + bottle.label_img} />
       </div>
       <div>
         <p>
