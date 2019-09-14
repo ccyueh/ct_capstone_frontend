@@ -12,7 +12,6 @@ class AddBottle extends Component {
     super();
 
     this.state = {
-      token: '',
       user_id: '',
       party_id: '',
       bottle: {},
@@ -61,11 +60,10 @@ class AddBottle extends Component {
   }
 
   async componentDidMount() {
-    let token = this.props.token;
-    let user_id = getID(token);
+    let user_id = getID(this.props.token);
     let party_id = this.props.history.location.state.party_id;
     let bottle = await this.retrieveBottle(user_id, party_id);
-    this.setState({ token, user_id, party_id, bottle});
+    this.setState({ user_id, party_id, bottle});
   }
 
   render() {
@@ -74,6 +72,7 @@ class AddBottle extends Component {
     }
 
     let bottle = this.state.bottle;
+    console.log('addbottle', this.state);
     return (
       <Format token={this.props.token} title="">
         { this.state.show_form ? <h2>Bottle Details</h2> : <h2>Upload Label image</h2>
@@ -84,7 +83,7 @@ class AddBottle extends Component {
           </div>
         }
         { !this.state.show_form &&
-          <UploadForm token={this.state.token} img_type="Bottle" party_id={this.state.party_id} />
+          <UploadForm token={this.props.token} img_type="Bottle" party_id={this.state.party_id} />
         }
         { Object.keys(bottle).length > 0 &&
           !this.state.show_form &&

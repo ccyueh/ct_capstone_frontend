@@ -10,9 +10,7 @@ class UploadForm extends Component {
     super();
 
     this.state = {
-      img_type: '',
-      user_id: '',
-      party_id: ''
+      user_id: ''
     }
   }
 
@@ -27,9 +25,9 @@ class UploadForm extends Component {
     let body = new FormData();
     let filetype = this.uploadInput.files[0].name.split('.')[1];
 
-    let filename = this.state.img_type.toLowerCase() + '_' + this.state.user_id;
-    if (this.state.party_id) {
-      filename += '_' + this.state.party_id;
+    let filename = this.props.img_type.toLowerCase() + '_' + this.state.user_id;
+    if (this.props.party_id) {
+      filename += '_' + this.props.party_id;
     }
     filename += '.' + filetype;
 
@@ -41,7 +39,7 @@ class UploadForm extends Component {
     if (data.success) {
       let upload = await this.imageDB(filename);
       if (upload) {
-        this.props.history.push(upload.redirect);
+        window.location.reload();
       }
     } else if (data.error) {
       alert(`${data.error}`);
@@ -51,13 +49,13 @@ class UploadForm extends Component {
   }
 
   imageDB = async(filename) => {
-    let url = 'api/' + (this.state.img_type == "Profile" ? "users" : "bottles" ) + '/img/save';
+    let url = 'api/' + (this.props.img_type == "Profile" ? "users" : "bottles" ) + '/img/save';
     let body = {};
-    let img_col = (this.state.img_type == "Profile" ? "profile_img" : "label_img" );
+    let img_col = (this.props.img_type == "Profile" ? "profile_img" : "label_img" );
     body[img_col] = 'static/images/' + filename;
     body['user_id'] = this.state.user_id;
-    if (this.state.party_id) {
-      body['party_id'] = this.state.party_id
+    if (this.props.party_id) {
+      body['party_id'] = this.props.party_id
     }
 
     let data = await callAPI(
@@ -74,10 +72,8 @@ class UploadForm extends Component {
 
   componentDidMount() {
     if (this.props.token) {
-      let img_type = this.props.img_type;
       let user_id = getID(this.props.token);
-      let party_id = this.props.party_id;
-      this.setState({ img_type, user_id, party_id });
+      this.setState({ user_id });
     }
   }
 
