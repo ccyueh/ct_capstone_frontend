@@ -7,7 +7,7 @@ function Format(props) {
     props.history.push('/');
     window.location.reload();
   }
-  
+
   return (
     <div className="container">
       <div className="row">

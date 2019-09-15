@@ -44,7 +44,7 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="footer col-md-4 offset-md-4">
+      <div className="footer col-lg-4 offset-lg-4 col-md-8 offset-md-2 col-sm-12">
         <nav className="navbar row">
           <div className="col footer-icon">
             <NavLink className="footer-link" to="/">
