@@ -81,7 +81,7 @@ class Footer extends Component {
             </NavLink>
           </div>
           <div className="col footer-icon">
-            <NavLink className="footer-link" to="/">
+            <NavLink className="footer-link" to="../party/reset">
               <div>
                 <SettingsOutlinedIcon />
               </div>

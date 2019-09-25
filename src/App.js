@@ -15,6 +15,7 @@ import CreateParty from './views/party/create';
 import JoinParty from './views/party/join';
 import ViewParty from './views/party/view';
 import PartyOptions from './views/party/options';
+import ResetVote from './views/party/reset';
 
 import AddBottle from './views/bottle/add';
 import VoteBottle from './views/bottle/vote';
@@ -228,6 +229,11 @@ class App extends Component {
             exact path='/profile/edit'
             render={() =>
               <Profile token={this.state.token} />}
+          />
+          <Route
+            exact path='/party/reset'
+            render={() =>
+              <ResetVote token={this.state.token} />}
           />
 
         </Switch>
