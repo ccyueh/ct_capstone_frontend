@@ -60,60 +60,57 @@ class BottleButton extends Component {
 
   render() {
     return (
-      <div className={"square " +
-        (this.state.stars &&
-          this.props.voting ?
-          'bg-secondary ' : 'bg-white center-vertical ') + this.props.button_size}>
-        { this.state.stars &&
-          this.props.voting &&
-          <div className="star-button">
-            <ReactStars
-              count={5}
-              value={Number(this.state.stars)}
-              color1="lightgray"
-              color2="maroon"
-              size={18}
-              edit={false}
-              half={true}
-            />
-          </div>
+      <div className="bottle-rank">
+        { this.props.button_size < 3 &&
+          <span>
+            {this.props.button_size+1}
+            {this.props.button_size == 0 && "st"}
+            {this.props.button_size == 1 && "nd"}
+            {this.props.button_size == 2 && "rd"}
+          </span>
         }
-        { (!this.props.guest || !this.props.voting) &&
+        <div className={"square " +
+          (this.state.stars &&
+            this.props.voting ?
+            'bg-secondary ' : 'bg-white center-vertical ') + (this.props.button_size < 3 ? 'enlarge': '')}>
+          { this.state.stars &&
+            this.props.voting &&
             <div className="star-button">
-            <ReactStars
-              count={5}
-              value={Number(this.state.avg_rating)}
-              color1="lightgray"
-              color2="maroon"
-              size={18}
-              edit={false}
-              half={true}
-            />
+              <ReactStars
+                count={5}
+                value={Number(this.state.stars)}
+                color1="lightgray"
+                color2="maroon"
+                size={18}
+                edit={false}
+                half={true}
+              />
             </div>
-        }
-        <div className="rate-num">
-        { this.state.rated_by > 0 &&
-          !this.props.guest &&
-          this.state.rated_by
-        }
-        </div>
-        <Link to={{
-          pathname: "../bottle/rate",
-          state: {
-            bottle: this.props.bottle,
-            user_id: this.props.guest,
-            bottle_num: this.props.num,
-            avg_rating: this.state.avg_rating,
-            stars: this.state.stars,
-            description: this.state.description,
-            rating_id: this.state.rating_id,
-            voting: this.props.voting,
           }
-        }}>
-        <h1 className={"bottle-num " + (this.state.stars ? 'text-dark' : 'text-black')}>{this.props.num}</h1>
-        </Link>
+          <div className="rate-num">
+          { this.state.rated_by > 0 &&
+            !this.props.guest &&
+            this.props.voting &&
+            this.state.rated_by
+          }
+          </div>
+          <Link to={{
+            pathname: "../bottle/rate",
+            state: {
+              bottle: this.props.bottle,
+              user_id: this.props.guest,
+              bottle_num: this.props.num,
+              avg_rating: this.state.avg_rating,
+              stars: this.state.stars,
+              description: this.state.description,
+              rating_id: this.state.rating_id,
+              voting: this.props.voting,
+            }
+          }}>
+          <h1 className={"bottle-num " + (this.state.stars ? 'text-dark' : 'text-black')}>{this.props.num}</h1>
+          </Link>
+        </div>
       </div>
-
     );
   }
 }

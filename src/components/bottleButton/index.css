@@ -25,7 +25,7 @@
   height: 30vw;
   max-width: 150px;
   max-height: 150px;
-  margin: .25rem;
+  margin: -0.2rem .25rem 0.25rem 0.25rem;
   border-width: 4px;
 }
 
@@ -43,4 +43,9 @@
   position: absolute;
   left: 0.3em;
   bottom: 0.1em;
+}
+
+.bottle-rank {
+  text-align: center;
+  font-size: 1.3em;
 }

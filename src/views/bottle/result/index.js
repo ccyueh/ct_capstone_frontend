@@ -101,7 +101,7 @@ class ResultBottle extends Component {
               num={bottle.bottle_num}
               guest={this.state.guest}
               voting={false}
-              button_size={index < 3 ? "enlarge" : ""}
+              button_size={index}
               />
           )}
         </div>
