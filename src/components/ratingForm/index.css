@@ -1,5 +1,6 @@
 .form-control, .form-control:focus {
   background-color: transparent;
+  color: white;
 }
 
 .star-container {
@@ -8,36 +9,4 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-}
-
-input[type="checkbox"] {
-  opacity: 0;
-}
-
-input[type="checkbox"]:checked {
-  opacity: 1;
-}
-
-.checkbox-border {
-  display: inline-block;
-  border: 1px solid gray;
-  border-radius: 0.15em;
-  float: left;
-  margin-right: 10px;
-  height: 20px;
-}
-
-.character-label {
-  margin-left: 6vw;
-  color: white;
-  font-size: 0.95em;
-  display: block;
-}
-
-.checkbox-cols {
-  margin: 10px;
-}
-
-label {
-  color: white;
 }
