@@ -12,6 +12,10 @@ function BottleTable(props) {
       </div>
       <div>
         <p>
+          <span className="table-label">Brought by:</span>
+          {bottle.first_name + " " + bottle.last_name}
+        </p>
+        <p>
           <span className="table-label">Producer:</span>
           {bottle.producer ? bottle.producer : "N/A"}
         </p>
