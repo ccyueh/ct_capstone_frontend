@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.css';
 import Format from '../format';
-import ReactStars from 'react-stars';
 
 function BottleTable(props) {
   let bottle = props.bottle;
@@ -27,27 +26,19 @@ function BottleTable(props) {
           <span className="table-label">Vintage:</span>
           {bottle.vintage ? bottle.vintage : "N/A"}
         </p>
-        <p><span className="table-label">Average Rating:</span></p>
-        <div className="star-container">
-          <ReactStars
-            value={Number(props.avg_rating)}
-            color1="lightgray"
-            size={60}
-            edit={false}
-          />
-        </div>
+        <p>
+          <span className="table-label">Average Rating:</span>
+          <span className="star-text">
+            {props.avg_rating.toFixed(3)} &#9733;
+          </span>
+        </p>
         { props.stars &&
-          <div>
-            <p><span className="table-label">Your Rating:</span></p>
-            <div className="star-container">
-              <ReactStars
-                value={Number(props.stars)}
-                color1="lightgray"
-                size={60}
-                edit={false}
-              />
-            </div>
-          </div>
+            <p>
+              <span className="table-label">Your Rating:</span>
+              <span className="star-text">
+                {props.stars.toFixed(1)} &#9733;
+              </span>
+            </p>
         }
         { props.description &&
           <div>

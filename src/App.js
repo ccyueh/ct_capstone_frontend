@@ -27,7 +27,6 @@ import Profile from './components/profile';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
 import SECRET_KEY from './config.js';
-//import Wood from './wood.png';
 
 let jwt = require('jsonwebtoken');
 
