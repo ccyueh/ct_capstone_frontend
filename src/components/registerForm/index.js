@@ -5,9 +5,9 @@ function RegisterForm(props) {
   return (
     <form onSubmit={props.handleRegister}>
       <div className="form-group">
-        <label>First Name - <span className="optional">Optional</span></label>
+        <label>First Name</label>
         <input className="form-control" type="text" name="first" />
-        <label>Last Name - <span className="optional">Optional</span></label>
+        <label>Last Name</label>
         <input className="form-control" type="text" name="last" />
         <label>E-mail</label>
         <input className="form-control" type="text" name="email" required />

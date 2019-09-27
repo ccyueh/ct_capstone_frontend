@@ -124,7 +124,7 @@ class PartyOptions extends Component {
             state: { party_id: party.party_id }
           }}>
             <button className="btn btn-danger btn-wide">
-              Edit Guest List
+              View Guest List
             </button>
           </Link>
         }

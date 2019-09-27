@@ -15,6 +15,7 @@ import CreateParty from './views/party/create';
 import JoinParty from './views/party/join';
 import ViewParty from './views/party/view';
 import PartyOptions from './views/party/options';
+import PartyGuests from './views/party/guests';
 import ResetVote from './views/party/reset';
 
 import AddBottle from './views/bottle/add';
@@ -199,6 +200,11 @@ class App extends Component {
             exact path='/party/options'
             render={() =>
               <PartyOptions token={this.state.token} />}
+          />
+          <Route
+            exact path='/party/guests'
+            render={() =>
+              <PartyGuests token={this.state.token} />}
           />
           <Route
             exact path='/bottle/add'

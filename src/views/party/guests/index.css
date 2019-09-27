@@ -1,0 +1,15 @@
+.bottle-link {
+  color: white;
+}
+
+.guest-list td, .guest-list th {
+  border: none;
+}
+
+.guest-list tbody {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.guest-list thead {
+  background-color: rgba(128, 0, 0, 0.7);
+}

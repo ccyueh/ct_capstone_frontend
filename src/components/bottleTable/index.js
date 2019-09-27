@@ -26,12 +26,14 @@ function BottleTable(props) {
           <span className="table-label">Vintage:</span>
           {bottle.vintage ? bottle.vintage : "N/A"}
         </p>
-        <p>
+        { props.avg_rating &&
+          <p>
           <span className="table-label">Average Rating:</span>
           <span className="star-text">
-            {props.avg_rating.toFixed(3)} &#9733;
+          {props.avg_rating.toFixed(3)} &#9733;
           </span>
-        </p>
+          </p>
+        }
         { props.stars &&
             <p>
               <span className="table-label">Your Rating:</span>
