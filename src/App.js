@@ -4,6 +4,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 
 import Home from './views/home';
 import About from './views/about';
+import Directions from './views/directions';
 import Format from './components/format';
 import Header from './components/header';
 import Slogan from './components/slogan';
@@ -180,6 +181,11 @@ class App extends Component {
             exact path='/about'
             render={() =>
               <About />}
+          />
+          <Route
+            exact path='/directions'
+            render={() =>
+              <Directions />}
           />
           <Route
             exact path='/party/create'

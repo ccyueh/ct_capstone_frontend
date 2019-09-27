@@ -5,9 +5,8 @@ import { allParties } from '../../utils';
 
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
-import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
-import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
+import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 
 class Footer extends Component {
   constructor() {
@@ -81,11 +80,11 @@ class Footer extends Component {
             </NavLink>
           </div>
           <div className="col footer-icon">
-            <NavLink className="footer-link" to="../party/reset">
+            <NavLink className="footer-link" to="../directions">
               <div>
-                <SettingsOutlinedIcon />
+                <HelpOutlineOutlinedIcon />
               </div>
-              Settings
+              How to Sip
             </NavLink>
           </div>
         </nav>
