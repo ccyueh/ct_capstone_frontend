@@ -66,7 +66,7 @@ class ResultBottle extends Component {
       let bottles = await getBottles(party_id);
       let bottle_data = await this.bottleData(bottles);
 
-      this.setState({ reveal, guest, bottles: bottle_data });
+      this.setState({ reveal, user_id, guest, bottles: bottle_data });
     }
   }
 
@@ -99,7 +99,7 @@ class ResultBottle extends Component {
               key={bottle.bottle.bottle_id}
               bottle={bottle.bottle}
               num={bottle.bottle_num}
-              guest={this.state.guest}
+              user_id={this.state.user_id}
               voting={false}
               button_size={index}
               />

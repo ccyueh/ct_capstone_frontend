@@ -37,7 +37,7 @@ class VoteBottle extends Component {
         let voting = party.voting;
         let bottles = await getBottles(party_id);
 
-        this.setState({ voting, guest, bottles });
+        this.setState({ voting, user_id, guest, bottles });
       }
     }
   }
@@ -71,6 +71,7 @@ class VoteBottle extends Component {
               key={bottle.bottle_id}
               bottle={bottle}
               num={this.bottleNum(bottle)}
+              user_id={this.state.user_id}
               guest={this.state.guest}
               voting={true}
               />

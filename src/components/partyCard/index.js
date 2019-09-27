@@ -100,17 +100,6 @@ class PartyCard extends Component {
           { guest &&
             !this.props.past &&
             <Link to={{
-              pathname: "../party/invite",
-              state: { party_id: party.party_id }
-            }}>
-              <button className="btn btn-danger">
-                View Invitation
-              </button>
-            </Link>
-          }
-          { guest &&
-            !this.props.past &&
-            <Link to={{
               pathname: "../bottle/add",
               state: { party_id: party.party_id }
             }}>

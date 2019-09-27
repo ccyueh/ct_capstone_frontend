@@ -50,7 +50,7 @@ class BottleButton extends Component {
     let avg_rating = rating.avg;
     let rated_by = rating.rated;
 
-    let user_rating = await this.retrieveRating(this.props.bottle.bottle_id, this.props.guest);
+    let user_rating = await this.retrieveRating(this.props.bottle.bottle_id, this.props.user_id);
     let rating_id = user_rating.rating_id ? user_rating.rating_id : false;
     let stars = user_rating.stars ? user_rating.stars : false;
     let description = user_rating.description ? user_rating.description : false;
@@ -98,7 +98,7 @@ class BottleButton extends Component {
             pathname: "../bottle/rate",
             state: {
               bottle: this.props.bottle,
-              user_id: this.props.guest,
+              user_id: this.props.user_id,
               bottle_num: this.props.num,
               avg_rating: this.state.avg_rating,
               stars: this.state.stars,
