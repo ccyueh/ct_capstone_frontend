@@ -66,7 +66,6 @@ class PartyCard extends Component {
   async componentDidMount() {
     let bottle = await this.retrieveBottle(getID(this.props.token), this.props.party.party_id);
     this.setState({ bottle });
-
   }
 
   render() {
@@ -83,7 +82,7 @@ class PartyCard extends Component {
         </div>
         <div className="card-body">
           <h3 className="card-title">{party.party_name}</h3>
-          <h5 className="card-subtitle text-muted">{party.location}</h5>
+          <h5 className="card-subtitle">{party.location}</h5>
           <h6 className="card-text">{this.toDate(party.start)}</h6>
           <h6 className="card-text">{this.toTime(party.start)} - {this.toTime(party.end)}</h6>
 

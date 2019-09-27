@@ -1,5 +1,9 @@
 body {
   background-color: black;
+  background-image: url(./wood.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 550px auto;
   color: white;
   padding-bottom: 30px;
   margin-bottom: 50px;
