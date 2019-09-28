@@ -57,9 +57,14 @@ class ResultBottle extends Component {
 
   async componentDidMount() {
     let user_id = getID(this.props.token);
-    let parties = await allParties(this.props.token);
-    let last = lastParty(parties);
-    let party = last.length > 0 ? last[0] : {};
+    let party = {};
+    if (this.props.history.location.state) {
+      party = this.props.history.location.state.party;
+    } else {
+      let parties = await allParties(this.props.token);
+      let last = lastParty(parties);
+      party = last.length > 0 ? last[0] : {};
+    }
 
     if (Object.keys(party).length > 0) {
       let party_id = party.party_id;
