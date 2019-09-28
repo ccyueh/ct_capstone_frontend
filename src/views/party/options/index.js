@@ -55,7 +55,7 @@ class PartyOptions extends Component {
     );
 
     if (data.success) {
-      this.props.history.push('../bottle/party');
+      this.props.history.push('/');
       window.location.reload();
     }
   }

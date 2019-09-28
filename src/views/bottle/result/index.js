@@ -12,7 +12,8 @@ class ResultBottle extends Component {
     super();
 
     this.state = {
-      reveal: false,
+      reveal: '',
+      user_id: '',
       guest: '',
       bottles: [],
     }
@@ -67,44 +68,59 @@ class ResultBottle extends Component {
       let bottle_data = await this.bottleData(bottles);
 
       this.setState({ reveal, user_id, guest, bottles: bottle_data });
+    } else {
+      this.setState({ user_id });
     }
   }
 
   render() {
-    if (!this.state.reveal) {
-      return (
-        <Format token={this.props.token} title="">
+    return (
+      <Format token={this.props.token} title="">
+
+        { !this.state.reveal &&
+          this.state.guest &&
           <p className="mt-5">
             Results have not yet been released for this party. Try again soon!
           </p>
-        </Format>
-      );
-    }
+        }
 
-    if (this.state.bottles.length == 0 ) {
-      return (
-        <Format token={this.props.token} title="">
+        { !this.state.reveal &&
+          this.state.bottles.length > 0 &&
+          !this.state.guest &&
+          <button className="btn btn-danger" onClick={() => this.setState({ 'reveal': true })}>
+            Preview Results
+          </button>
+        }
+
+        { this.state.reveal &&
+          this.state.bottles.length == 0 &&
           <p className="mt-5">
             No bottles found for this party.
           </p>
-        </Format>
-      );
-    }
+        }
 
-    return (
-      <Format token={this.props.token} title="">
-        <div className="row">
+        { this.state.reveal.length == 0 &&
+          this.state.user_id &&
+          <p className="mt-5">
+            No recent or ongoing parties found.
+          </p>
+        }
+
+        { this.state.reveal &&
+          <div className="row">
           {this.state.bottles.map((bottle, index) =>
             <BottleButton
-              key={bottle.bottle.bottle_id}
-              bottle={bottle.bottle}
-              num={bottle.bottle_num}
-              user_id={this.state.user_id}
-              voting={false}
-              button_size={index}
-              />
+            key={bottle.bottle.bottle_id}
+            bottle={bottle.bottle}
+            num={bottle.bottle_num}
+            user_id={this.state.user_id}
+            voting={false}
+            button_size={index}
+            />
           )}
-        </div>
+          </div>
+        }
+
       </Format>
     );
   }

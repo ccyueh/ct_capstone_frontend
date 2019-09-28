@@ -32,7 +32,7 @@ class Footer extends Component {
     if (this.props.token) {
       let parties = await allParties(this.props.token);
       let current = parties.filter(party => party.voting == true);
-      let last = parties.filter(party => party.reveal == true && this.timeDiff(party.voting_end, 6));
+      let last = parties.filter(party => this.timeDiff(party.voting_end, 12));
 
       current = current.length > 0 ? current[0] : {};
       last = last.length > 0 ? last[0] : {};
