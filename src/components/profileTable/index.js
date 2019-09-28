@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
 import Format from '../format';
-import UploadForm from '../uploadForm';
 import callAPI from '../../utils/api.js';
 import getID from '../../utils/getID.js';
 
@@ -14,7 +13,6 @@ class ProfileTable extends Component {
       user_id: '',
       first: '',
       last: '',
-      profile_img: '',
       show_form: false
     }
   }
@@ -40,17 +38,13 @@ class ProfileTable extends Component {
       user_id,
       'first': user.first_name,
       'last': user.last_name,
-      'email': user.email,
-      'profile_img': user.profile_img
+      'email': user.email
     });
   }
 
   render() {
     return (
       <Format token={this.props.token} title="Your Profile">
-        <div className="img-container">
-          <img src={'https://sipper-psql.herokuapp.com/' + this.state.profile_img} />
-        </div>
         { !this.state.show_form &&
           <div>
             <p><b>First Name:</b> {this.state.first}</p>
@@ -69,13 +63,7 @@ class ProfileTable extends Component {
               Edit Profile
             </button>
             </Link>
-            <button className="btn btn-danger" onClick={() => this.setState({ 'show_form': true })}>
-              Upload Profile Picture
-            </button>
           </div>
-        }
-        { this.state.show_form &&
-          <UploadForm token={this.props.token} img_type="Profile" party_id={false} />
         }
       </Format>
     );

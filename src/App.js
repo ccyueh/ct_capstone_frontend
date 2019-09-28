@@ -10,7 +10,6 @@ import Header from './components/header';
 import Slogan from './components/slogan';
 import Footer from './components/footer';
 import Timer from './components/timer';
-import UploadForm from './components/uploadForm';
 
 import CreateParty from './views/party/create';
 import JoinParty from './views/party/join';

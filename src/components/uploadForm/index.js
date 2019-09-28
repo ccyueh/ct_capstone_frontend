@@ -6,14 +6,6 @@ import callAPI from '../../utils/api.js';
 import getID from '../../utils/getID.js';
 
 class UploadForm extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      user_id: ''
-    }
-  }
-
   handleUploadImage = async(e) => {
     e.preventDefault();
 
@@ -25,15 +17,7 @@ class UploadForm extends Component {
 
     let body = new FormData();
     if (this.uploadInput.files[0]) {
-      let filetype = this.uploadInput.files[0].name.split('.')[1];
-
-      let filename = this.props.img_type.toLowerCase() + '_' + this.state.user_id;
-      if (this.props.party_id) {
-        filename += '_' + this.props.party_id;
-      }
-      filename += '.' + filetype;
-
-      body.append('file', this.uploadInput.files[0], filename);
+      body.append('file', this.uploadInput.files[0]);
       response_json['body'] = body;
 
       let response = await fetch(URL, response_json);
@@ -52,17 +36,14 @@ class UploadForm extends Component {
   }
 
   imageDB = async(filename) => {
-    let url = 'api/' + (this.props.img_type == "Profile" ? "users" : "bottles" ) + '/img/save';
-    let body = {};
-    let img_col = (this.props.img_type == "Profile" ? "profile_img" : "label_img" );
-    body[img_col] = filename;
-    body['user_id'] = this.state.user_id;
-    if (this.props.party_id) {
-      body['party_id'] = this.props.party_id
-    }
+    let body = {
+      'user_id': getID(this.props.token),
+      'party_id': this.props.party_id,
+      'label_img': filename
+    };
 
     let data = await callAPI(
-      url,
+      'api/bottles/img/save',
       'POST',
       false,
       body
@@ -70,13 +51,6 @@ class UploadForm extends Component {
 
     if (data) {
       return data;
-    }
-  }
-
-  componentDidMount() {
-    if (this.props.token) {
-      let user_id = getID(this.props.token);
-      this.setState({ user_id });
     }
   }
 

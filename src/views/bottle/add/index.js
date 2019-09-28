@@ -101,7 +101,7 @@ class AddBottle extends Component {
           </div>
         }
         { !this.state.show_form &&
-          <UploadForm token={this.props.token} img_type="Bottle" party_id={this.state.party_id} />
+          <UploadForm token={this.props.token} party_id={this.state.party_id} />
         }
         { Object.keys(bottle).length > 0 &&
           !this.state.show_form &&
