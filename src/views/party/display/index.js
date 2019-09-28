@@ -8,9 +8,9 @@ function DisplayParty(props) {
   const filterParty = (parties, past) => {
     let now = new Date();
     if (past) {
-      parties = parties.filter(party => (new Date(party.end) - now < 0) || party.reveal);
+      parties = parties.filter(party => party.reveal)
     } else {
-      parties = parties.filter(party => (new Date(party.start) - now > 0) || !party.reveal);
+      parties = parties.filter(party => !party.reveal)
     }
     return parties;
   }

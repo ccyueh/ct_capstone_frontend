@@ -110,6 +110,8 @@ class PartyCard extends Component {
           }
           { !guest &&
             !this.props.past &&
+            !party.voting &&
+            new Date() < (new Date(party.voting_end)) &&
             <Link to={{
               pathname: "../party/options",
               state: { party: party }
@@ -122,7 +124,6 @@ class PartyCard extends Component {
           { !guest &&
             !party.reveal &&
             new Date() > (new Date(party.voting_end)) &&
-            (new Date() - (new Date(party.voting_end))) < 3600000 &&
             <button
               className="btn btn-danger"
               onClick={() => this.setReveal(party, party.party_id)}

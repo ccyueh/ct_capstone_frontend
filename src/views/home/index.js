@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Format from '../../components/format';
 import PartyCard from '../../components/partyCard';
 import PartyNone from '../../components/partyNone';
-import { allParties } from '../../utils';
+import { allParties, currentParty, lastParty } from '../../utils';
 
 import LocalBarIcon from '@material-ui/icons/LocalBar';
 
@@ -22,33 +22,29 @@ class Home extends Component {
     if (this.props.token) {
       let parties = await allParties(this.props.token);
       if (parties.length > 0) {
-        let current = parties.filter(party => party.voting == true);
+        let current = currentParty(parties);
         let party = current.length > 0 ? current[0] : false;
         let past = true;
 
         if (!party) {
-          let last = parties.filter(party =>
-            (new Date() > (new Date(party.voting_end))) && (new Date() - (new Date(party.voting_end)) < 3600000));
-            party = last.length > 0 ? last[0] : false;
-          }
+          let last = lastParty(parties);
+          party = last.length > 0 ? last[0] : false;
+        }
 
-          if (!party) {
-            parties = parties.filter(party =>
-              //(new Date(party.voting_end) - (new Date()) > 0) &&
-              //(new Date(party.start) - (new Date()) > 0) &&
-              !party.reveal);
-              parties.sort(function(a,b) {
-                return new Date(a.start) - new Date(b.start);
-              })
+        if (!party) {
+          parties = parties.filter(party => !party.reveal);
+          parties.sort(function(a,b) {
+            return new Date(a.start) - new Date(b.start);
+          })
 
-              party = parties.length > 0 ? parties[0] : false;
-              past = false;
-            }
+          party = parties.length > 0 ? parties[0] : false;
+          past = false;
+        }
 
-            if (party) {
-              this.setState({ party, past });
-            }
-          }
+        if (party) {
+          this.setState({ party, past });
+        }
+      }
     }
   }
 

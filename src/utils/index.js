@@ -35,3 +35,21 @@ export const getBottles = async(party_id) => {
     return [];
   }
 }
+
+const timeDiff = (voting_end, diff) => {
+  let ms = (new Date()) - (new Date(voting_end));
+  let hours = Math.abs(ms / 3600000);
+  if (hours < diff) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export const currentParty = parties => {
+  return parties.filter(party => party.voting == true);
+}
+
+export const lastParty = parties => {
+  return parties.filter(party => timeDiff(party.voting_end, 12));
+}

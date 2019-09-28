@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import { NavLink } from 'react-router-dom';
-import { allParties } from '../../utils';
+import { allParties, currentParty, lastParty } from '../../utils';
 
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
@@ -18,21 +18,11 @@ class Footer extends Component {
     }
   }
 
-  timeDiff = (voting_end, diff) => {
-    let ms = (new Date()) - (new Date(voting_end));
-    let hours = Math.abs(ms / 3600000);
-    if (hours < diff) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   async componentDidMount() {
     if (this.props.token) {
       let parties = await allParties(this.props.token);
-      let current = parties.filter(party => party.voting == true);
-      let last = parties.filter(party => this.timeDiff(party.voting_end, 12));
+      let current = currentParty(parties);
+      let last = lastParty(parties);
 
       current = current.length > 0 ? current[0] : {};
       last = last.length > 0 ? last[0] : {};
