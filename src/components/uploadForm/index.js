@@ -17,7 +17,8 @@ class UploadForm extends Component {
   handleUploadImage = async(e) => {
     e.preventDefault();
 
-    const URL = 'https://sipper-psql.herokuapp.com/upload';
+    //const URL = 'https://sipper-psql.herokuapp.com/upload';
+    const URL = 'http://localhost:5000/upload';
 
     let response_json = {};
     response_json['method'] = 'POST';
@@ -38,7 +39,7 @@ class UploadForm extends Component {
       let response = await fetch(URL, response_json);
       let data = await response.json();
       if (data.success) {
-        let upload = await this.imageDB(filename);
+        let upload = await this.imageDB(data.filename);
         if (upload) {
           window.location.reload();
         }
@@ -46,7 +47,7 @@ class UploadForm extends Component {
         alert(`${data.error}`);
       } else {
         alert('Sorry, try again.');
-      }  
+      }
     }
   }
 
@@ -54,7 +55,7 @@ class UploadForm extends Component {
     let url = 'api/' + (this.props.img_type == "Profile" ? "users" : "bottles" ) + '/img/save';
     let body = {};
     let img_col = (this.props.img_type == "Profile" ? "profile_img" : "label_img" );
-    body[img_col] = 'static/images/' + filename;
+    body[img_col] = filename;
     body['user_id'] = this.state.user_id;
     if (this.props.party_id) {
       body['party_id'] = this.props.party_id

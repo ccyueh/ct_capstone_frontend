@@ -97,7 +97,7 @@ class AddBottle extends Component {
         }
         { bottle.label_img &&
           <div className="img-container my-5">
-            <img className="mx-auto d-block" src={"https://sipper-psql.herokuapp.com/" + bottle.label_img} />
+            <img className="mx-auto d-block" src={bottle.label_img} />
           </div>
         }
         { !this.state.show_form &&
