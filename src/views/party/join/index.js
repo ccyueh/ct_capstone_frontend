@@ -3,35 +3,27 @@ import './index.css';
 import { withRouter } from 'react-router-dom';
 import Format from '../../../components/format';
 import JoinPartyForm from '../../../components/joinPartyForm';
+import callAPI from '../../../utils/api.js';
+import getID from '../../../utils/getID.js';
 
 class JoinParty extends Component {
   joinParty = async(e) => {
     e.preventDefault();
 
-    let token = this.props.token;
-    let user_id = JSON.parse(atob(token.split('.')[1])).user_id;
     let data_json = {};
-
     Object.values(e.target.elements).map(k => { if (k.name.length > 0) data_json[k.name] =  k.value } );
-    data_json['user_id'] = user_id;
+    data_json['user_id'] = getID(this.props.token);
 
-    const URL = 'https://sipper-psql.herokuapp.com/api/guests/save';
+    let data = await callAPI(
+      'api/guests/save',
+      'POST',
+      false,
+      data_json
+    );
 
-    let response = await fetch(URL, {
-      'method': 'POST',
-      'headers': { 'Content-Type': 'application/json' },
-      'body': JSON.stringify(data_json)
-    })
-
-    let data = await response.json();
-
-    if (data.success) {
+    if (data) {
       this.props.history.push('../party/view');
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
-    }
+    } 
   }
 
   render() {

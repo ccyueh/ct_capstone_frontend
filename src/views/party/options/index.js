@@ -54,7 +54,7 @@ class PartyOptions extends Component {
       data_json
     );
 
-    if (data.success) {
+    if (data) {
       this.props.history.push('/');
       window.location.reload();
     }

@@ -23,28 +23,30 @@ class UploadForm extends Component {
     response_json['method'] = 'POST';
 
     let body = new FormData();
-    let filetype = this.uploadInput.files[0].name.split('.')[1];
+    if (this.uploadInput.files[0]) {
+      let filetype = this.uploadInput.files[0].name.split('.')[1];
 
-    let filename = this.props.img_type.toLowerCase() + '_' + this.state.user_id;
-    if (this.props.party_id) {
-      filename += '_' + this.props.party_id;
-    }
-    filename += '.' + filetype;
-
-    body.append('file', this.uploadInput.files[0], filename);
-    response_json['body'] = body;
-
-    let response = await fetch(URL, response_json);
-    let data = await response.json();
-    if (data.success) {
-      let upload = await this.imageDB(filename);
-      if (upload) {
-        window.location.reload();
+      let filename = this.props.img_type.toLowerCase() + '_' + this.state.user_id;
+      if (this.props.party_id) {
+        filename += '_' + this.props.party_id;
       }
-    } else if (data.error) {
-      alert(`${data.error}`);
-    } else {
-      alert('Sorry, try again.');
+      filename += '.' + filetype;
+
+      body.append('file', this.uploadInput.files[0], filename);
+      response_json['body'] = body;
+
+      let response = await fetch(URL, response_json);
+      let data = await response.json();
+      if (data.success) {
+        let upload = await this.imageDB(filename);
+        if (upload) {
+          window.location.reload();
+        }
+      } else if (data.error) {
+        alert(`${data.error}`);
+      } else {
+        alert('Sorry, try again.');
+      }  
     }
   }
 

@@ -72,7 +72,6 @@ class AddBottle extends Component {
     }
 
     let bottle = this.state.bottle;
-    console.log('addbottle', this.state);
     return (
       <Format token={this.props.token} title="">
         { this.state.show_form ? <h2>Bottle Details</h2> : <h2>Upload Label image</h2>

@@ -18,7 +18,7 @@ class ResetVote extends Component {
 
     let voting_end = new Date(Date.now() + 365*24*60*60*1000);
     data_json['voting_end'] = voting_end;
-    
+
     let data = await callAPI(
       'api/parties/save',
       'POST',
@@ -26,7 +26,7 @@ class ResetVote extends Component {
       data_json
     );
 
-    if (data.success) {
+    if (data) {
       this.props.history.push('/');
       window.location.reload();
     }
