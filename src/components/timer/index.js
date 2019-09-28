@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Countdown from 'react-countdown-now';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import callAPI from '../../utils/api.js';
-import { allParties } from '../../utils';
+import { allParties, currentParty, timeDiff } from '../../utils';
 
 class Timer extends Component {
   constructor() {
@@ -52,15 +52,23 @@ class Timer extends Component {
     }
   }
 
+  getCurrent = async() => {
+    let parties = await allParties(this.props.token);
+    let current = currentParty(parties);
+    if (current.length == 1) {
+      let party_id = current[0].party_id;
+      let voting_end = current[0].voting_end;
+
+      this.setState({ party_id, voting_end });
+    }
+  }
+
   async componentDidMount() {
     if (this.props.token) {
       let parties = await allParties(this.props.token);
-      let current = parties.filter(party => party.voting == true);
-      if (current.length == 1) {
-        let party_id = current[0].party_id;
-        let voting_end = current[0].voting_end;
-
-        this.setState({ party_id, voting_end });
+      let started = parties.filter(party => timeDiff(party.start, 12) && !party.reveal);
+      if (started.length > 0) {
+        setInterval(() => this.getCurrent(parties), 1000);
       }
     }
   }

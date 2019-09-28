@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Format from '../../../components/format';
 import BottleButton from '../../../components/bottleButton';
 import getID from '../../../utils/getID.js';
-import { getBottles } from '../../../utils';
+import { allParties, currentParty, getBottles } from '../../../utils';
 
 class VoteBottle extends Component {
   constructor(props) {
@@ -26,7 +26,9 @@ class VoteBottle extends Component {
 
   async componentDidMount() {
     let user_id = getID(this.props.token);
-    let party = this.props.history.location.state.party;
+    let parties = await allParties(this.props.token);
+    let current = currentParty(parties);
+    let party = current.length > 0 ? current[0] : {};
 
     if (Object.keys(party).length > 0) {
       let party_id = party.party_id;
@@ -73,7 +75,7 @@ class VoteBottle extends Component {
             )}
           </div>
         }
-        
+
       </Format>
     );
   }

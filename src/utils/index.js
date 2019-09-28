@@ -36,8 +36,8 @@ export const getBottles = async(party_id) => {
   }
 }
 
-const timeDiff = (voting_end, diff) => {
-  let ms = (new Date()) - (new Date(voting_end));
+export const timeDiff = (date, diff) => {
+  let ms = (new Date()) - (new Date(date));
   let hours = Math.abs(ms / 3600000);
   if (hours < diff) {
     return true;

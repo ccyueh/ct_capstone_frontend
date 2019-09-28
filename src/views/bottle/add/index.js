@@ -59,10 +59,29 @@ class AddBottle extends Component {
     }
   }
 
+  retrieveParty = async(party_id) => {
+    let data = await callAPI(
+      'api/parties/retrieve',
+      'GET',
+      {'party_id': party_id},
+      false
+    );
+
+    if (data) {
+      return data.parties[0].voting;
+    }
+  }
+
   async componentDidMount() {
     let user_id = getID(this.props.token);
     let party_id = this.props.history.location.state.party_id;
     let bottle = await this.retrieveBottle(user_id, party_id);
+
+    let party = await this.retrieveParty(party_id);
+    if (party) {
+      this.props.history.push('../bottle/party');
+    }
+
     this.setState({ user_id, party_id, bottle});
   }
 

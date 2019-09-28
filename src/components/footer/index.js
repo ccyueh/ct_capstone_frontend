@@ -44,12 +44,7 @@ class Footer extends Component {
             </NavLink>
           </div>
           <div className="col footer-icon">
-            <NavLink
-              className="footer-link"
-              to={{
-                pathname: "../bottle/party",
-                state: { party: this.state.current }
-              }}>
+            <NavLink className="footer-link" to="../bottle/party">
             <div>
               <StarBorderOutlinedIcon />
             </div>
@@ -57,12 +52,7 @@ class Footer extends Component {
             </NavLink>
           </div>
           <div className="col footer-icon">
-            <NavLink
-              className="footer-link"
-              to={{
-                pathname: "../bottle/result",
-                state: { party: this.state.last }
-              }}>
+            <NavLink className="footer-link" to="../bottle/result">
             <div>
               <FormatListNumberedIcon />
             </div>

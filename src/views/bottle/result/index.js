@@ -5,7 +5,7 @@ import Format from '../../../components/format';
 import BottleButton from '../../../components/bottleButton';
 import callAPI from '../../../utils/api.js';
 import getID from '../../../utils/getID.js';
-import { getBottles } from '../../../utils';
+import { allParties, lastParty, getBottles } from '../../../utils';
 
 class ResultBottle extends Component {
   constructor(props) {
@@ -57,7 +57,9 @@ class ResultBottle extends Component {
 
   async componentDidMount() {
     let user_id = getID(this.props.token);
-    let party = this.props.history.location.state.party;
+    let parties = await allParties(this.props.token);
+    let last = lastParty(parties);
+    let party = last.length > 0 ? last[0] : {};
 
     if (Object.keys(party).length > 0) {
       let party_id = party.party_id;
