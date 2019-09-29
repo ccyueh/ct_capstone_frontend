@@ -30,7 +30,9 @@ export const getBottles = async(party_id) => {
   );
 
   if (data.bottles) {
-    return data.bottles;
+    let bottles = data.bottles;
+    bottles.sort((a, b) => a.bottle_id - b.bottle_id);
+    return bottles;
   } else {
     return [];
   }

@@ -19,42 +19,6 @@ class ResultBottle extends Component {
     }
   }
 
-  retrieveRating = async(bottle_id) => {
-    let data = await callAPI(
-      'api/ratings/retrieve',
-      'GET',
-      {'bottle_id': bottle_id},
-      false
-    );
-
-    if (data) {
-      if (data.star_ratings.length > 0) {
-        let avg = data.star_ratings.reduce((a, b) => a + b)/data.star_ratings.length;
-        return avg;
-      }
-    } else {
-      return [];
-    }
-  }
-
-  bottleData = async(bottles) => {
-    let bottle_data = [];
-
-    for (let i in bottles) {
-      let bottle = bottles[i];
-      let bottle_num = Number(i) + Number(1);
-      let star_rating = await this.retrieveRating(bottle.bottle_id);
-      bottle_data.push({
-        bottle: bottle,
-        bottle_num: bottle_num,
-        star_rating: star_rating
-      })
-    }
-
-    bottle_data.sort((a, b) => (a.star_rating < b.star_rating) ? 1 : -1);
-    return bottle_data;
-  }
-
   async componentDidMount() {
     let user_id = getID(this.props.token);
     let party = {};
@@ -72,7 +36,14 @@ class ResultBottle extends Component {
       let guest = (user_id != host_id ? user_id : false);
       let reveal = party.reveal;
       let bottles = await getBottles(party_id);
-      let bottle_data = await this.bottleData(bottles);
+
+      let bottle_data = [];
+      bottles.map((bottle, index) => bottle_data.push({
+        'bottle': bottle,
+        'bottle_num': Number(index) + Number(1),
+        'star_rating': bottle.star_rating
+      }));
+      bottle_data.sort((a, b) => (a.star_rating < b.star_rating) ? 1 : -1);
 
       this.setState({ reveal, user_id, guest, bottles: bottle_data });
     } else {
