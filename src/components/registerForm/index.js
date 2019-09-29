@@ -6,11 +6,11 @@ function RegisterForm(props) {
     <form onSubmit={props.handleRegister}>
       <div className="form-group">
         <label>First Name</label>
-        <input className="form-control" type="text" name="first" />
+        <input className="form-control" type="text" name="first" required />
         <label>Last Name</label>
-        <input className="form-control" type="text" name="last" />
+        <input className="form-control" type="text" name="last" required />
         <label>E-mail</label>
-        <input className="form-control" type="text" name="email" required />
+        <input className="form-control" type="email" name="email" required />
         <label>Password</label>
         <input className="form-control" type="password" name="password" required />
         <label>Re-enter Password</label>
