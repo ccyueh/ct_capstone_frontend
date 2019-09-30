@@ -5,8 +5,8 @@ function JoinPartyForm(props) {
   return (
     <form onSubmit={props.joinParty}>
       <div className="form-group">
-        <label>Party ID</label>
-        <input type="number" className="form-control" name="party_id" />
+        <label>Party Code</label>
+        <input type="number" className="form-control" name="party_code" />
       </div>
       <button type="submit" className="btn btn-danger">Join Party</button>
     </form>
