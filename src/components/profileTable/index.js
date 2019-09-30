@@ -46,7 +46,7 @@ class ProfileTable extends Component {
     return (
       <Format token={this.props.token} title="Your Profile">
         { !this.state.show_form &&
-          <div>
+          <div className="mw-table">
             <p><b>First Name:</b> {this.state.first}</p>
             <p><b>Last Name:</b> {this.state.last}</p>
             <p><b>E-mail:</b> {this.state.email}</p>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
 import callAPI from '../../utils/api.js';
-import getID from '../../utils/getID.js';
 import ReactStars from 'react-stars';
 
 class BottleButton extends Component {

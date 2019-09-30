@@ -1,12 +1,10 @@
 import React from 'react';
 import './index.css';
-import { Link } from 'react-router-dom';
 import PartyCard from '../../../components/partyCard';
 import PartyNone from '../../../components/partyNone';
 
 function DisplayParty(props) {
   const filterParty = (parties, past) => {
-    let now = new Date();
     if (past) {
       parties = parties.filter(party => party.reveal)
     } else {

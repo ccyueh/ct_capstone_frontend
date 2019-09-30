@@ -86,6 +86,13 @@ class PartyCard extends Component {
           <h6 className="card-text">{this.toDate(party.start)}</h6>
           <h6 className="card-text">{this.toTime(party.start)} - {this.toTime(party.end)}</h6>
 
+          { !guest &&
+            party.party_code &&
+            <h6 className="card-text">
+              Party Code: {party.party_code}
+            </h6>
+          }
+
           { this.props.past &&
             party.reveal &&
             <Link to={{

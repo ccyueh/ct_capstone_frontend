@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
 import { withRouter } from 'react-router-dom';
-import Format from '../format';
 import callAPI from '../../utils/api.js';
 import getID from '../../utils/getID.js';
 

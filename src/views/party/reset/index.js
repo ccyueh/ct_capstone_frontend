@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Format from '../../../components/format';
 import callAPI from '../../../utils/api.js';
 

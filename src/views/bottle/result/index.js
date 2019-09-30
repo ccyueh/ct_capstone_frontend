@@ -3,7 +3,6 @@ import './index.css';
 import { withRouter } from 'react-router-dom';
 import Format from '../../../components/format';
 import BottleButton from '../../../components/bottleButton';
-import callAPI from '../../../utils/api.js';
 import getID from '../../../utils/getID.js';
 import { allParties, lastParty, getBottles } from '../../../utils';
 

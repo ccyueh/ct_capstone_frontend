@@ -17,6 +17,7 @@ label {
   color: white;
   margin-top: 0.1em;
   font-weight: bold;
+  padding-left: 10%;
 }
 
 input {

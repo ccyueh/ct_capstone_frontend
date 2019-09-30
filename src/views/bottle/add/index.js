@@ -97,7 +97,11 @@ class AddBottle extends Component {
         }
         { bottle.label_img &&
           <div className="img-container my-5">
-            <img className="mx-auto d-block" src={bottle.label_img} />
+            <img
+              className="mx-auto d-block"
+              src={bottle.label_img}
+              alt="Bottle Label"
+            />
           </div>
         }
         { !this.state.show_form &&

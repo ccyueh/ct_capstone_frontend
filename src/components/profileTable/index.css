@@ -7,3 +7,8 @@
   margin-bottom: 2em;
   max-width: 100%;
 }
+
+.mw-table {
+  max-width: 80%;
+  margin: 0 auto;
+}

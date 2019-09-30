@@ -1,6 +1,8 @@
 .form-control, .form-control:focus {
   background-color: transparent;
   color: white;
+  max-width: 80%;
+  margin: 0 auto;
 }
 
 option {

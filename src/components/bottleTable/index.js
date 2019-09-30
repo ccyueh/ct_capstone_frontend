@@ -7,9 +7,9 @@ function BottleTable(props) {
   return (
     <Format token={props.token} title="">
       <div className="img-container">
-        <img src={bottle.label_img} />
+        <img src={bottle.label_img} alt="Bottle Label" />
       </div>
-      <div>
+      <div className="mw-table">
         <p>
           <span className="table-label">Brought by:</span>
           {bottle.first_name + " " + bottle.last_name}
