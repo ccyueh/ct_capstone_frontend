@@ -33,7 +33,7 @@ class ProfileTable extends Component {
   async componentDidMount() {
     let user_id = getID(this.props.token);
     let user = await this.retrieveUser(user_id);
-
+    
     this.setState({
       user_id,
       'first': user.first_name,
@@ -46,10 +46,20 @@ class ProfileTable extends Component {
     return (
       <Format token={this.props.token} title="Your Profile">
         { !this.state.show_form &&
+          this.state.user_id &&
           <div className="mw-table">
-            <p><b>First Name:</b> {this.state.first}</p>
-            <p><b>Last Name:</b> {this.state.last}</p>
-            <p><b>E-mail:</b> {this.state.email}</p>
+            <p>
+              <span className="table-label">First Name:</span>
+              {this.state.first}
+            </p>
+            <p>
+              <span className="table-label">Last Name:</span>
+              {this.state.last}
+            </p>
+            <p>
+              <span className="table-label">E-mail:</span>
+              {this.state.email}
+            </p>
             <Link to={{
               pathname: "./profile/edit",
               state: {

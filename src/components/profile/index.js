@@ -70,19 +70,19 @@ class Profile extends Component {
   render() {
     return (
       <Format token={this.props.token} title="Profile">
-      <form onSubmit={this.editProfile}>
-        <div className="form-group">
-          <label>First Name</label>
-          <input className="form-control" type="text" name="first" defaultValue={this.state.first} />
-          <label>Last Name</label>
-          <input className="form-control" type="text" name="last" defaultValue={this.state.last} />
-          <label>New Password</label>
-          <input className="form-control" type="password" name="password" />
-          <label>Re-enter New Password</label>
-          <input className="form-control" type="password" name="password2" />
-        </div>
-        <input type="submit" className="btn btn-danger" value="Update Profile" />
-      </form>
+        <form onSubmit={this.editProfile}>
+          <div className="form-group">
+            <label>First Name</label>
+            <input className="form-control" type="text" name="first" defaultValue={this.state.first} />
+            <label>Last Name</label>
+            <input className="form-control" type="text" name="last" defaultValue={this.state.last} />
+            <label>New Password</label>
+            <input className="form-control" type="password" name="password" />
+            <label>Re-enter New Password</label>
+            <input className="form-control" type="password" name="password2" />
+          </div>
+          <input type="submit" className="btn btn-danger" value="Update Profile" />
+        </form>
       </Format>
     );
   }
