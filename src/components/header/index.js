@@ -19,40 +19,40 @@ class Header extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               { !this.props.token &&
-                <li className="nav-item">
+                <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                   <NavLink className="nav-link" to="/login">Login</NavLink>
                 </li>
               }
               { !this.props.token &&
-                <li className="nav-item">
+                <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                   <NavLink className="nav-link" to="/register">Register</NavLink>
                 </li>
               }
-              <li className="nav-item">
+              <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                 <NavLink className="nav-link" to="/about">About Sipper</NavLink>
               </li>
               { this.props.token &&
-                <li className="nav-item">
+                <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                   <NavLink className="nav-link" to="/profile">Your Profile</NavLink>
                 </li>
               }
               { this.props.token &&
-                <li className="nav-item">
+                <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                   <NavLink className="nav-link" to="/party/create">Host a Party</NavLink>
                 </li>
               }
               { this.props.token &&
-                <li className="nav-item">
+                <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                   <NavLink className="nav-link" to="/party/join">Accept an Invite</NavLink>
                 </li>
               }
               { this.props.token &&
-                <li className="nav-item">
+                <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                   <NavLink className="nav-link" to="/party/view">Your Parties</NavLink>
                 </li>
               }
               { this.props.token &&
-                <li className="nav-item">
+                <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                   <NavLink className="nav-link" to="/login" onClick={this.props.handleLogout}>Logout</NavLink>
                 </li>
               }

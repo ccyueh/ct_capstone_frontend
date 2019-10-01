@@ -33,41 +33,43 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="footer col-lg-4 offset-lg-4 col-md-8 offset-md-2 col-sm-12">
-        <nav className="navbar row">
-          <div className="col footer-icon">
-            <NavLink className="footer-link" to="/">
-            <div>
-              <HomeOutlinedIcon />
-            </div>
-            Home
-            </NavLink>
-          </div>
-          <div className="col footer-icon">
-            <NavLink className="footer-link" to="../bottle/party">
-            <div>
-              <StarBorderOutlinedIcon />
-            </div>
-            Vote
-            </NavLink>
-          </div>
-          <div className="col footer-icon">
-            <NavLink className="footer-link" to="../bottle/result">
-            <div>
-              <FormatListNumberedIcon />
-            </div>
-            Results
-            </NavLink>
-          </div>
-          <div className="col footer-icon">
-            <NavLink className="footer-link" to="../directions">
+      <div className="footer">
+        <div className="col-lg-4 offset-lg-4 col-md-8 offset-md-2 col-sm-12">
+          <nav className="navbar row">
+            <div className="col footer-icon">
+              <NavLink className="footer-link" to="/">
               <div>
-                <HelpOutlineOutlinedIcon />
+                <HomeOutlinedIcon />
               </div>
-              How to Sip
-            </NavLink>
-          </div>
-        </nav>
+              Home
+              </NavLink>
+            </div>
+            <div className="col footer-icon">
+              <NavLink className="footer-link" to="../bottle/party">
+              <div>
+                <StarBorderOutlinedIcon />
+              </div>
+              Vote
+              </NavLink>
+            </div>
+            <div className="col footer-icon">
+              <NavLink className="footer-link" to="../bottle/result">
+              <div>
+                <FormatListNumberedIcon />
+              </div>
+              Results
+              </NavLink>
+            </div>
+            <div className="col footer-icon">
+              <NavLink className="footer-link" to="../directions">
+                <div>
+                  <HelpOutlineOutlinedIcon />
+                </div>
+                How to Sip
+              </NavLink>
+            </div>
+          </nav>
+        </div>
       </div>
     );
   }
