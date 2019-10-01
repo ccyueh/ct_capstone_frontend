@@ -110,7 +110,7 @@ class AddBottle extends Component {
         { Object.keys(bottle).length > 0 &&
           !this.state.show_form &&
           <button className="btn btn-danger" onClick={() => this.setState({ 'show_form': true })}>
-            {bottle.vintage || bottle.bottle_name || bottle.producer ? "Edit" : "Add" } Bottle Details
+            { bottle.vintage.length + bottle.bottle_name.length + bottle.producer.length > 0 ? "Edit" : "Add" } Bottle Details
           </button>
         }
         { this.state.show_form &&
