@@ -52,12 +52,14 @@ class Home extends Component {
     if (!this.props.token) {
       return (
         <Format token="token" title="Sipper">
-          <p className="no-parties text-justify">Welcome to Sipper, the app that lets you plan competitive wine tasting parties with your friends! <Link to="/register">Register</Link> for an account or <Link to="/login">sign in</Link> to get started.</p>
-          <p className="home-icons">
-            <LocalBarIcon id="white-wine" />
-            <LocalBarIcon id="rose-wine" />
-            <LocalBarIcon id="red-wine" />
-          </p>
+          <div className="mw-table">
+            <p className="no-parties text-justify">Welcome to Sipper, the app that lets you plan competitive wine tasting parties with your friends! <Link to="/register">Register</Link> for an account or <Link to="/login">sign in</Link> to get started.</p>
+            <p className="home-icons">
+              <LocalBarIcon id="white-wine" />
+              <LocalBarIcon id="rose-wine" />
+              <LocalBarIcon id="red-wine" />
+            </p>
+          </div>
         </Format>
       );
     }

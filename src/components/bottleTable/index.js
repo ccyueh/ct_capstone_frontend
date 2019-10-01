@@ -26,7 +26,7 @@ function BottleTable(props) {
           <span className="table-label">Vintage:</span>
           {bottle.vintage ? bottle.vintage : "N/A"}
         </p>
-        { props.avg_rating &&
+        { props.avg_rating > 0 &&
           <p>
           <span className="table-label">Average Rating:</span>
           <span className="star-text">

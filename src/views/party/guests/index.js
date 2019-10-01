@@ -44,8 +44,8 @@ class PartyGuests extends Component {
                     pathname: "../bottle/rate",
                     state: {
                       bottle: bottle,
-                      avg_rating: null,
-                      stars: null,
+                      avg_rating: '',
+                      stars: '',
                       description: '',
                     }
                   }}>

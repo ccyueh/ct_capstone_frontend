@@ -6,7 +6,7 @@ function LoginForm(props) {
     <form onSubmit={props.handleLogin}>
       <div className="form-group">
         <label>E-mail</label>
-        <input type="text" className="form-control" name="email" />
+        <input type="email" className="form-control" name="email" />
         <label>Password</label>
         <input type="password" className="form-control" name="password" />
       </div>
