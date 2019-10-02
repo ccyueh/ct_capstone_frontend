@@ -93,6 +93,12 @@ class BottleButton extends Component {
             this.state.rated_by
           }
           </div>
+          <div className="own-bottle">
+          { this.props.reveal &&
+            this.props.user_id == this.props.bottle.user_id &&
+            <span>&#9733;</span>
+          }
+          </div>
           <Link to={{
             pathname: "../bottle/rate",
             state: {

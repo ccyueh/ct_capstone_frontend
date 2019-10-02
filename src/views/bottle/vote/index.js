@@ -71,6 +71,7 @@ class VoteBottle extends Component {
               user_id={this.state.user_id}
               guest={this.state.guest}
               voting={true}
+              reveal={false}
               />
             )}
           </div>

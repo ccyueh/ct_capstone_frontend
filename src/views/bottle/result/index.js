@@ -93,6 +93,7 @@ class ResultBottle extends Component {
             user_id={this.state.user_id}
             voting={false}
             button_size={index}
+            reveal={true}
             />
           )}
           </div>

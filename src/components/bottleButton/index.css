@@ -38,7 +38,7 @@
   color: black;
 }
 
-.rate-num {
+.rate-num, .own-bottle {
   color: black;
   position: absolute;
   left: 0.3em;
