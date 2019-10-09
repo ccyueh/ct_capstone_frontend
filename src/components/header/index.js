@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import { NavLink } from 'react-router-dom';
-import LocalBarTwoToneIcon from '@material-ui/icons/LocalBarTwoTone';
+import HeaderIcon from '../../header.png';
 
 class Header extends Component {
   render() {
@@ -9,8 +9,7 @@ class Header extends Component {
       <div className="Header">
         <nav className="navbar navbar-expand-lg navbar-light bg-white">
           <NavLink className="navbar-brand" to="/">
-            Sipper
-            <LocalBarTwoToneIcon />
+            <img id="header-icon" src={HeaderIcon} alt="header" />
           </NavLink>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span className="navbar-toggler-icon"></span>
@@ -29,7 +28,7 @@ class Header extends Component {
                 </li>
               }
               <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
-                <NavLink className="nav-link" to="/about">About Sipper</NavLink>
+                <NavLink className="nav-link" to="/about">About</NavLink>
               </li>
               { this.props.token &&
                 <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">

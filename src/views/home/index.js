@@ -5,8 +5,7 @@ import Format from '../../components/format';
 import PartyCard from '../../components/partyCard';
 import PartyNone from '../../components/partyNone';
 import { allParties, currentParty, lastParty } from '../../utils';
-
-import LocalBarIcon from '@material-ui/icons/LocalBar';
+import Logo from '../../logo.jpg';
 
 class Home extends Component {
   constructor() {
@@ -51,14 +50,12 @@ class Home extends Component {
   render() {
     if (!this.props.token) {
       return (
-        <Format token="token" title="Sipper">
+        <Format token="token" title="">
           <div className="mw-table">
-            <p className="no-parties text-justify">Welcome to Sipper, the app that lets you plan competitive wine tasting parties with your friends! <Link to="/register">Register</Link> for an account or <Link to="/login">sign in</Link> to get started.</p>
-            <p className="home-icons">
-              <LocalBarIcon id="white-wine" />
-              <LocalBarIcon id="rose-wine" />
-              <LocalBarIcon id="red-wine" />
-            </p>
+            <div className="img-container mb-0">
+              <img src={Logo} alt="logo" />
+            </div>
+            <p className="no-parties text-justify">Welcome to SipperParty, the app that lets you plan competitive wine tasting parties with your friends! <Link to="/register">Register</Link> for an account or <Link to="/login">sign in</Link> to get started.</p>
           </div>
         </Format>
       );

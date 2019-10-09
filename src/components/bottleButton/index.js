@@ -79,7 +79,7 @@ class BottleButton extends Component {
                 count={5}
                 value={Number(this.state.stars)}
                 color1="lightgray"
-                color2="maroon"
+                color2="black"
                 size={18}
                 edit={false}
                 half={true}

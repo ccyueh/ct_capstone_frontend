@@ -1,8 +1,5 @@
 body {
-  background-color: black;
-  background-image: url(./wood.png);
-  background-position: center;
-  background-repeat: repeat-y;
+  background-color: #1d1930;
   color: white;
   padding-bottom: 30px;
   margin-bottom: 50px;
@@ -25,7 +22,7 @@ input {
 }
 
 .btn-danger {
-  background-color: maroon;
+  background-color: #ed0a41;
 }
 
 img {

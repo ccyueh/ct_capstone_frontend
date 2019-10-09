@@ -1,3 +1,7 @@
 .MuiSvgIcon-root {
   vertical-align: middle;
 }
+
+#header-icon {
+  height: 40px;
+}
