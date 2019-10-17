@@ -26,7 +26,7 @@ function DisplayParty(props) {
   return (
     <div className="container">
       {parties.length == 0 &&
-        <PartyNone />
+        <PartyNone token={props.token} />
       }
       {parties.length > 0 &&
         parties.map((party, index) => <PartyCard key={index} party={party} past={props.past} token={props.token} />)

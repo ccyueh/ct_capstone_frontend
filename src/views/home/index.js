@@ -64,7 +64,7 @@ class Home extends Component {
     return (
       <Format token={this.props.token} title={(this.state.past ? "Current" : "Next") + " Party"}>
         {Object.keys(this.state.party).length == 0 &&
-          <PartyNone />
+          <PartyNone token={this.props.token} />
         }
         {Object.keys(this.state.party).length > 0 &&
           <PartyCard party={this.state.party} past={this.state.past} token={this.props.token} />

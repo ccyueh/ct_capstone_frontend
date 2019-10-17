@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import getID from '../../utils/getID.js';
 import { NavLink } from 'react-router-dom';
 import HeaderIcon from '../../header.png';
 
@@ -36,6 +37,7 @@ class Header extends Component {
                 </li>
               }
               { this.props.token &&
+                ([22,39,43]).indexOf(getID(this.props.token)) != -1 &&
                 <li className="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                   <NavLink className="nav-link" to="/party/create">Host a Party</NavLink>
                 </li>
