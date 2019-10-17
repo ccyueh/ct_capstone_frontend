@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, Link } from 'react-router-dom';
 
 import Home from './views/home';
 import About from './views/about';
@@ -27,6 +27,7 @@ import ProfileTable from './components/profileTable';
 import Profile from './components/profile';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
+import ResetPass from './views/reset';
 import SECRET_KEY from './config.js';
 
 let jwt = require('jsonwebtoken');
@@ -158,6 +159,9 @@ class App extends Component {
             render={() =>
               <Format token="token" title="Login">
                 <LoginForm handleLogin={this.handleLogin} />
+                <Link to="/reset" className="d-flex justify-content-center">
+                  Forgot your password?
+                </Link>
               </Format>
             }
           />
@@ -245,6 +249,11 @@ class App extends Component {
             exact path='/party/reset'
             render={() =>
               <ResetVote token={this.state.token} />}
+          />
+          <Route
+            exact path='/reset'
+            render={() =>
+              <ResetPass />}
           />
 
         </Switch>
