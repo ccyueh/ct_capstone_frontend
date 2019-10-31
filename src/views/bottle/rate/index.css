@@ -1,9 +1,9 @@
 .bottle-placeholder {
   background-color: #ed0a41;
-  width: 50vw;
-  height: 50vw;
-  max-width: 400px;
-  max-height: 400px;
+  width: 35vw;
+  height: 35vw;
+  max-width: 200px;
+  max-height: 200px;
   border-radius: 0.5em;
   margin: 30px auto 1px;
   display: flex;
@@ -12,9 +12,9 @@
 }
 
 .bottle-placeholder-text h5 {
-  font-size: 2em;
+  font-size: 1.2em;
 }
 
 .bottle-placeholder-text h1 {
-  font-size: 4em;
+  font-size: 2.5em;
 }

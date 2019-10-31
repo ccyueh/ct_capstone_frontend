@@ -6,3 +6,7 @@
 .star-text {
   font-size: 1.25em;
 }
+
+#bottle-label {
+  max-height: 250px;
+}

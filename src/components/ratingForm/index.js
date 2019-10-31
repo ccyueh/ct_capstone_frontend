@@ -38,13 +38,13 @@ class RatingForm extends Component {
               value={Number(this.state.stars)}
               onChange={ratingChanged}
               color1="lightgray"
-              size={72}
+              size={40}
             />
           </div>
 
           <input readOnly type="text" name="stars" value={this.state.stars} className="d-none" />
 
-          <label>Your Tasting Notes</label>
+          <label>Personal Notes</label>
           <textarea className="form-control" name="description" value={this.state.description} onChange={this.updateDesc} />
         </div>
         <button type="submit" className="btn btn-danger">

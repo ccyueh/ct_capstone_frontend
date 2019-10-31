@@ -23,7 +23,7 @@
   color: #ed0a41;
   position: absolute;
   left: 0.3em;
-  top: 0.1em;
+  bottom: 0.1em;
 }
 
 .is-host .MuiSvgIcon-root {

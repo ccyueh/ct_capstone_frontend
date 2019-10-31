@@ -5,6 +5,7 @@ import Format from '../../../components/format';
 import BottleButton from '../../../components/bottleButton';
 import getID from '../../../utils/getID.js';
 import { allParties, lastParty, getBottles } from '../../../utils';
+import callAPI from '../../../utils/api.js';
 
 class ResultBottle extends Component {
   constructor(props) {
@@ -15,6 +16,21 @@ class ResultBottle extends Component {
       user_id: '',
       guest: '',
       bottles: [],
+    }
+  }
+
+  setReveal = async(party_id) => {
+    let data = await callAPI(
+      'api/parties/save',
+      'POST',
+      false,
+      { 'party_id': party_id,
+        'reveal': true
+      },
+    );
+
+    if (data) {
+      window.location.reload();
     }
   }
 
@@ -35,6 +51,7 @@ class ResultBottle extends Component {
       let guest = (user_id != host_id ? user_id : false);
       let reveal = party.reveal;
       let bottles = await getBottles(party_id);
+      let voting_end = new Date(party.voting_end);
 
       let bottle_data = [];
       bottles.map((bottle, index) => bottle_data.push({
@@ -44,7 +61,7 @@ class ResultBottle extends Component {
       }));
       bottle_data.sort((a, b) => (a.star_rating < b.star_rating) ? 1 : -1);
 
-      this.setState({ reveal, user_id, guest, bottles: bottle_data });
+      this.setState({ party_id, reveal, voting_end, user_id, guest, bottles: bottle_data });
     } else {
       this.setState({ user_id });
     }
@@ -66,6 +83,16 @@ class ResultBottle extends Component {
           !this.state.guest &&
           <button className="btn btn-danger" onClick={() => this.setState({ 'reveal': true })}>
             Preview Results
+          </button>
+        }
+
+        { !this.state.reveal &&
+          this.state.voting_end < new Date() &&
+          <button
+           className="btn btn-danger"
+           onClick={() => this.setReveal(this.state.party_id)}
+          >
+              Reveal Bottles
           </button>
         }
 

@@ -96,7 +96,7 @@ class BottleButton extends Component {
           <div className="own-bottle">
           { this.props.reveal &&
             this.props.user_id == this.props.bottle.user_id &&
-            <span>&#9733;</span>
+            <span>your bottle</span>
           }
           </div>
           <Link to={{
